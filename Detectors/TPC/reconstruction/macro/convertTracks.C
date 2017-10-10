@@ -43,12 +43,20 @@ struct OutputTrack {
 struct EventHeader {
   int run;
   float cherenkovValue;
+
+  int beamMomentum;
+  int powerSupply;
+  int HVSettings;
+  int trigger;
+  int dataType;
+  int driftFieldStrength;
+  int runType;
 };
 
 void convertTracks(TString inputBinaryFile, TString inputClusters, TString cherenkovFile, TString outputFile)
 {
   // ===| input chain initialisation |==========================================
-  TChain c("cbmsim");
+  TChain c("o2sim");
   c.AddFile(inputClusters);
 
   float cherenkovValue = 0.;
