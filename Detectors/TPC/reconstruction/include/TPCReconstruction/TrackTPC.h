@@ -2,7 +2,7 @@
 // distributed under the terms of the GNU General Public License v3 (GPL
 // Version 3), copied verbatim in the file "COPYING".
 //
-// See http://alice-o2.web.cern.ch/license for full licensing information.
+// See https://alice-o2.web.cern.ch/ for full licensing information.
 //
 // In applying this license CERN does not waive the privileges and immunities
 // granted to it by virtue of its status as an Intergovernmental Organization
@@ -13,10 +13,12 @@
 
 #include "DetectorsBase/Track.h"
 
-#include "TPCBase/Defs.h"
 #include "TPCSimulation/Cluster.h"
+#include "TPCBase/CalDet.h"
 
 #include <TClonesArray.h>
+#include <TH2.h>
+#include <TH1.h>
 
 
 namespace o2 {
@@ -62,11 +64,13 @@ class TrackTPC {
     /// \param low low end of truncation
     /// \param high high end of truncation
     /// \param type 0 for Qmax, 1 for Q
+    /// \param particleType 0 for Pions, 1 for Electrons
     /// \param removeRows option to remove certain rows from the dEdx calculation
     /// \param nclPID pass any pointer to have the number of used clusters written to it
     /// \return mean energy loss
-    float getTruncatedMean(float low=0.05, float high=0.7, int type=1, int removeRows=0, int *nclPID=nullptr) const;
+    float getTruncatedMean(int runNr, float low=0.05, float high=0.7, int type=1, bool removeRows=false, bool removeEdge=false, bool removeEnd=false, TH2D *excludeHisto=nullptr, float ChargeCorr=1, int edgeCut=1, int *nclPID=nullptr, TH1F *TruncDist=nullptr, TH1F *ChargeDist=nullptr) const;
 
+    void setGainMap(TString GainMapFile, int setting);
 
     /// Get the TrackParCov object
     o2::Base::Track::TrackParCov getTrack() { return mTrackParCov; }
@@ -108,6 +112,10 @@ class TrackTPC {
   private:
     o2::Base::Track::TrackParCov mTrackParCov;
     std::vector<Cluster> mClusterVector;
+
+    //static std::unique_ptr<o2::TPC::CalDet<float>> mGainMap;
+
+    static o2::TPC::CalDet<float> *mGainMap;
 
 };
 
