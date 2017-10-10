@@ -24,7 +24,12 @@
 #include "TPCBase/Mapper.h"
 #include "TPCBase/PadRegionInfo.h"
 #include "TPCSimulation/Cluster.h"
-#include "TPCSimulation/Constants.h"
+//#include "TPCSimulation/Constants.h"
+//#include "TPCSimulation/Digitizer.h"
+#include "TPCBase/ParameterDetector.h"
+#include "TPCBase/ParameterElectronics.h"
+#include "TPCBase/ParameterGas.h"
+
 
 /*
 gSystem->AddIncludePath("-I$O2_ROOT/include -I$FAIRROOT_ROOT/include");
@@ -34,12 +39,12 @@ gSystem->AddIncludePath("-I$O2_ROOT/include -I$FAIRROOT_ROOT/include");
 using namespace o2::TPC;
 
 struct ClusterData {
-	int fId;
-	int fRow;
-	float fX;
-	float fY;
-	float fZ;
-	float fAmp;
+  int fId;
+  int fRow;
+  float fX;
+  float fY;
+  float fZ;
+  float fAmp;
 };
 
 ClusterData fclDat;
@@ -57,7 +62,7 @@ void convertClusters(TString filename, Int_t nmaxEvent=-1, Int_t startEvent=0)
 {
 
   // ===| input chain initialisation |==========================================
-  TChain c("cbmsim");
+  TChain c("o2sim");
   c.AddFile(filename);
 
   TClonesArray *clusters=0x0;
@@ -87,7 +92,7 @@ void convertClusters(TString filename, Int_t nmaxEvent=-1, Int_t startEvent=0)
 
     // ---| output file |-------------------------------------------------------
     TString outputFileName = TString::Format("event.%d.dump", iEvent);
- 
+
     std::ofstream fout(outputFileName, ios::out | ios::binary);
 
     // ---| output array |------------------------------------------------------
@@ -119,7 +124,7 @@ void convertClusters(TString filename, Int_t nmaxEvent=-1, Int_t startEvent=0)
     for (const auto object : *clusters) {
       Cluster& cluster = *static_cast<Cluster*>(object);
       cluster.SetUniqueID(clusterId++);
-      
+
       const Sector sector = CRU(cluster.getCRU()).sector();
       if (sector != lastSector) {
         dumpData(fout, data);
@@ -141,6 +146,15 @@ void addCluster(std::vector<ClusterData> &data, Cluster& cluster)
 {
   const CRU cru(cluster.getCRU());
 
+  ParameterDetector *paramDetector = new ParameterDetector();
+  ParameterElectronics *paramElectronics = new ParameterElectronics();
+  ParameterGas *paramGas = new ParameterGas();
+
+  float ZBINWIDTH = paramElectronics->getZBinWidth();
+  float DRIFTV = paramGas->getVdrift();
+  float TPCLENGTH = paramDetector->getTPClength();
+
+
   // ===| mapper |==============================================================
   Mapper &mapper = Mapper::instance();
   const PadRegionInfo& region = mapper.getPadRegionInfo(cru.region());
@@ -154,7 +168,7 @@ void addCluster(std::vector<ClusterData> &data, Cluster& cluster)
         float zPosition         = cluster.getTimeMean()*ZBINWIDTH*DRIFTV;
         //float zPosition         = TPCLENGTH - cluster.getTimeMean()*ZBINWIDTH*DRIFTV;
 
-  Point2D<float> clusterPos(padCentre.X(), localY); 
+  Point2D<float> clusterPos(padCentre.X(), localY);
 
         printf("zPosition: %.2f\n", zPosition);
   // sanity checks
@@ -184,7 +198,7 @@ void dumpData(std::ofstream &fout, std::vector<ClusterData> &data)
   }
   std::cout << clustersInSector << " " << std::endl;
   for (auto& cl : data) {
-    std::cout << cl.fId <<" " << cl.fRow << " " 
+    std::cout << cl.fId <<" " << cl.fRow << " "
               << cl.fX << " " << cl.fY << " " << cl.fZ << " "
               << cl.fAmp << std::endl;
     fclDat = cl;

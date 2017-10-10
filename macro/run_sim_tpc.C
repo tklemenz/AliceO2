@@ -71,8 +71,8 @@ void run_sim_tpc(Int_t nEvents = 10, TString mcEngine = "TGeant3")
   cave->SetGeometryFileName("cave.geo");
   run->AddModule(cave);
 
-  o2::field::MagneticField *magField = new o2::field::MagneticField("Maps","Maps", -1., -1., o2::field::MagFieldParam::k5kG);
-  run->SetField(magField);
+  /*o2::field::MagneticField *magField = new o2::field::MagneticField("Maps","Maps", -1., -1., o2::field::MagFieldParam::k5kG);
+  run->SetField(magField);*/
 
   // ===| Add TPC |============================================================
   o2::TPC::Detector* tpc = new o2::TPC::Detector("TPC", kTRUE);
@@ -82,15 +82,24 @@ void run_sim_tpc(Int_t nEvents = 10, TString mcEngine = "TGeant3")
   // Create PrimaryGenerator
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
 #ifdef BOX_GENERATOR
-  FairBoxGenerator* boxGen = new FairBoxGenerator(211, 10); /*protons*/
+  FairBoxGenerator* boxGenPi = new FairBoxGenerator(211, 1); /*pi+*/
 
-  //boxGen->SetThetaRange(0.0, 90.0);
-  boxGen->SetEtaRange(-0.9,0.9);
-  boxGen->SetPRange(0.1, 5);
-  boxGen->SetPhiRange(0., 360.);
-  boxGen->SetDebug(kTRUE);
+  //boxGenPi->SetThetaRange(0.0, 90.0);
+  boxGenPi->SetEtaRange(-0.9,0.9);
+  boxGenPi->SetPRange(1, 1);
+  boxGenPi->SetPhiRange(0., 360.);
+  boxGenPi->SetDebug(kTRUE);
 
-  primGen->AddGenerator(boxGen);
+  FairBoxGenerator* boxGenEle = new FairBoxGenerator(11, 1); /*electron*/
+
+  //boxGenEle->SetThetaRange(0.0, 90.0);
+  boxGenEle->SetEtaRange(-0.9,0.9);
+  boxGenEle->SetPRange(1, 1);
+  boxGenEle->SetPhiRange(0., 360.);
+  boxGenEle->SetDebug(kTRUE);
+
+  primGen->AddGenerator(boxGenPi);
+  primGen->AddGenerator(boxGenEle);
 #else
   // reading the events from a kinematics file (produced by AliRoot)
   auto extGen =  new o2::eventgen::GeneratorFromFile("Kinematics.root");

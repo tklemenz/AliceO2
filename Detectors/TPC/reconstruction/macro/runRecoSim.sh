@@ -14,11 +14,11 @@ clusterInputfile=$1
 outputTrackFile=$2
 cherenkovFile=$3
 
-script=$(readlink -f $0)
-macroDir=$(dirname $script)
-clusterConversion=${macroDir}/convertClusters.C
-trackConversion=${macroDir}/convertTracks.C
-addInclude=${macroDir}/addInclude.C
+#script=$(readlink -f $0)
+#macroDir=$(dirname $script)
+clusterConversion=${recoMacroDir}/convertClusters.C
+trackConversion=${recoMacroDir}/convertTracks.C
+addInclude=${recoMacroDir}/addInclude.C
 
 # ===| create temporary output directory |======================================
 outname=o2
@@ -40,8 +40,8 @@ eval $cmd
 mv output.bin $outdir
 
 # ===| convert to tracks |======================================================
-#cd $outdir
-cmd="root.exe -b -q -l -n -x ${addInclude} ${trackConversion}'+g(\"${outdir}/output.bin\",\"${clusterInputfile}\", \"$cherenkovFile\", \"${outputTrackFile}\")'"
+cd $outdir
+cmd="root.exe -b -q -l -n -x ${addInclude} ${trackConversion}'+g(\"output.bin\",\"${clusterInputfile}\", \"$cherenkovFile\", \"${outputTrackFile}\")'"
 echo $cmd
 eval $cmd
 
