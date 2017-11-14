@@ -18,6 +18,7 @@
 #include "FairSystemInfo.h"
 #include <SimConfig/SimConfig.h>
 #include <Generators/GeneratorFromFile.h>
+#include <SimSetup/SimSetup.h>
 #endif
 
 void o2sim()
@@ -26,6 +27,8 @@ void o2sim()
   auto genconfig = confref.getGenerator();
 
   auto run = new FairRunSim();
+  run->SetSimSetup([confref](){o2::SimSetup(confref.getMCEngine().c_str());});
+  
   run->SetOutputFile("o2sim.root");            // Output file
   run->SetName(confref.getMCEngine().c_str()); // Transport engine
 
