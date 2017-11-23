@@ -88,7 +88,7 @@ class DetID
   static  constexpr const char* getName(ID id) { return sDetNames[id]; }
 
   // detector ID to mask conversion
-  static constexpr std::int32_t getMask(ID id) { return sMasks[id]; }
+  static /*constexpr*/ std::int32_t getMask(ID id) { return sMasks[id]; }
 
   // we need default c-tor only for root persistency, code must use c-tor with argument
   DetID() : mID(First) {}

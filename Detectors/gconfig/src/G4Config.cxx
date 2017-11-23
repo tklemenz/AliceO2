@@ -15,6 +15,8 @@
 #include "TGeant4.h"
 #include "TG4RunConfiguration.h"
 #include "TPythia6Decayer.h"
+#include "FairModule.h"
+#include <DetectorsPassive/Cave.h>
 
 using std::cout;
 using std::endl;

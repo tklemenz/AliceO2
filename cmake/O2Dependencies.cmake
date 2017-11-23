@@ -1180,6 +1180,7 @@ o2_define_bucket(
     ${VGM_LIBRARIES}
     fairroot_geom
     SimulationDataFormat
+    DetectorsPassive
 
     INCLUDE_DIRECTORIES
     ${Geant4VMC_INCLUDE_DIRS}

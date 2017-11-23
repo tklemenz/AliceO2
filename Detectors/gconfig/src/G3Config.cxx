@@ -14,6 +14,8 @@
 #include "SimulationDataFormat/Stack.h"
 #include <iostream>
 #include "FairLogger.h"
+#include "FairModule.h"
+#include <DetectorsPassive/Cave.h>
 
 using std::cout;
 using std::endl;
