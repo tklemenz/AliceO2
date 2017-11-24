@@ -29,6 +29,7 @@ void o2sim()
   auto run = new FairRunSim();
   run->SetSimSetup([confref](){o2::SimSetup(confref.getMCEngine().c_str());});
   
+  
   run->SetOutputFile("o2sim.root");            // Output file
   run->SetName(confref.getMCEngine().c_str()); // Transport engine
 
