@@ -19,14 +19,14 @@
 #include <SimConfig/SimConfig.h>
 #include <Generators/GeneratorFromFile.h>
 #include <SimSetup/SimSetup.h>
+#include <Steer/O2RunSim.h>
 #endif
 
-void o2sim()
-{
+void o2sim_init() {
   auto& confref = o2::conf::SimConfig::Instance();
   auto genconfig = confref.getGenerator();
 
-  auto run = new FairRunSim();
+  auto run = new o2::steer::O2RunSim();
   run->SetSimSetup([confref](){o2::SimSetup(confref.getMCEngine().c_str());});
   
   
@@ -78,11 +78,27 @@ void o2sim()
   rtdb->setOutput(parOut);
   rtdb->saveOutput();
   rtdb->print();
+  timer.Stop();
+  Double_t rtime = timer.RealTime();
+  Double_t ctime = timer.CpuTime();
 
-  run->Run(confref.getNEvents());
+  // extract max memory usage
+  FairSystemInfo sysinfo;
+  
+  std::cout << "Init: Real time " << rtime << " s, CPU time " << ctime << "s\n";
+  std::cout << "Init: Memory used " << sysinfo.GetMaxMemory() << " MB\n";
+}
+
+void o2sim_run() {
+  TStopwatch timer;
+  timer.Start();
+
+  auto run = FairRunSim::Instance();
+  run->Run(1);
+  run->Run(2);
 
   // needed ... otherwise nothing flushed?
-  delete run;
+  // delete run;
 
   // Finish
   timer.Stop();
@@ -93,7 +109,13 @@ void o2sim()
   FairSystemInfo sysinfo;
 
   std::cout << "\n\n";
-  std::cout << "Macro finished succesfully.\n";
+  std::cout << "Run finished succesfully.\n";
   std::cout << "Real time " << rtime << " s, CPU time " << ctime << "s\n";
   std::cout << "Memory used " << sysinfo.GetMaxMemory() << " MB\n";
+}
+
+void o2sim()
+{
+  o2sim_init();
+  o2sim_run();
 }
