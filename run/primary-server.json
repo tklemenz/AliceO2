@@ -1,0 +1,41 @@
+{
+    "fairMQOptions":
+    {
+        "devices": [
+        {
+            "id": "worker",
+            "channel":
+            {
+                "name": "primary-get",
+                "socket":
+                {
+                    "type": "req",
+                    "method": "connect",
+                    "address": "tcp://localhost:25005",
+                    "sndBufSize": "1000",
+                    "rcvBufSize": "1000",
+                    "rateLogging": "0"
+                }
+            }
+	},
+	{
+	    "id": "primary-server",
+	    "channels": [
+		{
+		    "name": "primary-get",
+		    "sockets": [
+			{
+			    "type": "rep",
+			    "method": "bind",
+			    "address": "tcp://*:25005",
+			    "sndBufSize": 1000,
+			    "rcvBufSize": 1000,
+			    "rateLogging": 0
+			}
+		    ]
+		}
+	    ]
+	}
+     ]
+  }
+}

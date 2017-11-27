@@ -11,6 +11,8 @@
 #ifndef ALICEO2_DEVICES_SIMDEVICE_H_
 #define ALICEO2_DEVICES_SIMDEVICE_H_
 
+#include <memory>
+#include "FairMQMessage.h"
 #include <FairMQDevice.h>
 #include <FairLogger.h>
 #include "../macro/o2sim.C"
@@ -38,6 +40,12 @@ class O2SimDevice : public FairMQDevice
     /// Overloads the ConditionalRun() method of FairMQDevice
     bool ConditionalRun() final {
       static int counter=0;
+
+      FairMQMessagePtr request(NewMessage());
+      if( Send(request, "primary-get") > 0 ) {
+    	  // asking for primary generation
+      }
+
       LOG(INFO) << "Run SIM device " << FairLogger::endl;
       gRandom->SetSeed(1);
       TVirtualMC::GetMC()->ProcessRun(1);

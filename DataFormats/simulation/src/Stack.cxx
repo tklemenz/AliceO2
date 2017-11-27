@@ -55,9 +55,10 @@ Stack::Stack(Int_t size)
 {
   auto vmc = TVirtualMC::GetMC();
   if (!vmc) {
-    LOG(FATAL) << "Must have VMC initialized before Stack construction" << FairLogger::endl;
+    LOG(WARNING) << "Must have VMC initialized before Stack construction" << FairLogger::endl;
+    mIsG4Like = false;
   }
-  if (strcmp(vmc->GetName(), "TGeant4") == 0 ) {
+  else if (strcmp(vmc->GetName(), "TGeant4") == 0 ) {
     mIsG4Like = true;
   }
 }
