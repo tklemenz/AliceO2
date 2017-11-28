@@ -404,6 +404,21 @@ o2_define_bucket(
 
 o2_define_bucket(
     NAME
+    steer_bucket
+
+    DEPENDENCIES
+    data_format_simulation_bucket
+    SimulationDataFormat
+
+    INCLUDE_DIRECTORIES
+    ${CMAKE_SOURCE_DIR}/Common/MathUtils/include
+    ${CMAKE_SOURCE_DIR}/Detectors/Base/include
+    ${CMAKE_SOURCE_DIR}/DataFormats/simulation/include
+    ${MS_GSL_INCLUDE_DIR}
+)
+
+o2_define_bucket(
+    NAME
     detectors_base_bucket
 
     DEPENDENCIES

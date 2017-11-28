@@ -133,6 +133,9 @@ void Stack::PushTrack(Int_t toBeDone, Int_t parentId, Int_t pdgCode, Double_t px
 {
   // Create new TParticle and add it to the TParticle array
   Int_t trackId = mNumberOfEntriesInParticles;
+  // Set argument variable
+  ntr = trackId;
+
   Int_t nPoints = 0;
   Int_t daughter1Id = -1;
   Int_t daughter2Id = -1;
@@ -160,8 +163,28 @@ void Stack::PushTrack(Int_t toBeDone, Int_t parentId, Int_t pdgCode, Double_t px
     mPrimaryParticles.push_back(p);
   }
 
-  // Set argument variable
-  ntr = trackId;
+  // Push particle on the stack if toBeDone is set
+  if (toBeDone == 1) {
+    mStack.push(p);
+  }
+}
+
+void Stack::PushTrack(int toBeDone, TParticle const &p) {
+  auto parentId = p.GetMother(0);
+  // currently I only know of G4 who pushes particles like this (but never pops)
+  // so we have to register the particles here
+  if (mIsG4Like && parentId >= 0) {
+    //p.SetStatusCode(mParticles.size());
+    mParticles.emplace_back(p);
+    mTransportedIDs.emplace_back(p.GetStatusCode());
+    mCurrentParticle = p;
+  }
+  
+  // Increment counter
+  if (parentId < 0) {
+    mNumberOfPrimaryParticles++;
+    mPrimaryParticles.push_back(p);
+  }
 
   // Push particle on the stack if toBeDone is set
   if (toBeDone == 1) {
@@ -360,8 +383,8 @@ void Stack::Reset()
   mParticles.clear();
   mTracks->clear();
   if (mPrimariesDone != mPrimaryParticles.size()) {
-    LOG(FATAL) << "Inconsistency in primary particles treated vs expected (This points " 
-               << "to a flaw in the stack logic)" << FairLogger::endl; 
+    LOG(WARNING) << "Inconsistency in primary particles treated vs expected (This points " 
+                 << "to a flaw in the stack logic)" << FairLogger::endl; 
   }
   mPrimariesDone = 0;
   mPrimaryParticles.clear();

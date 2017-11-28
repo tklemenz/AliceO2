@@ -4,6 +4,9 @@
 #include "FairMCApplication.h"
 #include "Rtypes.h"                     // for Int_t, Bool_t, Double_t, etc
 #include <iostream>
+#include <TParticle.h>
+#include <vector>
+#include <SimulationDataFormat/Stack.h>
 
 namespace o2 {
 namespace steer {
@@ -29,13 +32,21 @@ class O2MCApplication : public FairMCApplication
 
     /** Generate primary particles */
     void  GeneratePrimaries() override {
-      std::cout << "Generating primaries" << std::endl;
-      FairMCApplication::GeneratePrimaries();
-    }
+      // ordinarily we would call the event generator ...
 
+      // but here we init the stack from
+      // a vector of particles that someone sets externally
+      static_cast<o2::Data::Stack*>(GetStack())->initFromPrimaries(mPrimaries);
+    }
+ 
+    void setPrimaries(std::vector<TParticle> const &p) {
+      mPrimaries = p;
+    }
+ 
     ///** Initialize MC engine */
     //void                  InitMC(const char* setup,  const char* cuts);
-    
+    std::vector<TParticle> mPrimaries;
+ 
     ClassDefOverride(O2MCApplication,4)  //Interface to MonteCarlo application
 };
 

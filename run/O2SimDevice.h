@@ -17,10 +17,21 @@
 #include <FairLogger.h>
 #include "../macro/o2sim.C"
 #include "TVirtualMC.h"
+#include "TMessage.h"
+#include <SimulationDataFormat/Stack.h>
+
 
 namespace o2 {
 namespace devices {
 
+class TMessageWrapper : public TMessage
+{
+ public:
+  TMessageWrapper(void* buf, Int_t len) : TMessage(buf, len) { ResetBit(kIsOwner); }
+  ~TMessageWrapper() override = default;
+};
+
+  
 class O2SimDevice : public FairMQDevice
 {
   public:
@@ -39,18 +50,35 @@ class O2SimDevice : public FairMQDevice
 
     /// Overloads the ConditionalRun() method of FairMQDevice
     bool ConditionalRun() final {
-      static int counter=0;
+      long long c=0xDEADBEEF;
+      FairMQMessagePtr request(NewSimpleMessage(&c));
+      FairMQMessagePtr reply(NewMessage());
 
-      FairMQMessagePtr request(NewMessage());
-      if( Send(request, "primary-get") > 0 ) {
-    	  // asking for primary generation
+      // we get the O2MCApplication and inject the primaries before each run
+      auto app = static_cast<o2::steer::O2MCApplication*>(TVirtualMCApplication::Instance());
+      
+      LOG(INFO) << "Trying to Send  " << FairLogger::endl;
+      if( Send(request, "primary-get") >= 0 ) {
+	LOG(INFO) << "Waiting for answer " << FairLogger::endl;
+    	// asking for primary generation
+	if ( Receive(reply, "primary-get") > 0 ) {
+          LOG(INFO) << "Answer received, containing " << reply->GetSize() << " bytes " <<  FairLogger::endl;
+
+	  // wrap incoming bytes as a TMessageWrapper which offers "adoption" of a buffer
+          auto message = new TMessageWrapper(reply->GetData(), reply->GetSize());
+	  LOG(INFO) << "message class " << message->GetClass() << FairLogger::endl;
+   	  auto decodedmessage = message->ReadObject(message->GetClass());
+
+	  if (auto st = dynamic_cast<o2::Data::Stack*>(decodedmessage)) {
+            app->setPrimaries(st->getPrimaries());
+            LOG(INFO) << "Processing " << st->getPrimaries().size() <<  FairLogger::endl;
+	    gRandom->SetSeed(extractedSeed);
+            TVirtualMC::GetMC()->ProcessRun(1);
+	  }
+	}
       }
-
-      LOG(INFO) << "Run SIM device " << FairLogger::endl;
-      gRandom->SetSeed(1);
-      TVirtualMC::GetMC()->ProcessRun(1);
       // need to solve the problem of writing
-      return counter++ < 10;
+      return true;
     }
 
     void PostRun() final {

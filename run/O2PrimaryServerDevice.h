@@ -16,9 +16,11 @@
 #include <FairGenerator.h>
 #include <FairBoxGenerator.h>
 #include <FairPrimaryGenerator.h>
-#include <FairMQPoller.h>
+#include <FairMQMessage.h>
 #include <SimulationDataFormat/Stack.h>
 #include <FairMCEventHeader.h>
+#include <TMessage.h>
+#include <TClass.h>
 
 namespace o2 {
 namespace devices {
@@ -27,7 +29,9 @@ class O2PrimaryServerDevice : public FairMQDevice
 {
   public:
     /// Default constructor
-    O2PrimaryServerDevice() = default;
+    O2PrimaryServerDevice() {
+      OnData("primary-get", &O2PrimaryServerDevice::HandleRequest);
+    }
 
     /// Default destructor
     ~O2PrimaryServerDevice() final = default;
@@ -37,7 +41,7 @@ class O2PrimaryServerDevice : public FairMQDevice
     void InitTask() final {
       LOG(INFO) << "Init SIM device " << FairLogger::endl;
 
-      auto boxGen = new FairBoxGenerator(211, 10); /*protons*/
+      auto boxGen = new FairBoxGenerator(211, 500); /*protons*/
       boxGen->SetEtaRange(-0.9, 0.9);
       boxGen->SetPRange(0.1, 5);
       boxGen->SetPhiRange(0., 360.);
@@ -47,26 +51,27 @@ class O2PrimaryServerDevice : public FairMQDevice
     }
 
     /// Overloads the ConditionalRun() method of FairMQDevice
-    bool ConditionalRun() final
+    bool HandleRequest(FairMQMessagePtr& request, int /*index*/)
     {
-      std::unique_ptr<FairMQPoller> poller(
-        fTransportFactory->CreatePoller(fChannels, {"primary-get"}));
+      LOG(INFO) << "Received request for work " << FairLogger::endl;
+      
+      mStack.Reset();
+      mPrimGen.GenerateEvent(&mStack);
 
-      poller->Poll(-1);
-      if (poller->CheckInput("primary-get", 0)) {
-        std::unique_ptr<FairMQMessage> input(fTransportFactory->CreateMessage());
+      TMessage* tmsg = new TMessage(kMESS_OBJECT);
+      //tmsg->WriteObjectAny((void*)&mStack, TClass::GetClass("o2::Data::Stack"));
+      tmsg->WriteObject(&mStack);
+      auto free_tmessage = [](void* data, void* hint) { delete static_cast<TMessage*>(hint); };
+      std::unique_ptr<FairMQMessage> message(
+      fTransportFactory->CreateMessage(tmsg->Buffer(), tmsg->BufferSize(), free_tmessage, tmsg));
 
-        if (Receive(input, "primary-get") > 0) {
-          std::string serialString(static_cast<char*>(input->GetData()), input->GetSize());
-
-          // someone asked for an event
-
-          // do nothing for moment
-          mStack.Reset();
-          mPrimGen.GenerateEvent(&mStack);
-        }
+      long long token = 0xABABABAB;
+      FairMQMessagePtr reply(NewSimpleMessage(&token));
+      // send answer
+      if ( Send(message, "primary-get") > 0 ) {
+        LOG(INFO) << "reply send " << FairLogger::endl;
+        return true;
       }
-      // run infinitely
       return true;
     }
 

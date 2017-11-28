@@ -86,6 +86,9 @@ class Stack : public FairGenericStack
                    Double_t vx, Double_t vy, Double_t vz, Double_t time, Double_t polx, Double_t poly, Double_t polz,
                    TMCProcess proc, Int_t& ntr, Double_t weight, Int_t is, Int_t secondParentId) override;
 
+    // similar function taking a particle
+    void PushTrack(Int_t toBeDone, TParticle const &);
+    
     /// Get next particle for tracking from the stack.
     /// Declared in TVirtualMCStack
     /// Returns a pointer to the TParticle of the track
@@ -191,8 +194,21 @@ class Stack : public FairGenericStack
     // receive notification that primary is finished
     void notifyFinishPrimary();
 
+    // get primaries
+    const std::vector<TParticle>& getPrimaries() const { return mPrimaryParticles; }
+
+    // initialize Stack from external vector containing primaries
+    void initFromPrimaries(std::vector<TParticle> const &primaries) {
+      Reset();
+      for(auto p : primaries) {
+        PushTrack(1, p);
+      }
+      mNumberOfPrimaryParticles = primaries.size();
+      mNumberOfEntriesInParticles = mNumberOfPrimaryParticles;
+    }
+    
   private:
-    FairLogger *mLogger;
+    FairLogger *mLogger; //!
 
     /// STL stack (FILO) used to handle the TParticles for tracking
     /// stack entries refer to

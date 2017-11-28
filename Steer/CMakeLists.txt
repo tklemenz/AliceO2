@@ -16,7 +16,7 @@ set(HEADERS
 
 set(LINKDEF src/SteerLinkDef.h)
 set(LIBRARY_NAME ${MODULE_NAME})
-set(BUCKET_NAME data_format_simulation_bucket)
+set(BUCKET_NAME steer_bucket)
 
 O2_GENERATE_LIBRARY()
 
