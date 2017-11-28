@@ -42,4 +42,8 @@
 #pragma link C++ class std::vector<o2::MCCompLabel>+;
 #pragma link C++ class std::vector<o2::dataformats::MCTruthHeaderElement>+;
 
+#pragma link C++ struct o2::Data::SubEventInfo+;
+#pragma link C++ class std::vector<o2::Data::SubEventInfo>+;
+#pragma link C++ struct o2::Data::PrimaryChunk+;
+
 #endif

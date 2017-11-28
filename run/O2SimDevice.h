@@ -19,7 +19,8 @@
 #include "TVirtualMC.h"
 #include "TMessage.h"
 #include <SimulationDataFormat/Stack.h>
-
+#include <SimulationDataFormat/PrimaryChunk.h>
+#include <TRandom.h>
 
 namespace o2 {
 namespace devices {
@@ -31,63 +32,60 @@ class TMessageWrapper : public TMessage
   ~TMessageWrapper() override = default;
 };
 
-  
 class O2SimDevice : public FairMQDevice
 {
-  public:
-    /// Default constructor
-    O2SimDevice() = default;
+ public:
+  /// Default constructor
+  O2SimDevice() = default;
 
-    /// Default destructor
-    ~O2SimDevice() final = default;
+  /// Default destructor
+  ~O2SimDevice() final = default;
 
-  protected:
-    /// Overloads the InitTask() method of FairMQDevice
-    void InitTask() final {
-      LOG(INFO) << "Init SIM device " << FairLogger::endl;
-      o2sim_init();
-    }
+ protected:
+  /// Overloads the InitTask() method of FairMQDevice
+  void InitTask() final
+  {
+    LOG(INFO) << "Init SIM device " << FairLogger::endl;
+    o2sim_init();
+  }
 
-    /// Overloads the ConditionalRun() method of FairMQDevice
-    bool ConditionalRun() final {
-      long long c=0xDEADBEEF;
-      FairMQMessagePtr request(NewSimpleMessage(&c));
-      FairMQMessagePtr reply(NewMessage());
+  /// Overloads the ConditionalRun() method of FairMQDevice
+  bool ConditionalRun() final
+  {
+    long long c = 0xDEADBEEF;
+    FairMQMessagePtr request(NewSimpleMessage(&c));
+    FairMQMessagePtr reply(NewMessage());
 
-      // we get the O2MCApplication and inject the primaries before each run
-      auto app = static_cast<o2::steer::O2MCApplication*>(TVirtualMCApplication::Instance());
-      
-      LOG(INFO) << "Trying to Send  " << FairLogger::endl;
-      if( Send(request, "primary-get") >= 0 ) {
-	LOG(INFO) << "Waiting for answer " << FairLogger::endl;
-    	// asking for primary generation
-	if ( Receive(reply, "primary-get") > 0 ) {
-          LOG(INFO) << "Answer received, containing " << reply->GetSize() << " bytes " <<  FairLogger::endl;
+    // we get the O2MCApplication and inject the primaries before each run
+    auto app = static_cast<o2::steer::O2MCApplication*>(TVirtualMCApplication::Instance());
 
-	  // wrap incoming bytes as a TMessageWrapper which offers "adoption" of a buffer
-          auto message = new TMessageWrapper(reply->GetData(), reply->GetSize());
-	  LOG(INFO) << "message class " << message->GetClass() << FairLogger::endl;
-   	  auto decodedmessage = message->ReadObject(message->GetClass());
+    LOG(INFO) << "Trying to Send  " << FairLogger::endl;
+    if (Send(request, "primary-get") >= 0) {
+      LOG(INFO) << "Waiting for answer " << FairLogger::endl;
+      // asking for primary generation
+      if (Receive(reply, "primary-get") > 0) {
+        LOG(INFO) << "Answer received, containing " << reply->GetSize() << " bytes " << FairLogger::endl;
 
-	  if (auto st = dynamic_cast<o2::Data::Stack*>(decodedmessage)) {
-            app->setPrimaries(st->getPrimaries());
-            LOG(INFO) << "Processing " << st->getPrimaries().size() <<  FairLogger::endl;
-	    gRandom->SetSeed(extractedSeed);
-            TVirtualMC::GetMC()->ProcessRun(1);
-	  }
-	}
+        // wrap incoming bytes as a TMessageWrapper which offers "adoption" of a buffer
+        auto message = new TMessageWrapper(reply->GetData(), reply->GetSize());
+        LOG(INFO) << "message class " << message->GetClass() << FairLogger::endl;
+        auto chunk = static_cast<o2::Data::PrimaryChunk*>(message->ReadObjectAny(message->GetClass()));
+
+        app->setPrimaries(chunk->mParticles);
+        LOG(INFO) << "Processing " << chunk->mParticles.size() << FairLogger::endl;
+        gRandom->SetSeed(chunk->mEventIDs.size());
+
+        TVirtualMC::GetMC()->ProcessRun(1);
       }
-      // need to solve the problem of writing
-      return true;
     }
+    // need to solve the problem of writing
+    return true;
+  }
 
-    void PostRun() final {
-      LOG(INFO) << "Shutting down " << FairLogger::endl;
-    }
-
-  private:
-    std::string mInChannelName = "";
-    std::string mOutChannelName = "";
+  void PostRun() final { LOG(INFO) << "Shutting down " << FairLogger::endl; }
+ private:
+  std::string mInChannelName = "";
+  std::string mOutChannelName = "";
 };
 
 } // namespace devices

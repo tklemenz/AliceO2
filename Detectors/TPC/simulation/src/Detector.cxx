@@ -320,7 +320,8 @@ Bool_t  Detector::ProcessHits(FairVolume* vol)
   
 void Detector::EndOfEvent()
 {
-  for(int i=0;i<Sector::MAXSECTOR;++i) {
+  LOG(INFO) << "TPC END OF EVENT CALLED" << FairLogger::endl;
+  for (int i = 0; i < Sector::MAXSECTOR; ++i) {
     mHitsPerSectorCollection[i]->clear();
   }
   ++mEventNr;

@@ -7,6 +7,8 @@
 #include <TParticle.h>
 #include <vector>
 #include <SimulationDataFormat/Stack.h>
+#include <FairRootManager.h>
+#include <FairMQChannel.h>
 
 namespace o2 {
 namespace steer {
@@ -25,6 +27,13 @@ class O2MCApplication : public FairMCApplication
       // insead of filling the tree we can just send the data
       // for instance
       std::cout << "FINISHING EVENT " << std::endl;
+      auto mgr = FairRootManager::Instance();
+      auto mctrackptr = mgr->InitObjectAs<const std::vector<o2::MCTrack>*>("MCTrack");
+      std::cout << "Have #MCTracks " << mctrackptr->size() << "\n";
+
+      // new complex message
+
+      mOutChannel->Send(message);
     }
     
     /** Define actions at the end of run */
@@ -46,7 +55,8 @@ class O2MCApplication : public FairMCApplication
     ///** Initialize MC engine */
     //void                  InitMC(const char* setup,  const char* cuts);
     std::vector<TParticle> mPrimaries;
- 
+    FairMQChannel*         mOutChannel;
+
     ClassDefOverride(O2MCApplication,4)  //Interface to MonteCarlo application
 };
 
