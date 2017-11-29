@@ -8,7 +8,8 @@
 #include <vector>
 #include <SimulationDataFormat/Stack.h>
 #include <FairRootManager.h>
-#include <FairMQChannel.h>
+
+class FairMQChannel;
 
 namespace o2 {
 namespace steer {
@@ -21,19 +22,15 @@ class O2MCApplication : public FairMCApplication
   public:
     using FairMCApplication::FairMCApplication;
     ~O2MCApplication() override = default;
+
+    // triggers data sending/io
+    void SendData();
     
     /** Define actions at the end of event */
     void  FinishEvent() override {
-      // insead of filling the tree we can just send the data
-      // for instance
-      std::cout << "FINISHING EVENT " << std::endl;
-      auto mgr = FairRootManager::Instance();
-      auto mctrackptr = mgr->InitObjectAs<const std::vector<o2::MCTrack>*>("MCTrack");
-      std::cout << "Have #MCTracks " << mctrackptr->size() << "\n";
-
-      // new complex message
-
-      mOutChannel->Send(message);
+      // This special finish event version does not fill the output tree of FairRootManager
+      // but forwards the data to the HitMerger
+      SendData();
     }
     
     /** Define actions at the end of run */
@@ -51,9 +48,9 @@ class O2MCApplication : public FairMCApplication
     void setPrimaries(std::vector<TParticle> const &p) {
       mPrimaries = p;
     }
- 
-    ///** Initialize MC engine */
-    //void                  InitMC(const char* setup,  const char* cuts);
+
+    void setDataOutputChannel(FairMQChannel* channel) { mOutChannel = channel; }
+    
     std::vector<TParticle> mPrimaries;
     FairMQChannel*         mOutChannel;
 

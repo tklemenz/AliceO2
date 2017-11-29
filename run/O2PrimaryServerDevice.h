@@ -55,7 +55,7 @@ class O2PrimaryServerDevice : public FairMQDevice
     bool HandleRequest(FairMQMessagePtr& request, int /*index*/)
     {
       static int counter = 0;
-      if(counter > 2) return false;
+      if(counter > 3) return false;
 
       LOG(INFO) << "Received request for work " << FairLogger::endl;
 

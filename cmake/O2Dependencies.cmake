@@ -415,6 +415,7 @@ o2_define_bucket(
     ${CMAKE_SOURCE_DIR}/Detectors/Base/include
     ${CMAKE_SOURCE_DIR}/DataFormats/simulation/include
     ${MS_GSL_INCLUDE_DIR}
+    ${FAIRROOT_INCLUDE_DIR}/fairmq
 )
 
 o2_define_bucket(

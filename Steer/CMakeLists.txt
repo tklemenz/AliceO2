@@ -5,6 +5,7 @@ O2_SETUP(NAME ${MODULE_NAME})
 set(SRCS
   src/O2RunAna.cxx
   src/InteractionSampler.cxx
+  src/O2MCApplication.cxx
 )
 
 set(HEADERS

@@ -17,26 +17,20 @@
 #include <FairLogger.h>
 #include "../macro/o2sim.C"
 #include "TVirtualMC.h"
-#include "TMessage.h"
 #include <SimulationDataFormat/Stack.h>
 #include <SimulationDataFormat/PrimaryChunk.h>
+#include <gsl/gsl>
 
 namespace o2 {
 namespace devices {
-
-class TMessageWrapper : public TMessage
-{
- public:
-  TMessageWrapper(void* buf, Int_t len) : TMessage(buf, len) { ResetBit(kIsOwner); }
-  ~TMessageWrapper() override = default;
-};
 
 class O2HitMerger : public FairMQDevice
 {
  public:
   /// Default constructor
   O2HitMerger() {
-	OnData("simdata", &O2HitMerger::HandleData);
+    // ideally we have a specialized handler function per data channel
+    OnData("simdata", &O2HitMerger::HandleData);
   }
 
   /// Default destructor
@@ -49,10 +43,19 @@ class O2HitMerger : public FairMQDevice
   }
 
   /// Overloads the ConditionalRun() method of FairMQDevice
-  bool HandleData(FairMQMessagePtr& request, int /*index*/)
+  bool HandleData(FairMQMessagePtr& data, int /*index*/)
   {
-    LOG(INFO) << "RECEIVED SIM DATA " << FairLogger::endl;
-	return true;
+    auto mctracks = gsl::span<o2::MCTrack>(static_cast<o2::MCTrack*>(data->GetData()), data->GetSize()/sizeof(o2::MCTrack));
+
+    // calculate number of primaries + secondaries
+    int primcounter = 0;
+    for(auto& t : mctracks) {
+      LOG(INFO) << t.GetStartVertexMomentumX() << "\n";
+      primcounter+=(t.getMotherTrackId() < 0)? 1 : 0;
+    }
+    LOG(INFO) << "RECEIVED SIM DATA :" << mctracks.size() << " of which " << primcounter << " are primaries " << FairLogger::endl;
+    
+    return true;
   }
 };
 

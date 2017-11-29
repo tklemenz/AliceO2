@@ -58,7 +58,8 @@ class O2SimDevice : public FairMQDevice
 
     // we get the O2MCApplication and inject the primaries before each run
     auto app = static_cast<o2::steer::O2MCApplication*>(TVirtualMCApplication::Instance());
-
+    app->setDataOutputChannel(&fChannels.at("simdata").at(0));
+    
     LOG(INFO) << "Trying to Send  " << FairLogger::endl;
     if (Send(request, "primary-get") >= 0) {
       LOG(INFO) << "Waiting for answer " << FairLogger::endl;
@@ -73,7 +74,7 @@ class O2SimDevice : public FairMQDevice
 
         app->setPrimaries(chunk->mParticles);
         LOG(INFO) << "Processing " << chunk->mParticles.size() << FairLogger::endl;
-        gRandom->SetSeed(chunk->mEventIDs.size());
+        gRandom->SetSeed(chunk->mEventIDs[0].seed);
 
         TVirtualMC::GetMC()->ProcessRun(1);
       }
