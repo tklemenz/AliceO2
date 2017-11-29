@@ -58,7 +58,8 @@ class O2SimDevice : public FairMQDevice
 
     // we get the O2MCApplication and inject the primaries before each run
     auto app = static_cast<o2::steer::O2MCApplication*>(TVirtualMCApplication::Instance());
-    app->setDataOutputChannel(&fChannels.at("simdata").at(0));
+    app->setMCTrackChannel(&fChannels.at("mctracks").at(0));
+    app->setITSChannel(&fChannels.at("itshits").at(0));
     
     LOG(INFO) << "Trying to Send  " << FairLogger::endl;
     if (Send(request, "primary-get") >= 0) {

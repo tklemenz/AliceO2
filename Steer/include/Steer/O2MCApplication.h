@@ -8,6 +8,7 @@
 #include <vector>
 #include <SimulationDataFormat/Stack.h>
 #include <FairRootManager.h>
+#include <FairDetector.h>
 
 class FairMQChannel;
 
@@ -31,6 +32,11 @@ class O2MCApplication : public FairMCApplication
       // This special finish event version does not fill the output tree of FairRootManager
       // but forwards the data to the HitMerger
       SendData();
+
+      // call end of event on active detectors
+      for(auto det : listActiveDetectors) {
+    	det->EndOfEvent();
+      }
     }
     
     /** Define actions at the end of run */
@@ -49,10 +55,14 @@ class O2MCApplication : public FairMCApplication
       mPrimaries = p;
     }
 
-    void setDataOutputChannel(FairMQChannel* channel) { mOutChannel = channel; }
+    void setMCTrackChannel(FairMQChannel* channel) { mMCTrackChannel = channel; }
+    //void setTPCChannel(int index, FairMQChannel* channel) { mTPCChannels[index] = channel; }
+    void setITSChannel(FairMQChannel* channel) { mITSChannel = channel; }
     
     std::vector<TParticle> mPrimaries;
-    FairMQChannel*         mOutChannel;
+    FairMQChannel*         mMCTrackChannel;
+    //FairMQChannel*         mTPCChannels[36]; // avoid hard coded number
+    FairMQChannel*         mITSChannel;
 
     ClassDefOverride(O2MCApplication,4)  //Interface to MonteCarlo application
 };

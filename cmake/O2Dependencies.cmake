@@ -409,6 +409,7 @@ o2_define_bucket(
     DEPENDENCIES
     data_format_simulation_bucket
     SimulationDataFormat
+    ITSMFTSimulation
 
     INCLUDE_DIRECTORIES
     ${CMAKE_SOURCE_DIR}/Common/MathUtils/include

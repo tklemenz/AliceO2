@@ -140,11 +140,11 @@ void build_geometry(FairRunSim* run = nullptr)
     run->AddModule(tpc);
   //}
 
-  if (isActivated("ITS")){
+  //if (isActivated("ITS")){
     // its
     auto its = new o2::ITS::Detector(true);
     run->AddModule(its);
-  }
+  //}
 
   if (isActivated("MFT")){
     // mft

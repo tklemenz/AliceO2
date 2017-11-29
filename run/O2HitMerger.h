@@ -30,7 +30,8 @@ class O2HitMerger : public FairMQDevice
   /// Default constructor
   O2HitMerger() {
     // ideally we have a specialized handler function per data channel
-    OnData("simdata", &O2HitMerger::HandleData);
+    OnData("mctracks", &O2HitMerger::HandleMCTrackData);
+    OnData("itshits", &O2HitMerger::HandleITSHits);
   }
 
   /// Default destructor
@@ -42,21 +43,37 @@ class O2HitMerger : public FairMQDevice
   {
   }
 
+  template<typename T>
+  gsl::span<T> getView(FairMQMessagePtr& data) {
+    return gsl::span<T>(static_cast<T*>(data->GetData()), data->GetSize()/sizeof(T));
+  }
+
   /// Overloads the ConditionalRun() method of FairMQDevice
-  bool HandleData(FairMQMessagePtr& data, int /*index*/)
+  bool HandleMCTrackData(FairMQMessagePtr& data, int /*index*/)
   {
-    auto mctracks = gsl::span<o2::MCTrack>(static_cast<o2::MCTrack*>(data->GetData()), data->GetSize()/sizeof(o2::MCTrack));
+    auto mctracks = getView<o2::MCTrack>(data);
 
     // calculate number of primaries + secondaries
     int primcounter = 0;
-    for(auto& t : mctracks) {
-      LOG(INFO) << t.GetStartVertexMomentumX() << "\n";
-      primcounter+=(t.getMotherTrackId() < 0)? 1 : 0;
+    for (auto& t : mctracks) {
+      primcounter += (t.getMotherTrackId() < 0) ? 1 : 0;
     }
-    LOG(INFO) << "RECEIVED SIM DATA :" << mctracks.size() << " of which " << primcounter << " are primaries " << FairLogger::endl;
-    
+    LOG(INFO) << "RECEIVED SIM DATA :" << mctracks.size() << " of which " << primcounter << " are primaries "
+              << FairLogger::endl;
+
     return true;
   }
+
+  /// Overloads the ConditionalRun() method of FairMQDevice
+  bool HandleITSHits(FairMQMessagePtr& data, int /*index*/)
+  {
+    auto itshits = getView<o2::ITSMFT::Hit>(data);
+    LOG(INFO) << "RECEIVED ITS DATA :" << itshits.size() << "\n"
+              << FairLogger::endl;
+
+    return true;
+  }
+
 };
 
 } // namespace devices
