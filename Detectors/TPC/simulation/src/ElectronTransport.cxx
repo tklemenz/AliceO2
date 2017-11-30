@@ -13,6 +13,7 @@
 /// \author Andi Mathis, TU München, andreas.mathis@ph.tum.de
 
 #include "TPCSimulation/ElectronTransport.h"
+#include "TPCBase/ParameterDetector.h"
 
 #include <cmath>
 
@@ -31,9 +32,10 @@ ElectronTransport::~ElectronTransport()
 
 GlobalPosition3D ElectronTransport::getElectronDrift(GlobalPosition3D posEle)
 {
+  const static ParameterDetector &detParam = ParameterDetector::defaultInstance();
   const static ParameterGas &gasParam = ParameterGas::defaultInstance();
   /// For drift lengths shorter than 1 mm, the drift length is set to that value
-  float driftl = posEle.Z();
+  float driftl = std::fabs(detParam.getTPClength() - posEle.Z());
   if(driftl<0.01) {
     driftl=0.01;
   }

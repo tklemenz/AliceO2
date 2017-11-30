@@ -82,31 +82,17 @@ void run_sim_tpc(Int_t nEvents = 1, TString mcEngine = "TGeant3")
   // Create PrimaryGenerator
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
 #ifdef BOX_GENERATOR
-  FairBoxGenerator* boxGenPi = new FairBoxGenerator(211, 1); /*pi+*/
+  FairBoxGenerator* boxGenEle = new FairBoxGenerator(11, 1); /*electron*/
 
-/*
-  boxGenPi->SetThetaRange(89.5, 90.5);
-  //boxGenPi->SetEtaRange(-0.9,0.9);
-  boxGenPi->SetPRange(1, 1);
-  boxGenPi->SetPhiRange(9., 11.);
-  boxGenPi->SetBoxXYZ(-7.25*TMath::Sin(TMath::Pi()/18), 7.25*TMath::Cos(TMath::Pi()/18),
+  boxGenEle->SetThetaRange(89.5, 90.5);
+  //boxGenEle->SetEtaRange(-0.9,0.9);
+  boxGenEle->SetPRange(1, 1);
+  boxGenEle->SetPhiRange(9., 11.);
+  boxGenEle->SetBoxXYZ(-7.25*TMath::Sin(TMath::Pi()/18), 7.25*TMath::Cos(TMath::Pi()/18),
                       7.25*TMath::Sin(TMath::Pi()/18), 7.25*TMath::Cos(TMath::Pi()/18), 239);
-  boxGenPi->SetDebug(kTRUE);
+  boxGenEle->SetDebug(kTRUE);
 
-  primGen->AddGenerator(boxGenPi);
-*/
-
-  boxGenPi->SetThetaRange(90.-0.24,90.+0.24);
-  boxGenPi->SetPRange(1.,1.);
-  boxGenPi->SetPhiRange(193.39-0.34,193.39+0.34);
-//  boxGenPi->SetBoxXYZ(127.387, 30.93, 127.387, 30.93, 245);
-  boxGenPi->SetBoxXYZ(127.387, 30.93, 127.387, 30.93, 245);
-  boxGenPi->SetDebug(kTRUE);
-
-  primGen->SetBeam(0.,0.,0.,0.);
-  primGen->SetBeamAngle(0.,0.,0.,0.);
-  primGen->AddGenerator(boxGenPi);
-
+  primGen->AddGenerator(boxGenEle);
 #else
   // reading the events from a kinematics file (produced by AliRoot)
   auto extGen =  new o2::eventgen::GeneratorFromFile("Kinematics.root");

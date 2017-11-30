@@ -27,15 +27,15 @@ using namespace o2::Base::Track;
 
 struct OutputTrack
 {
-	float Alpha;
-	float X;
-	float Y;
-	float Z;
-	float SinPhi;
-	float DzDs;
-	float QPt;
-	int NClusters;
-	int FitOK;
+  float Alpha;
+  float X;
+  float Y;
+  float Z;
+  float SinPhi;
+  float DzDs;
+  float QPt;
+  int NClusters;
+  int FitOK;
 };
 
 struct EventHeader
@@ -51,7 +51,7 @@ struct EventHeader
   int runType;
 };
 
-void convertTracks(TString inputBinaryFile, TString inputClusters, TString cherenkovFile, TString outputFile)
+void convertTracks_Pions(TString inputBinaryFile, TString inputClusters, TString cherenkovFile, TString outputFile)
 {
 
   // ===| input chain initialisation |==========================================
@@ -102,7 +102,7 @@ void convertTracks(TString inputBinaryFile, TString inputClusters, TString chere
 
   tout.Branch("header", &eventHeader, "run/I:cherenkovValue/F");
   tout.Branch("Tracks", &arrTracks);
-  
+
   // ===| input binary file |===================================================
   FILE* fpInput = fopen(inputBinaryFile, "rb");
   if (fpInput == NULL)
@@ -131,15 +131,15 @@ void convertTracks(TString inputBinaryFile, TString inputClusters, TString chere
     c.GetEntry(nEvents);
 
     // ---| set event information from cluster file |---------------------------
-    eventHeader.run = runNumber;
-    eventHeader.cherenkovValue = cherenkovValue;
-    eventHeader.beamMomentum = beamMomentum;
-    eventHeader.powerSupply = powerSupply;
-    eventHeader.HVSettings = HVSettings;
-    eventHeader.trigger = trigger;
-    eventHeader.dataType = dataType;
-    eventHeader.driftFieldStrength = driftFieldStrength;
-    eventHeader.runType = runType;
+    eventHeader.run = 0;
+    eventHeader.cherenkovValue = 0;
+    eventHeader.beamMomentum = 0;
+    eventHeader.powerSupply = 0;
+    eventHeader.HVSettings = 0;
+    eventHeader.trigger = 0;
+    eventHeader.dataType = 0;
+    eventHeader.driftFieldStrength = 0;
+    eventHeader.runType = 0;
 
 
     // ---| loop over tracks |--------------------------------------------------

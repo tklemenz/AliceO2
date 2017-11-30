@@ -8,7 +8,9 @@
 // granted to it by virtue of its status as an Intergovernmental Organization
 // or submit itself to any jurisdiction.
 
+#if (!defined(__CINT__) && !defined(__CLING__)) || defined(__MAKECINT__)
 #include <vector>
+
 #include <fstream>
 #include <iostream>
 
@@ -21,6 +23,9 @@
 #include "TPCReconstruction/TrackTPC.h"
 #include "DetectorsBase/Track.h"
 #include "TPCSimulation/Cluster.h"
+#endif
+
+
 
 using namespace o2::TPC;
 using namespace o2::Base::Track;
@@ -55,31 +60,17 @@ void convertTracks(TString inputBinaryFile, TString inputClusters, TString chere
 {
 
   // ===| input chain initialisation |==========================================
-  TChain c("o2sim");
+  TChain c("cbmsim");
   c.AddFile(inputClusters);
 
   float cherenkovValue = 0.;
   int runNumber = 0;
-  int beamMomentum = 0;
-  int powerSupply = 0;
-  int HVSettings = 0;
-  int trigger = 0;
-  int driftFieldStrength = 0;
-  int dataType = 0;
-  int runType = 0;
 
   TClonesArray *clusters=0x0;
   c.SetBranchAddress("TPCClusterHW", &clusters);
   //c.SetBranchAddress("TPC_Cluster", &clusters);
   c.SetBranchAddress("cherenkovValue", &cherenkovValue);
   c.SetBranchAddress("runNumber",      &runNumber);
-  c.SetBranchAddress("beamMomentum",          &beamMomentum);
-  c.SetBranchAddress("powerSupply",           &powerSupply);
-  c.SetBranchAddress("HVSettings",            &HVSettings);
-  c.SetBranchAddress("trigger",               &trigger);
-  c.SetBranchAddress("dataType",              &dataType);
-  c.SetBranchAddress("driftFieldStrength",    &driftFieldStrength);
-  c.SetBranchAddress("runType",               &runType);
 
   // ===| output tree |=========================================================
   TFile fout(outputFile, "recreate");
@@ -92,13 +83,6 @@ void convertTracks(TString inputBinaryFile, TString inputClusters, TString chere
   EventHeader eventHeader;
   eventHeader.run = 0;
   eventHeader.cherenkovValue = 0;
-  eventHeader.beamMomentum = 0;
-  eventHeader.powerSupply = 0;
-  eventHeader.HVSettings = 0;
-  eventHeader.trigger = 0;
-  eventHeader.dataType = 0;
-  eventHeader.driftFieldStrength = 0;
-  eventHeader.runType = 0;
 
   tout.Branch("header", &eventHeader, "run/I:cherenkovValue/F");
   tout.Branch("Tracks", &arrTracks);
@@ -133,14 +117,6 @@ void convertTracks(TString inputBinaryFile, TString inputClusters, TString chere
     // ---| set event information from cluster file |---------------------------
     eventHeader.run = runNumber;
     eventHeader.cherenkovValue = cherenkovValue;
-    eventHeader.beamMomentum = beamMomentum;
-    eventHeader.powerSupply = powerSupply;
-    eventHeader.HVSettings = HVSettings;
-    eventHeader.trigger = trigger;
-    eventHeader.dataType = dataType;
-    eventHeader.driftFieldStrength = driftFieldStrength;
-    eventHeader.runType = runType;
-
 
     // ---| loop over tracks |--------------------------------------------------
     arrTracks.clear();

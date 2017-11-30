@@ -17,7 +17,7 @@ cherenkovFile=$3
 #script=$(readlink -f $0)
 #macroDir=$(dirname $script)
 clusterConversion=${recoMacroDir}/convertClusters.C
-trackConversion=${recoMacroDir}/convertTracks.C
+trackConversion=${recoMacroDir}/convertTracks_Pions.C
 addInclude=${recoMacroDir}/addInclude.C
 
 # ===| create temporary output directory |======================================
