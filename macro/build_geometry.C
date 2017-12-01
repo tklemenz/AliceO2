@@ -86,7 +86,7 @@ void build_geometry(FairRunSim* run = nullptr)
   }
 
   // the magnet
-  if (isActivated("MAG")) {
+  if (1/*isActivated("MAG")*/) {
     // the frame structure to support other detectors
     auto magnet = new o2::passive::Magnet("Magnet", "L3 Magnet");
     run->AddModule(magnet);
@@ -99,7 +99,7 @@ void build_geometry(FairRunSim* run = nullptr)
   }
 
   // beam pipe
-  if (isActivated("PIPE")) {
+  if (1/*isActivated("PIPE")*/) {
     run->AddModule(new o2::passive::Pipe("Pipe", "Beam pipe"));
   }
   
@@ -111,7 +111,7 @@ void build_geometry(FairRunSim* run = nullptr)
   }
 
   // the shil
-  if (isActivated("SHIL")) {
+  if (1/*isActivated("SHIL")*/) {
     auto shil = new o2::passive::Shil("Shield", "Small angle beam shield");
     run->AddModule(shil);
   }

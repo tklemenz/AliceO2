@@ -1,6 +1,5 @@
 # starts a simulation device setup
-
-NSIMWORKERS=1
+NSIMWORKERS=2
 
 # we have one primary distributor 
 xterm -geometry 80x25+0+0 -e O2PrimaryServerDeviceRunner --control static --id primary-server --mq-config ~/alisw_new/O2/run/primary-server.json &

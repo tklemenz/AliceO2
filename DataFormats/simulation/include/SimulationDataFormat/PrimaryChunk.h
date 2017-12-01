@@ -53,7 +53,7 @@ void addTrailingObjectToVector(V &v, T const &t) {
   }
   // now copy t to vector
   // for the moment only works in cases the alignment matches
-  static_assert(alignof(typename V::value_type) == alignof(T), "alignement has to match");
+  static_assert(alignof(typename V::value_type) % alignof(T) == 0, "alignement has to match");
   memcpy((void*)&v[oldsize],(const void*)&t, sizeof(t));
 }
 

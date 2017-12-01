@@ -23,18 +23,29 @@
 #include "TFile.h"
 #include "TTree.h"
 #include <memory>
+#include <TMessage.h>
+#include <FairMQParts.h>
 
 namespace o2 {
 namespace devices {
 
 class O2HitMerger : public FairMQDevice
 {
+
+ class TMessageWrapper : public TMessage
+	{
+	 public:
+	  TMessageWrapper(void* buf, Int_t len) : TMessage(buf, len) { ResetBit(kIsOwner); }
+	  ~TMessageWrapper() override = default;
+	};
+
  public:
   /// Default constructor
   O2HitMerger() {
     // ideally we have a specialized handler function per data channel
     OnData("mctracks", &O2HitMerger::HandleMCTrackData);
     OnData("itshits", &O2HitMerger::HandleITSHits);
+    OnData("tpchits", &O2HitMerger::HandleTPCHits);
   }
 
   /// Default destructor
@@ -50,6 +61,7 @@ class O2HitMerger : public FairMQDevice
     // make some branches
     mOutTree->Branch("MCTracks", &mTracksPtr);
     mOutTree->Branch("ITSHits", &mITSHits);
+    mOutTree->Branch("TPCHitsSector0", &mTPCHits);
   }
 
   template<typename T, typename I>
@@ -168,6 +180,55 @@ class O2HitMerger : public FairMQDevice
     return true;
   }
 
+  void flushTPC(int eventid) {
+	LOG(INFO) << "Flushing TPC\n";
+    // let's see if we can do just one sector for the moment
+	auto br = mOutTree->GetBranch("TPCHitsSector0");
+	auto iter = mTPCMessages[0].find(eventid);
+    auto& messagelist = iter->second;
+
+    for(auto& message : messagelist) {
+      // message should be a pointer to a TPC
+      br->SetAddress(&message);
+      br->Fill();
+      break;
+    }
+
+    mOutTree->SetEntries(eventid);
+    // finally we can cleanup the map by removing this event
+  }
+
+  bool HandleTPCHits(FairMQParts& data, int /*index*/)
+  {
+    // retrieve the info object
+    auto infomessage = std::move(data.At(0));
+    o2::Data::SubEventInfo info;
+    // could actually avoid the copy
+    memcpy((void*)&info, infomessage->GetData(), infomessage->GetSize());
+    //LOG(INFO) << "received TPC info " << info.eventID << "\n";
+    // loop over sectors
+    for(int s = 0; s < 36; ++s) {
+      // in this case we need to deserialize
+      auto tpcmessage = std::move(data.At(1+s));
+
+      auto message = new TMessageWrapper(tpcmessage->GetData(), tpcmessage->GetSize());
+      auto tpchits = static_cast<std::vector<o2::TPC::HitGroup>*>(message->ReadObjectAny(message->GetClass()));
+
+      auto accum = insertAdd<uint32_t, uint32_t>(mTPCPartsCheckSum, info.eventID, (uint32_t)info.part);
+      mTPCMessages[s][info.eventID].push_back(tpchits);
+
+      if (isDataComplete<uint32_t>(accum, info.nparts)) {
+        flushTPC(info.eventID);
+
+        if (info.eventID == info.maxEvents) {
+          return false;
+        }
+      }
+      //LOG(INFO) << "received TPC hits " << tpchits->size() << "\n";
+    }
+    return true;
+  }
+
   std::vector<o2::MCTrack> mMergedTracks; //! accumulator for actual tracks
   std::vector<o2::MCTrack>* mTracksPtr = &mMergedTracks;
   
@@ -179,10 +240,18 @@ class O2HitMerger : public FairMQDevice
   std::vector<o2::ITSMFT::Hit> mITSHits;
   std::map<uint32_t, std::vector<FairMQMessagePtr>> mITSMessages;
   std::map<uint32_t, uint32_t> mITSPartsCheckSum; //! mapping event id -> part checksum used to detect when all info
-   
+
+  // -- TPC --
+  std::vector<o2::TPC::HitGroup> mTPCHits;
+
+  // for each of the sectors I keep a map to
+  std::map<uint32_t, std::vector<std::vector<o2::TPC::HitGroup>*>> mTPCMessages[36]; // collect messages for each sector
+  std::map<uint32_t, uint32_t> mTPCPartsCheckSum; //! mapping event id -> part checksum used to detect when all info
+
   //  for a given event is here
   std::map<uint32_t, size_t> mTracksTotalSize; //! total number of tracks for a given event
   std::map<uint32_t, size_t> mITSTotalSize; //! total number of tracks for a given event
+  std::map<uint32_t, size_t> mTPCTotalSize; //! total number of tracks for a given event
 
   TFile* mOutFile; //!
   TTree* mOutTree; //!

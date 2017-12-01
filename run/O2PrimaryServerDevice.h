@@ -75,7 +75,7 @@ class O2PrimaryServerDevice : public FairMQDevice
         counter++;
       }
 
-      TMessage* tmsg = new TMessage(kMESS_OBJECT);
+
 
       auto& prims = mStack.getPrimaries();
       auto numberofparts = (int)std::ceil( prims.size() / (1.*mChunkGranularity));
@@ -104,6 +104,7 @@ class O2PrimaryServerDevice : public FairMQDevice
         mNeedNewEvent = true;
       }
 
+      TMessage* tmsg = new TMessage(kMESS_OBJECT);
       tmsg->WriteObjectAny((void*)&m, TClass::GetClass("o2::Data::PrimaryChunk"));
 
       auto free_tmessage = [](void* data, void* hint) { delete static_cast<TMessage*>(hint); };
@@ -128,7 +129,7 @@ class O2PrimaryServerDevice : public FairMQDevice
     int mLastPosition = 0; // last position in stack vector
     int mPartCounter = 0;
     bool mNeedNewEvent = true;
-    int mMaxEvents = 10;
+    int mMaxEvents = 2;
 };
 
 } // namespace devices

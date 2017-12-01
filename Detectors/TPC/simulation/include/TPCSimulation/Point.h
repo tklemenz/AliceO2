@@ -137,6 +137,7 @@ public:
   std::vector<float> mHitsZVctr; 
   std::vector<float> mHitsTVctr; 
   std::vector<short> mHitsEVctr; 
+  //float* //[N]
 #endif
   ClassDefNV(HitGroup, 1);
 };

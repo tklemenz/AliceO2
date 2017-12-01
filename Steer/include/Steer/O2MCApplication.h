@@ -11,6 +11,7 @@
 #include <FairRootManager.h>
 #include <FairDetector.h>
 
+class FairMQParts;
 class FairMQChannel;
 
 namespace o2 {
@@ -51,7 +52,7 @@ class O2MCApplication : public FairMCApplication
       int i=0;
       for(auto& p : mPrimaries) {
         p.SetStatusCode(i);
-	i++;
+	    i++;
       }
       
       LOG(INFO) << "Generate primaries " << mPrimaries.size() << "\n";
@@ -66,14 +67,17 @@ class O2MCApplication : public FairMCApplication
       mPrimaries = p;
     }
 
+    void sendTPCData();
+    void assembleTPCSectors(FairMQParts& parts);
+
     void setMCTrackChannel(FairMQChannel* channel) { mMCTrackChannel = channel; }
-    //void setTPCChannel(int index, FairMQChannel* channel) { mTPCChannels[index] = channel; }
+    void setTPCChannel(FairMQChannel* channel) { mTPCChannel = channel; }
     void setITSChannel(FairMQChannel* channel) { mITSChannel = channel; }
     void setSubEventInfo(o2::Data::SubEventInfo &i) { mSubEventInfo = i; }
     
     std::vector<TParticle> mPrimaries;
     FairMQChannel*         mMCTrackChannel;
-    //FairMQChannel*         mTPCChannels[36]; // avoid hard coded number
+    FairMQChannel*         mTPCChannel; // avoid hard coded number
     FairMQChannel*         mITSChannel;
     o2::Data::SubEventInfo mSubEventInfo; // what are we currently processing?
     

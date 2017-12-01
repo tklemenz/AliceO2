@@ -60,6 +60,7 @@ class O2SimDevice : public FairMQDevice
     auto app = static_cast<o2::steer::O2MCApplication*>(TVirtualMCApplication::Instance());
     app->setMCTrackChannel(&fChannels.at("mctracks").at(0));
     app->setITSChannel(&fChannels.at("itshits").at(0));
+    app->setTPCChannel(&fChannels.at("tpchits").at(0));
     
     LOG(INFO) << "Trying to Send  " << FairLogger::endl;
     int timeoutinMS = 2000; // wait for 2s max 
