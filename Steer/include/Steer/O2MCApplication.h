@@ -7,6 +7,7 @@
 #include <TParticle.h>
 #include <vector>
 #include <SimulationDataFormat/Stack.h>
+#include <SimulationDataFormat/PrimaryChunk.h>
 #include <FairRootManager.h>
 #include <FairDetector.h>
 
@@ -46,6 +47,16 @@ class O2MCApplication : public FairMCApplication
     void  GeneratePrimaries() override {
       // ordinarily we would call the event generator ...
 
+      // correct status code
+      int i=0;
+      for(auto& p : mPrimaries) {
+        p.SetStatusCode(i);
+	i++;
+      }
+      
+      LOG(INFO) << "Generate primaries " << mPrimaries.size() << "\n";
+      GetStack()->Reset();
+      
       // but here we init the stack from
       // a vector of particles that someone sets externally
       static_cast<o2::Data::Stack*>(GetStack())->initFromPrimaries(mPrimaries);
@@ -58,12 +69,14 @@ class O2MCApplication : public FairMCApplication
     void setMCTrackChannel(FairMQChannel* channel) { mMCTrackChannel = channel; }
     //void setTPCChannel(int index, FairMQChannel* channel) { mTPCChannels[index] = channel; }
     void setITSChannel(FairMQChannel* channel) { mITSChannel = channel; }
+    void setSubEventInfo(o2::Data::SubEventInfo &i) { mSubEventInfo = i; }
     
     std::vector<TParticle> mPrimaries;
     FairMQChannel*         mMCTrackChannel;
     //FairMQChannel*         mTPCChannels[36]; // avoid hard coded number
     FairMQChannel*         mITSChannel;
-
+    o2::Data::SubEventInfo mSubEventInfo; // what are we currently processing?
+    
     ClassDefOverride(O2MCApplication,4)  //Interface to MonteCarlo application
 };
 

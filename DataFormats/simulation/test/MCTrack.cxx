@@ -17,6 +17,7 @@
 #include <iostream>
 #include "SimulationDataFormat/MCTrack.h"
 #include "SimulationDataFormat/Stack.h"
+#include "SimulationDataFormat/PrimaryChunk.h"
 #include "DetectorsBase/DetID.h"
 #include "TParticle.h"
 #include "TFile.h"
@@ -91,4 +92,26 @@ BOOST_AUTO_TEST_CASE(Stack_test)
     f.GetObject("Stack", inst);
     BOOST_CHECK(inst->getPrimaries().size() == 2);
   }
+}
+
+// test PrimaryChunk stuff
+BOOST_AUTO_TEST_CASE(ObjectAttachDetachFromVector)
+{
+  std::vector<o2::MCTrack> tracks;
+  const auto N = 11;
+  tracks.resize(N);
+
+  o2::Data::SubEventInfo i1;
+  i1.eventID = 2;
+  i1.part = 1;
+  i1.nparts = 9;
+
+  o2::Data::addTrailingObjectToVector(tracks, i1);
+  BOOST_CHECK(tracks.size() > N);
+  o2::Data::SubEventInfo i2;
+  o2::Data::removeTrailingObjectFromVector(tracks, i2);
+
+  BOOST_CHECK(tracks.size() == N);
+  BOOST_CHECK(i2.eventID == i1.eventID);
+  BOOST_CHECK(i2.nparts == i1.nparts);
 }

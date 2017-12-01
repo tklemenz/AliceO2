@@ -62,10 +62,12 @@ class O2SimDevice : public FairMQDevice
     app->setITSChannel(&fChannels.at("itshits").at(0));
     
     LOG(INFO) << "Trying to Send  " << FairLogger::endl;
-    if (Send(request, "primary-get") >= 0) {
+    int timeoutinMS = 2000; // wait for 2s max 
+    if (Send(request, "primary-get", 0, timeoutinMS) >= 0) {
       LOG(INFO) << "Waiting for answer " << FairLogger::endl;
       // asking for primary generation
-      if (Receive(reply, "primary-get") > 0) {
+ 
+      if (Receive(reply, "primary-get", 0, timeoutinMS) > 0) {
         LOG(INFO) << "Answer received, containing " << reply->GetSize() << " bytes " << FairLogger::endl;
 
         // wrap incoming bytes as a TMessageWrapper which offers "adoption" of a buffer
@@ -74,11 +76,21 @@ class O2SimDevice : public FairMQDevice
         auto chunk = static_cast<o2::Data::PrimaryChunk*>(message->ReadObjectAny(message->GetClass()));
 
         app->setPrimaries(chunk->mParticles);
+        
+        auto info = chunk->mEventIDs[0];
+        app->setSubEventInfo(info);
+	
         LOG(INFO) << "Processing " << chunk->mParticles.size() << FairLogger::endl;
         gRandom->SetSeed(chunk->mEventIDs[0].seed);
 
         TVirtualMC::GetMC()->ProcessRun(1);
-      }
+        delete message;
+       }
+       else {
+         return false;
+       }
+    } else {
+      return false;
     }
     // need to solve the problem of writing
     return true;

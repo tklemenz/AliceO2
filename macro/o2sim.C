@@ -20,6 +20,8 @@
 #include <Generators/GeneratorFromFile.h>
 #include <SimSetup/SimSetup.h>
 #include <Steer/O2RunSim.h>
+#include <unistd.h>
+#include <sstream>
 #endif
 
 void o2sim_init() {
@@ -29,8 +31,10 @@ void o2sim_init() {
   auto run = new o2::steer::O2RunSim();
   run->SetSimSetup([confref](){o2::SimSetup(confref.getMCEngine().c_str());});
   
-  
-  run->SetOutputFile("o2sim.root");            // Output file
+  auto pid = getpid();
+  std::stringstream s;
+  s << "o2sim_" << pid << ".root";
+  run->SetOutputFile(s.str().c_str());            // Output file
   run->SetName(confref.getMCEngine().c_str()); // Transport engine
 
   // construct geometry / including magnetic field

@@ -183,6 +183,7 @@ void Stack::PushTrack(int toBeDone, TParticle const &p) {
   // Increment counter
   if (parentId < 0) {
     mNumberOfPrimaryParticles++;
+    // fix trackID
     mPrimaryParticles.push_back(p);
   }
 
@@ -388,6 +389,9 @@ void Stack::Reset()
   }
   mPrimariesDone = 0;
   mPrimaryParticles.clear();
+  mTransportedIDs.clear();
+  mIndexOfPrimaries.clear();
+  mIndexMap.clear();
 }
 
 void Stack::Register()

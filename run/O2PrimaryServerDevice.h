@@ -44,26 +44,26 @@ class O2PrimaryServerDevice : public FairMQDevice
     void InitTask() final {
       LOG(INFO) << "Init Server device " << FairLogger::endl;
 
-      //auto boxGen = new FairBoxGenerator(211, 500); /*protons*/
-      //boxGen->SetEtaRange(-0.9, 0.9);
-      //boxGen->SetPRange(0.1, 5);
-      //boxGen->SetPhiRange(0., 360.);
-      //boxGen->SetDebug(kTRUE);
-      //mPrimGen.AddGenerator(boxGen);
-      //mPrimGen.SetEvent(&mEventHeader);
+      auto boxGen = new FairBoxGenerator(211, 1000); /*protons*/
+      boxGen->SetEtaRange(-0.9, 0.9);
+      boxGen->SetPRange(0.1, 5);
+      boxGen->SetPhiRange(0., 360.);
+      boxGen->SetDebug(kFALSE);
+      mPrimGen.AddGenerator(boxGen);
+      mPrimGen.SetEvent(&mEventHeader);
 
       //auto extGen =  new o2::eventgen::GeneratorFromFile(confref.getExtKinematicsFileName().c_str());
-      auto extGen =  new o2::eventgen::GeneratorFromFile("~/Downloads/Kinematics_HijingCent1_N100.root");
-      extGen->SetStartEvent(0);
-      mPrimGen.AddGenerator(extGen);
-      mPrimGen.SetEvent(&mEventHeader);
+      //auto extGen =  new o2::eventgen::GeneratorFromFile("~/Downloads/Kinematics_HijingCent1_N100.root");
+      //extGen->SetStartEvent(0);
+      //mPrimGen.AddGenerator(extGen);
+      //mPrimGen.SetEvent(&mEventHeader);
     }
 
     /// Overloads the ConditionalRun() method of FairMQDevice
     bool HandleRequest(FairMQMessagePtr& request, int /*index*/)
     {
       static int counter = 0;
-      if(counter > 3) return false; // max 3 events for the moment
+      if(counter >= mMaxEvents && mNeedNewEvent) return false; // max 3 events for the moment
 
       LOG(INFO) << "Received request for work " << FairLogger::endl;
 
@@ -71,27 +71,32 @@ class O2PrimaryServerDevice : public FairMQDevice
         mStack.Reset();
         mPrimGen.GenerateEvent(&mStack);
         mNeedNewEvent = false;
+	mPartCounter = 0;
         counter++;
       }
 
       TMessage* tmsg = new TMessage(kMESS_OBJECT);
 
-      auto numberofparts = mStack.getPrimaries().size() / mChunkGranularity + 1;
+      auto& prims = mStack.getPrimaries();
+      auto numberofparts = (int)std::ceil( prims.size() / (1.*mChunkGranularity));
 
       o2::Data::PrimaryChunk m;
       o2::Data::SubEventInfo i;
       i.eventID = counter;
+      i.maxEvents = mMaxEvents;
       i.part = mPartCounter + 1;
       i.nparts = numberofparts;
       i.seed = counter + 10;
       i.index = m.mParticles.size();
       m.mEventIDs.emplace_back(i);
 
-      auto v = mStack.getPrimaries();
-      auto startiter = v.begin() + mPartCounter*mChunkGranularity;
-      auto enditer = (mPartCounter + 1) * mChunkGranularity < v.size() ? startiter + (mPartCounter + 1) * mChunkGranularity : v.end();
+      auto startindex = mPartCounter*mChunkGranularity;
+      auto endindex = startindex + mChunkGranularity;
+      auto startiter = prims.begin() + mPartCounter*mChunkGranularity;
+      auto enditer = endindex < prims.size() ? startiter + mChunkGranularity : prims.end();
       std::copy(startiter, enditer, std::back_inserter(m.mParticles));
 
+      LOG(WARNING) << "Sending " << m.mParticles.size() << " particles\n";
       LOG(WARNING) << "treating ev " << counter << " part " << i.part << " out of " << i.nparts << "\n";
 
       mPartCounter++;
@@ -123,6 +128,7 @@ class O2PrimaryServerDevice : public FairMQDevice
     int mLastPosition = 0; // last position in stack vector
     int mPartCounter = 0;
     bool mNeedNewEvent = true;
+    int mMaxEvents = 10;
 };
 
 } // namespace devices
