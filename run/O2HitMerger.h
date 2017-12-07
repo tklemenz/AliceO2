@@ -29,6 +29,7 @@
 #include <TStopwatch.h>
 #include <sstream>
 #include <cassert>
+#include "FairSystemInfo.h"
 
 namespace o2 {
 namespace devices {
@@ -188,9 +189,24 @@ class O2HitMerger : public FairMQDevice
     auto accum = insertAdd<uint32_t, uint32_t>(mITSPartsCheckSum, info.eventID, (uint32_t)info.part);
     mITSMessages[info.eventID].push_back(std::move(data));
     auto totalsize = insertAdd<uint32_t,size_t>(mITSTotalSize, info.eventID, itshits.size());
+
+    // TOY FOR THE MOMENT; MAKE A TIMESTAMP AND FORWARD TO DIGITIZER
+    // TODO: NEED TO SEND ALL DATA FOR EVENT i BEFORE ANY DATA FOR NEXT EVENT j
+    FairMQParts parts;
+
+    // STAMP TIME (same event for all)
+    info.eventtime = 1;
+    parts.AddPart(NewSimpleMessage(info));
+    itshits[itshits.size()-1].Print(nullptr);
+    auto buffer = (char*)&itshits[0];
+    auto buffersize = itshits.size()*sizeof(o2::ITSMFT::Hit);
+    FairMQMessagePtr message(NewMessage(buffer, buffersize,
+    						     [](void* x, void* hint) { }, buffer));
+    parts.AddPart(std::move(message));
+    Send(parts, "itsdigitizerchannel");
     
     // are tracks complete for one event?
-    if (isDataComplete<uint32_t>(accum, info.nparts)) {
+    if (isDataComplete<uint32_t>(accum, info.nparts)) {     
       flush(info.eventID, *mOutTree, "ITSHits", mITSHits, mITSMessages, totalsize);
     
       if(info.eventID == info.maxEvents) {

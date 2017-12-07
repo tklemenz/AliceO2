@@ -17,6 +17,7 @@ namespace o2 {
 namespace Data {
 
 struct SubEventInfo {
+  float eventtime = 0.;
   uint32_t eventID = 0; // which event ID
   int32_t  maxEvents = -1; // the number of events in this run (if known otherwise set to -1)
   int32_t  runID = 0; // the runID of this run
