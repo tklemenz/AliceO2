@@ -39,7 +39,12 @@ class O2SimDevice : public FairMQDevice
   O2SimDevice() = default;
 
   /// Default destructor
-  ~O2SimDevice() final = default;
+  ~O2SimDevice() final {
+    FairSystemInfo sysinfo;
+    LOG(INFO) << "TIME-STAMP " << mTimer.RealTime() << "\t";
+    mTimer.Continue();
+    LOG(INFO) << "MEM-STAMP " << sysinfo.GetCurrentMemory()/(1024.*1024) << " " << sysinfo.GetMaxMemory() << " MB\n";
+  }
 
  protected:
   /// Overloads the InitTask() method of FairMQDevice
@@ -47,6 +52,10 @@ class O2SimDevice : public FairMQDevice
   {
     LOG(INFO) << "Init SIM device " << FairLogger::endl;
     o2sim_init();
+    FairSystemInfo sysinfo;
+    LOG(INFO) << "TIME-STAMP " << mTimer.RealTime() << "\t";
+    mTimer.Continue();
+    LOG(INFO) << "MEM-STAMP " << sysinfo.GetCurrentMemory()/(1024.*1024) << " " << sysinfo.GetMaxMemory() << " MB\n";
   }
 
   /// Overloads the ConditionalRun() method of FairMQDevice
@@ -85,7 +94,11 @@ class O2SimDevice : public FairMQDevice
         gRandom->SetSeed(chunk->mEventIDs[0].seed);
 
         TVirtualMC::GetMC()->ProcessRun(1);
-        delete message;
+        FairSystemInfo sysinfo;
+        LOG(INFO) << "TIME-STAMP " << mTimer.RealTime() << "\t";
+        mTimer.Continue();
+        LOG(INFO) << "MEM-STAMP " << sysinfo.GetCurrentMemory()/(1024.*1024) << " " << sysinfo.GetMaxMemory() << " MB\n";
+	delete message;
        }
        else {
          return false;
@@ -101,6 +114,7 @@ class O2SimDevice : public FairMQDevice
  private:
   std::string mInChannelName = "";
   std::string mOutChannelName = "";
+  TStopwatch mTimer;
 };
 
 } // namespace devices

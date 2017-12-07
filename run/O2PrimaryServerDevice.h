@@ -129,7 +129,7 @@ class O2PrimaryServerDevice : public FairMQDevice
     int mLastPosition = 0; // last position in stack vector
     int mPartCounter = 0;
     bool mNeedNewEvent = true;
-    int mMaxEvents = 2;
+    int mMaxEvents = 12;
 };
 
 } // namespace devices

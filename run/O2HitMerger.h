@@ -25,6 +25,10 @@
 #include <memory>
 #include <TMessage.h>
 #include <FairMQParts.h>
+#include <ctime>
+#include <TStopwatch.h>
+#include <sstream>
+#include <cassert>
 
 namespace o2 {
 namespace devices {
@@ -46,10 +50,17 @@ class O2HitMerger : public FairMQDevice
     OnData("mctracks", &O2HitMerger::HandleMCTrackData);
     OnData("itshits", &O2HitMerger::HandleITSHits);
     OnData("tpchits", &O2HitMerger::HandleTPCHits);
+    mTimer.Start();
   }
 
   /// Default destructor
-  ~O2HitMerger() { mOutTree->Write(); mOutFile->Write(); mOutFile->Close(); }
+  ~O2HitMerger() {
+    FairSystemInfo sysinfo;
+    mOutTree->Write(); mOutFile->Write(); mOutFile->Close();
+    LOG(INFO) << "TIME-STAMP " << mTimer.RealTime() << "\t";
+    mTimer.Continue();
+    LOG(INFO) << "MEM-STAMP " << sysinfo.GetCurrentMemory()/(1024.*1024) << " " << sysinfo.GetMaxMemory() << " MB\n";
+  }
 
  private:
   /// Overloads the InitTask() method of FairMQDevice
@@ -61,7 +72,12 @@ class O2HitMerger : public FairMQDevice
     // make some branches
     mOutTree->Branch("MCTracks", &mTracksPtr);
     mOutTree->Branch("ITSHits", &mITSHits);
-    mOutTree->Branch("TPCHitsSector0", &mTPCHits);
+
+    for(int s = 0; s< 36; ++s) { 
+      std::stringstream sec;
+      sec << "TPCHitsSector" << s;
+      mOutTree->Branch(sec.str().c_str(), &mTPCHits);
+    }
   }
 
   template<typename T, typename I>
@@ -106,7 +122,7 @@ class O2HitMerger : public FairMQDevice
       // interpret as view and copy data to merge container
       std::copy(view.begin(), view.end(), std::back_inserter(mergeVector));
 
-      // NEED TO FIX THE TRACK IDS
+      // NEED TO FIX THE TRACK IDS UNLESS WE WRITE 1ENTRY = 1PART
       
       // here the original message will
       // be destroyed/freed since it was moved to 
@@ -157,6 +173,10 @@ class O2HitMerger : public FairMQDevice
         return false;
       }
     }
+    FairSystemInfo sysinfo;
+    LOG(INFO) << "TIME-STAMP " << mTimer.RealTime() << "\t";
+    mTimer.Continue();
+    LOG(INFO) << "MEM-STAMP " << sysinfo.GetCurrentMemory()/(1024.*1024) << " " << sysinfo.GetMaxMemory() << " MB\n";
     return true;
   }
 
@@ -181,19 +201,26 @@ class O2HitMerger : public FairMQDevice
   }
 
   void flushTPC(int eventid) {
-	LOG(INFO) << "Flushing TPC\n";
-    // let's see if we can do just one sector for the moment
-	auto br = mOutTree->GetBranch("TPCHitsSector0");
-	auto iter = mTPCMessages[0].find(eventid);
-    auto& messagelist = iter->second;
-
-    for(auto& message : messagelist) {
-      // message should be a pointer to a TPC
-      br->SetAddress(&message);
-      br->Fill();
-      break;
+    LOG(INFO) << "Flushing TPC\n";
+    for(int s = 0; s < 36; ++s) {
+      std::stringstream sec;
+      sec << "TPCHitsSector" << s;
+      auto br = mOutTree->GetBranch(sec.str().c_str());
+      assert(br);
+      auto iter = mTPCMessages[s].find(eventid);
+      if ( iter == mTPCMessages[s].end() ) {
+        continue;
+      }
+      auto& messagelist = iter->second;
+      for(auto& message : messagelist) {
+        // message should be a pointer to a TPC
+        br->SetAddress(&message);
+        br->Fill();
+        delete message;
+        break;
+      }
     }
-
+    
     mOutTree->SetEntries(eventid);
     // finally we can cleanup the map by removing this event
   }
@@ -205,26 +232,22 @@ class O2HitMerger : public FairMQDevice
     o2::Data::SubEventInfo info;
     // could actually avoid the copy
     memcpy((void*)&info, infomessage->GetData(), infomessage->GetSize());
-    //LOG(INFO) << "received TPC info " << info.eventID << "\n";
+    auto accum = insertAdd<uint32_t, uint32_t>(mTPCPartsCheckSum, info.eventID, (uint32_t)info.part);
+  
     // loop over sectors
     for(int s = 0; s < 36; ++s) {
       // in this case we need to deserialize
       auto tpcmessage = std::move(data.At(1+s));
 
-      auto message = new TMessageWrapper(tpcmessage->GetData(), tpcmessage->GetSize());
-      auto tpchits = static_cast<std::vector<o2::TPC::HitGroup>*>(message->ReadObjectAny(message->GetClass()));
-
-      auto accum = insertAdd<uint32_t, uint32_t>(mTPCPartsCheckSum, info.eventID, (uint32_t)info.part);
+      auto message = std::make_unique<TMessageWrapper>(tpcmessage->GetData(), tpcmessage->GetSize());
+      auto tpchits = static_cast<std::vector<o2::TPC::HitGroup>*>(message.get()->ReadObjectAny(message.get()->GetClass()));
       mTPCMessages[s][info.eventID].push_back(tpchits);
-
-      if (isDataComplete<uint32_t>(accum, info.nparts)) {
+    }
+    if (isDataComplete<uint32_t>(accum, info.nparts)) {
         flushTPC(info.eventID);
-
         if (info.eventID == info.maxEvents) {
           return false;
         }
-      }
-      //LOG(INFO) << "received TPC hits " << tpchits->size() << "\n";
     }
     return true;
   }
@@ -255,6 +278,7 @@ class O2HitMerger : public FairMQDevice
 
   TFile* mOutFile; //!
   TTree* mOutTree; //!
+  TStopwatch mTimer;
   
 };
 

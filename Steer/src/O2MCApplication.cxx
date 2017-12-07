@@ -39,10 +39,9 @@ namespace steer {
     composedmessage.AddPart(std::move(channel.NewSimpleMessage(info)));
 
     if (vector) {
-      LOG(INFO) << "SENDING TPC HITS " << vector->size() << "\n";
       TMessage* tmsg = new TMessage();
       tmsg->WriteObjectAny((void*)vector, TClass::GetClass("vector<o2::TPC::HitGroup>"));
-      auto free_tmessage = [](void* data, void* hint) { /* delete static_cast<TMessage*>(hint); */ };
+      auto free_tmessage = [](void* data, void* hint) { delete static_cast<TMessage*>(hint); };
 
       std::unique_ptr<FairMQMessage> message(channel.NewMessage(tmsg->Buffer(), tmsg->BufferSize(), free_tmessage, tmsg));
       composedmessage.AddPart(std::move(message));
@@ -63,10 +62,9 @@ namespace steer {
       auto vector = mgr->InitObjectAs<const std::vector<o2::TPC::HitGroup>*>(name.str().c_str());
 
       if (vector) {
-        LOG(INFO) << "SENDING TPC HITS " << vector->size() << "\n";
         TMessage* tmsg = new TMessage();
         tmsg->WriteObjectAny((void*)vector, TClass::GetClass("vector<o2::TPC::HitGroup>"));
-        auto free_tmessage = [](void* data, void* hint) { /* delete static_cast<TMessage*>(hint); */ };
+        auto free_tmessage = [](void* data, void* hint) { delete static_cast<TMessage*>(hint); };
 
         std::unique_ptr<FairMQMessage> message(
           mTPCChannel->NewMessage(tmsg->Buffer(), tmsg->BufferSize(), free_tmessage, tmsg));
