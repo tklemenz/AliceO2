@@ -23,7 +23,7 @@
 #include <TClass.h>
 #include <SimulationDataFormat/PrimaryChunk.h>
 #include <Generators/GeneratorFromFile.h>
-#include <Configuration/SimConfig.h>
+#include <SimConfig/SimConfig.h>
 #include <typeinfo>
 
 namespace o2 {

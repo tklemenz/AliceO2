@@ -30,6 +30,7 @@
 #include <sstream>
 #include <cassert>
 #include "FairSystemInfo.h"
+#include "Steer/InteractionSampler.h"
 
 namespace o2 {
 namespace devices {
@@ -194,8 +195,11 @@ class O2HitMerger : public FairMQDevice
     // TODO: NEED TO SEND ALL DATA FOR EVENT i BEFORE ANY DATA FOR NEXT EVENT j
     FairMQParts parts;
 
+    auto t = mInteractionSampler.generateCollisionTime();
+    LOG(INFO) << "SAMPLED TIMED " << t.timeNS << "\n";
+	
     // STAMP TIME (same event for all)
-    info.eventtime = 1;
+    info.eventtime = t.timeNS;
     parts.AddPart(NewSimpleMessage(info));
     itshits[itshits.size()-1].Print(nullptr);
     auto buffer = (char*)&itshits[0];
@@ -295,6 +299,7 @@ class O2HitMerger : public FairMQDevice
   TFile* mOutFile; //!
   TTree* mOutTree; //!
   TStopwatch mTimer;
+  steer::InteractionSampler mInteractionSampler;
   
 };
 
