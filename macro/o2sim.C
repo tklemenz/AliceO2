@@ -78,7 +78,10 @@ void o2sim_init() {
   bool kParameterMerged = true;
   auto rtdb = run->GetRuntimeDb();
   auto parOut = new FairParRootFileIo(kParameterMerged);
-  parOut->open("o2sim_par.root");
+
+  std::stringstream s2;
+  s2 << "o2sim_par" << pid << ".root";
+  parOut->open(s2.str().c_str());
   rtdb->setOutput(parOut);
   rtdb->saveOutput();
   rtdb->print();

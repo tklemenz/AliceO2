@@ -94,6 +94,10 @@ class O2ITSDigitizerDevice : public FairMQDevice
 
   bool HandleHits(FairMQParts& data, int /*index*/)
   {
+    if(data.Size() == 1) {
+      LOG(INFO) << "Terminating \n";
+      return false;
+    }
     LOG(INFO) << "GOT HITS ... digitize them\n";
 
     // retrieve meta information

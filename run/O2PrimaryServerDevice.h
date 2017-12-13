@@ -44,6 +44,7 @@ class O2PrimaryServerDevice : public FairMQDevice
     void InitTask() final {
       LOG(INFO) << "Init Server device " << FairLogger::endl;
 
+
       auto boxGen = new FairBoxGenerator(211, 1000); /*protons*/
       boxGen->SetEtaRange(-0.9, 0.9);
       boxGen->SetPRange(0.1, 5);
@@ -52,11 +53,11 @@ class O2PrimaryServerDevice : public FairMQDevice
       mPrimGen.AddGenerator(boxGen);
       mPrimGen.SetEvent(&mEventHeader);
 
-      //auto extGen =  new o2::eventgen::GeneratorFromFile(confref.getExtKinematicsFileName().c_str());
-      //auto extGen =  new o2::eventgen::GeneratorFromFile("~/Downloads/Kinematics_HijingCent1_N100.root");
-      //extGen->SetStartEvent(0);
-      //mPrimGen.AddGenerator(extGen);
-      //mPrimGen.SetEvent(&mEventHeader);
+      // auto extGen =  new o2::eventgen::GeneratorFromFile(confref.getExtKinematicsFileName().c_str());
+//      auto extGen =  new o2::eventgen::GeneratorFromFile("~/Downloads/Kinematics_HijingCent1_N100.root");
+//      extGen->SetStartEvent(0);
+//      mPrimGen.AddGenerator(extGen);
+//      mPrimGen.SetEvent(&mEventHeader);
     }
 
     /// Overloads the ConditionalRun() method of FairMQDevice
@@ -129,7 +130,7 @@ class O2PrimaryServerDevice : public FairMQDevice
     int mLastPosition = 0; // last position in stack vector
     int mPartCounter = 0;
     bool mNeedNewEvent = true;
-    int mMaxEvents = 12;
+    int mMaxEvents = 2;
 };
 
 } // namespace devices

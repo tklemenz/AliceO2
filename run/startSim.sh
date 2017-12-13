@@ -1,5 +1,10 @@
 # starts a simulation device setup
-NSIMWORKERS=4
+NSIMWORKERS=$1
+
+killall -9 xterm
+killall -9 O2PrimaryServerDeviceRunner
+killall -9 O2SimDeviceRunner
+killall -9 O2HitMergerRunner
 
 # we have one primary distributor 
 xterm -geometry 80x25+0+0 -e O2PrimaryServerDeviceRunner --control static --id primary-server --mq-config ~/alisw_new/O2/run/primary-server.json &
@@ -10,9 +15,9 @@ done
 
 
 # the its digitizer
-xterm -geometry 80x25+1000+0 -hold -e "O2ITSDigitizerDeviceRunner --control static --id itsdigitizer --mq-config  ~/alisw_new/O2/run/primary-server.json" &
+#xterm -geometry 80x25+1000+0 -hold -e "O2ITSDigitizerDeviceRunner --control static --id itsdigitizer --mq-config  ~/alisw_new/O2/run/primary-server.json" &
 
 
 # one hit merger -> the time measures the walltime of the complete session
-time O2HitMergerRunner --id hitmerger --control static --mq-config ~/alisw_new/O2/run/primary-server.json #> mergelog 2>&1
+time O2HitMergerRunner --id hitmerger --control static --mq-config ~/alisw_new/O2/run/primary-server.json | tee mergelog 
 

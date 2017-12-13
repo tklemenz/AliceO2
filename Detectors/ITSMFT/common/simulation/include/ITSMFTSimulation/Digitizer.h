@@ -15,6 +15,7 @@
 
 #include <vector>
 #include <memory>
+#include <climits>
 
 #include "Rtypes.h"  // for Digitizer::Class, Double_t, ClassDef, etc
 #include "TObject.h" // for TObject

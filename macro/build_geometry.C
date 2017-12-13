@@ -104,14 +104,14 @@ void build_geometry(FairRunSim* run = nullptr)
   }
   
   // the absorber
-  if (isActivated("ABSO")) {
+  if (1/*isActivated("ABSO")*/) {
     // the frame structure to support other detectors
     auto abso = new o2::passive::Absorber("Absorber", "Absorber");
     run->AddModule(abso);
   }
 
   // the shil
-  if (1/*isActivated("SHIL")*/) {
+  if (isActivated("SHIL")) {
     auto shil = new o2::passive::Shil("Shield", "Small angle beam shield");
     run->AddModule(shil);
   }

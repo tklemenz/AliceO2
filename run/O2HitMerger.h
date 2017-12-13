@@ -214,7 +214,11 @@ class O2HitMerger : public FairMQDevice
       flush(info.eventID, *mOutTree, "ITSHits", mITSHits, mITSMessages, totalsize);
     
       if(info.eventID == info.maxEvents) {
-        return false;
+        // here we are done -- send an empty message to digitizer to tell him that he can stop
+    	FairMQParts final;
+    	final.AddPart(NewSimpleMessage(info));
+    	Send(final, "itsdigitizerchannel");
+    	return false;
       }
     }
     return true;
