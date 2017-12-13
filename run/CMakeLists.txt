@@ -6,6 +6,7 @@ Set(Exe_Names
   O2PrimaryServerDeviceRunner
   O2HitMergerRunner
   O2ITSDigitizerDeviceRunner
+  O2RunSystem
 )
 
 Set(Exe_Source
@@ -15,6 +16,7 @@ Set(Exe_Source
   O2PrimaryServerDeviceRunner.cxx
   O2HitMergerRunner.cxx
   O2ITSDigitizerDeviceRunner.cxx
+  O2RunSystem.cxx
 )
 
 set(BUCKET_NAME "run_bucket")
