@@ -1,0 +1,41 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/macro/run_digi_tpc.C" name="/home/travis/build/AliceO2Group/AliceO2/macro/run_digi_tpc.C">
+<area shape="rect" id="node13" href="$db/d4b/MagneticField_8h.html" title="Definition of the MagF class. " alt="" coords="428,416,575,443"/>
+<area shape="rect" id="node28" href="$dd/d4b/TPC_2simulation_2include_2TPCSimulation_2DigitizerTask_8h.html" title="TPCSimulation/DigitizerTask.h" alt="" coords="1628,109,1831,136"/>
+<area shape="rect" id="node15" href="$d3/d91/MagFieldParam_8h.html" title="Definition of the MagFieldParam: container for ALICE mag. field parameters. " alt="" coords="94,499,249,525"/>
+<area shape="rect" id="node17" href="$dd/dfb/MagneticWrapperChebyshev_8h.html" title="Field/MagneticWrapperChebyshev.h" alt="" coords="433,499,665,525"/>
+<area shape="rect" id="node24" href="$da/df4/MagFieldFast_8h.html" title="Definition of the fast magnetic field parametrization MagFieldFast. " alt="" coords="691,499,835,525"/>
+<area shape="rect" id="node21" href="$d8/d64/Chebyshev3D_8h.html" title="MathUtils/Chebyshev3D.h" alt="" coords="576,573,752,600"/>
+<area shape="rect" id="node23" href="$d4/d08/Chebyshev3DCalc_8h.html" title="MathUtils/Chebyshev3DCalc.h" alt="" coords="744,656,947,683"/>
+<area shape="rect" id="node30" href="$de/d92/TPC_2simulation_2include_2TPCSimulation_2Digitizer_8h.html" title="TPCSimulation/Digitizer.h" alt="" coords="2447,184,2620,211"/>
+<area shape="rect" id="node45" href="$d3/dd6/Sector_8h.html" title="TPCBase/Sector.h" alt="" coords="2209,821,2340,848"/>
+<area shape="rect" id="node54" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="1235,649,1387,690"/>
+<area shape="rect" id="node31" href="$dd/d94/DigitContainer_8h.html" title="Definition of the Digit Container. " alt="" coords="2105,259,2313,285"/>
+<area shape="rect" id="node63" href="$d7/d2c/Mapper_8h.html" title="TPCBase/Mapper.h" alt="" coords="2310,499,2447,525"/>
+<area shape="rect" id="node74" href="$d7/d0f/PadResponse_8h.html" title="Definition of the Pad Response. " alt="" coords="2430,259,2636,285"/>
+<area shape="rect" id="node76" href="$d4/de5/Point_8h.html" title="Class for TPC Point. " alt="" coords="3017,573,3171,600"/>
+<area shape="rect" id="node78" href="$db/dad/ParameterDetector_8h.html" title="Definition of the parameter class for the detector. " alt="" coords="3087,333,3291,360"/>
+<area shape="rect" id="node79" href="$d3/d47/ParameterElectronics_8h.html" title="Definition of the parameter class for the detector electronics. " alt="" coords="2760,333,2979,360"/>
+<area shape="rect" id="node80" href="$db/d5b/ParameterGas_8h.html" title="Definition of the parameter class for the detector gas. " alt="" coords="2916,259,3095,285"/>
+<area shape="rect" id="node32" href="$df/d26/CRU_8h.html" title="TPCBase/CRU.h" alt="" coords="2203,656,2327,683"/>
+<area shape="rect" id="node48" href="$d6/d95/DigitCRU_8h.html" title="Definition of the CRU container. " alt="" coords="1918,333,2100,360"/>
+<area shape="rect" id="node62" href="$d6/dba/CommonModeContainer_8h.html" title="Definition of the Common Mode computation. " alt="" coords="2009,409,2207,450"/>
+<area shape="rect" id="node33" href="$d1/d73/Defs_8h.html" title="Common definitions for 2D coordinates. " alt="" coords="2668,912,2791,939"/>
+<area shape="rect" id="node47" href="$dc/d14/ROC_8h.html" title="TPCBase/ROC.h" alt="" coords="2301,739,2424,765"/>
+<area shape="rect" id="node35" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="2646,1077,2812,1104"/>
+<area shape="rect" id="node38" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="3161,995,3327,1021"/>
+<area shape="rect" id="node46" href="$d6/d51/TPC_2base_2include_2TPCBase_2Constants_8h.html" title="TPCBase/Constants.h" alt="" coords="2197,912,2351,939"/>
+<area shape="rect" id="node49" href="$d0/d60/DigitTime_8h.html" title="Definition of the Time Bin container. " alt="" coords="1753,416,1935,443"/>
+<area shape="rect" id="node50" href="$de/dc8/DigitRow_8h.html" title="Definition of the Row container. " alt="" coords="1551,499,1729,525"/>
+<area shape="rect" id="node51" href="$d3/d5d/DigitPad_8h.html" title="Definition of the Pad container. " alt="" coords="1553,573,1727,600"/>
+<area shape="rect" id="node59" href="$df/db1/TPC_2base_2include_2TPCBase_2Digit_8h.html" title="TPCBase/Digit.h" alt="" coords="1803,573,1924,600"/>
+<area shape="rect" id="node61" href="$dd/df5/DigitMCMetaData_8h.html" title="Definition of the Meta Data object of the Monte Carlo Digit. " alt="" coords="1502,814,1692,855"/>
+<area shape="rect" id="node58" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="1717,814,1869,855"/>
+<area shape="rect" id="node66" href="$de/d41/PadPos_8h.html" title="TPCBase/PadPos.h" alt="" coords="2551,739,2691,765"/>
+<area shape="rect" id="node67" href="$dd/d0b/PadSecPos_8h.html" title="TPCBase/PadSecPos.h" alt="" coords="2352,656,2515,683"/>
+<area shape="rect" id="node68" href="$da/d61/PadROCPos_8h.html" title="TPCBase/PadROCPos.h" alt="" coords="2640,656,2811,683"/>
+<area shape="rect" id="node69" href="$d3/d54/DigitPos_8h.html" title="TPCBase/DigitPos.h" alt="" coords="2304,573,2448,600"/>
+<area shape="rect" id="node70" href="$d1/d1f/FECInfo_8h.html" title="TPCBase/FECInfo.h" alt="" coords="2314,995,2456,1021"/>
+<area shape="rect" id="node71" href="$da/d9d/PadRegionInfo_8h.html" title="TPCBase/PadRegionInfo.h" alt="" coords="2762,573,2941,600"/>
+<area shape="rect" id="node72" href="$d6/d42/PartitionInfo_8h.html" title="TPCBase/PartitionInfo.h" alt="" coords="2574,573,2737,600"/>
+<area shape="rect" id="node77" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="3167,905,3319,946"/>
+</map>

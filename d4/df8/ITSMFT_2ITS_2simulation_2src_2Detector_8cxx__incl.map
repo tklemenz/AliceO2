@@ -1,0 +1,22 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/ITS/simulation/src/Detector.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/ITS/simulation/src/Detector.cxx">
+<area shape="rect" id="node2" href="$d3/dba/SegmentationAlpide_8h.html" title="Definition of the SegmentationAlpide class. " alt="" coords="5,208,235,235"/>
+<area shape="rect" id="node4" href="$d0/dae/ITSMFT_2common_2simulation_2include_2ITSMFTSimulation_2Hit_8h.html" title="ITSMFTSimulation/Hit.h" alt="" coords="603,299,765,325"/>
+<area shape="rect" id="node19" href="$df/d9a/ITS_2base_2include_2ITSBase_2GeometryTGeo_8h.html" title="ITSBase/GeometryTGeo.h" alt="" coords="2661,125,2837,152"/>
+<area shape="rect" id="node42" href="$d6/d8d/ITSMFT_2ITS_2simulation_2include_2ITSSimulation_2Detector_8h.html" title="ITSSimulation/Detector.h" alt="" coords="1049,208,1217,235"/>
+<area shape="rect" id="node52" href="$db/d28/V3Layer_8h.html" title="Definition of the V3Layer class. " alt="" coords="1173,125,1339,152"/>
+<area shape="rect" id="node54" href="$d8/d2f/MisalignmentParameter_8h.html" title="Definition of the MisalignmentParameter class. " alt="" coords="1941,208,2165,235"/>
+<area shape="rect" id="node56" href="$dc/db6/Stack_8h.html" title="Definition of the Stack class. " alt="" coords="1639,201,1791,242"/>
+<area shape="rect" id="node5" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="861,382,1013,423"/>
+<area shape="rect" id="node17" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="447,473,599,514"/>
+<area shape="rect" id="node6" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="3007,480,3173,507"/>
+<area shape="rect" id="node13" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="2335,571,2501,597"/>
+<area shape="rect" id="node24" href="$d6/d31/DetID_8h.html" title="DetectorsBase/DetID.h" alt="" coords="2774,389,2932,416"/>
+<area shape="rect" id="node29" href="$d9/ded/Utils_8h.html" title="DetectorsBase/Utils.h" alt="" coords="3918,480,4068,507"/>
+<area shape="rect" id="node32" href="$db/dcc/Detectors_2Base_2include_2DetectorsBase_2GeometryManager_8h.html" title="DetectorsBase/GeometryManager.h" alt="" coords="3299,299,3529,325"/>
+<area shape="rect" id="node39" href="$d0/d2d/common_2base_2include_2ITSMFTBase_2GeometryTGeo_8h.html" title="ITSMFTBase/GeometryTGeo.h" alt="" coords="2851,208,3055,235"/>
+<area shape="rect" id="node30" href="$d1/daa/Base_2include_2DetectorsBase_2Constants_8h.html" title="DetectorsBase/Constants.h" alt="" coords="3904,571,4088,597"/>
+<area shape="rect" id="node40" href="$d4/d20/DetMatrixCache_8h.html" title="DetectorsBase/DetMatrixCache.h" alt="" coords="3005,299,3224,325"/>
+<area shape="rect" id="node43" href="$d1/d3a/Base_2include_2DetectorsBase_2Detector_8h.html" title="DetectorsBase/Detector.h" alt="" coords="841,299,1015,325"/>
+<area shape="rect" id="node53" href="$d1/d2f/V11Geometry_8h.html" title="Definition of the V11Geometry class. " alt="" coords="2463,299,2661,325"/>
+<area shape="rect" id="node58" href="$d2/de2/MCTrack_8h.html" title="Definition of the MCTrack class. " alt="" coords="1971,291,2123,333"/>
+</map>

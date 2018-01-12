@@ -1,0 +1,17 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/macro/run_digi_mft.C" name="/home/travis/build/AliceO2Group/AliceO2/macro/run_digi_mft.C">
+<area shape="rect" id="node10" href="$dd/d11/ITSMFT_2MFT_2simulation_2include_2MFTSimulation_2DigitizerTask_8h.html" title="MFTSimulation/DigitizerTask.h" alt="" coords="851,109,1053,136"/>
+<area shape="rect" id="node14" href="$df/d29/DigiParams_8h.html" title="Simulation parameters for the ALIPIDE chip. " alt="" coords="761,267,975,293"/>
+<area shape="rect" id="node15" href="$d7/d9c/ITSMFT_2common_2simulation_2include_2ITSMFTSimulation_2Digitizer_8h.html" title="ITSMFTSimulation/Digitizer.h" alt="" coords="1356,184,1551,211"/>
+<area shape="rect" id="node19" href="$d7/d9e/SimulationAlpide_8h.html" title="Simulation of the ALIPIDE chip response. " alt="" coords="1198,259,1393,301"/>
+<area shape="rect" id="node38" href="$dc/d1a/AlpideSimResponse_8h.html" title="Definition of the ITSMFT Alpide simulated response parametrization. " alt="" coords="1657,350,1852,391"/>
+<area shape="rect" id="node41" href="$d0/d2d/common_2base_2include_2ITSMFTBase_2GeometryTGeo_8h.html" title="ITSMFTBase/GeometryTGeo.h" alt="" coords="1513,267,1716,293"/>
+<area shape="rect" id="node20" href="$d9/d55/Chip_8h.html" title="ITSMFTSimulation/Chip.h" alt="" coords="899,357,1072,384"/>
+<area shape="rect" id="node23" href="$d0/d06/ITSMFT_2common_2base_2include_2ITSMFTBase_2Digit_8h.html" title="ITSMFTBase/Digit.h" alt="" coords="586,440,728,467"/>
+<area shape="rect" id="node25" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="93,515,245,557"/>
+<area shape="rect" id="node27" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="1550,440,1716,467"/>
+<area shape="rect" id="node34" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="2271,523,2437,549"/>
+<area shape="rect" id="node42" href="$d4/d20/DetMatrixCache_8h.html" title="DetectorsBase/DetMatrixCache.h" alt="" coords="1927,357,2145,384"/>
+<area shape="rect" id="node43" href="$d6/d31/DetID_8h.html" title="DetectorsBase/DetID.h" alt="" coords="2558,440,2716,467"/>
+<area shape="rect" id="node48" href="$d9/ded/Utils_8h.html" title="DetectorsBase/Utils.h" alt="" coords="2823,523,2973,549"/>
+<area shape="rect" id="node49" href="$d1/daa/Base_2include_2DetectorsBase_2Constants_8h.html" title="DetectorsBase/Constants.h" alt="" coords="2812,613,2996,640"/>
+</map>

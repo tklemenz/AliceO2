@@ -1,0 +1,4 @@
+<map id="o2::DataFormat::TPC::ClusterHardwareContainer" name="o2::DataFormat::TPC::ClusterHardwareContainer">
+<area shape="rect" id="node5" href="$df/d9e/structo2_1_1DataFormat_1_1TPC_1_1ClusterHardware.html" title="{o2::DataFormat::TPC\l::ClusterHardware\n||+ getPad()\l+ getTimeLocal()\l+ getSigmaPad2()\l+ getSigmaTime2()\l}" alt="" coords="265,189,412,325"/>
+<area shape="rect" id="node6" href="$d4/dc3/classfloat.html" title="{float\n||}" alt="" coords="269,5,315,83"/>
+</map>

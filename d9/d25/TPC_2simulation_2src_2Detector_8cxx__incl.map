@@ -1,0 +1,17 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/TPC/simulation/src/Detector.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/TPC/simulation/src/Detector.cxx">
+<area shape="rect" id="node2" href="$da/d96/TPC_2simulation_2include_2TPCSimulation_2Detector_8h.html" title="TPCSimulation/Detector.h" alt="" coords="766,133,940,160"/>
+<area shape="rect" id="node16" href="$d4/de5/Point_8h.html" title="Class for TPC Point. " alt="" coords="405,224,559,251"/>
+<area shape="rect" id="node33" href="$db/d5b/ParameterGas_8h.html" title="Definition of the parameter class for the detector gas. " alt="" coords="3109,397,3288,424"/>
+<area shape="rect" id="node35" href="$dc/db6/Stack_8h.html" title="Definition of the Stack class. " alt="" coords="1975,126,2127,167"/>
+<area shape="rect" id="node3" href="$d1/d3a/Base_2include_2DetectorsBase_2Detector_8h.html" title="DetectorsBase/Detector.h" alt="" coords="1169,224,1343,251"/>
+<area shape="rect" id="node29" href="$d3/dd6/Sector_8h.html" title="TPCBase/Sector.h" alt="" coords="585,224,716,251"/>
+<area shape="rect" id="node17" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="204,307,356,349"/>
+<area shape="rect" id="node18" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="546,397,712,424"/>
+<area shape="rect" id="node25" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="1405,480,1571,507"/>
+<area shape="rect" id="node30" href="$d6/d51/TPC_2base_2include_2TPCBase_2Constants_8h.html" title="TPCBase/Constants.h" alt="" coords="380,315,533,341"/>
+<area shape="rect" id="node31" href="$d1/d73/Defs_8h.html" title="Common definitions for 2D coordinates. " alt="" coords="641,315,764,341"/>
+<area shape="rect" id="node37" href="$d2/de2/MCTrack_8h.html" title="Definition of the MCTrack class. " alt="" coords="2141,217,2293,258"/>
+<area shape="rect" id="node40" href="$d6/d31/DetID_8h.html" title="DetectorsBase/DetID.h" alt="" coords="2649,315,2807,341"/>
+<area shape="rect" id="node44" href="$d9/ded/Utils_8h.html" title="DetectorsBase/Utils.h" alt="" coords="2883,397,3033,424"/>
+<area shape="rect" id="node45" href="$d1/daa/Base_2include_2DetectorsBase_2Constants_8h.html" title="DetectorsBase/Constants.h" alt="" coords="2867,480,3051,507"/>
+</map>

@@ -1,0 +1,17 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/MFT/macros/run_digi.C" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/MFT/macros/run_digi.C">
+<area shape="rect" id="node10" href="$dd/d11/ITSMFT_2MFT_2simulation_2include_2MFTSimulation_2DigitizerTask_8h.html" title="MFTSimulation/DigitizerTask.h" alt="" coords="851,125,1053,152"/>
+<area shape="rect" id="node14" href="$df/d29/DigiParams_8h.html" title="Simulation parameters for the ALIPIDE chip. " alt="" coords="761,283,975,309"/>
+<area shape="rect" id="node15" href="$d7/d9c/ITSMFT_2common_2simulation_2include_2ITSMFTSimulation_2Digitizer_8h.html" title="ITSMFTSimulation/Digitizer.h" alt="" coords="1356,200,1551,227"/>
+<area shape="rect" id="node19" href="$d7/d9e/SimulationAlpide_8h.html" title="Simulation of the ALIPIDE chip response. " alt="" coords="1198,275,1393,317"/>
+<area shape="rect" id="node38" href="$dc/d1a/AlpideSimResponse_8h.html" title="Definition of the ITSMFT Alpide simulated response parametrization. " alt="" coords="1657,366,1852,407"/>
+<area shape="rect" id="node41" href="$d0/d2d/common_2base_2include_2ITSMFTBase_2GeometryTGeo_8h.html" title="ITSMFTBase/GeometryTGeo.h" alt="" coords="1513,283,1716,309"/>
+<area shape="rect" id="node20" href="$d9/d55/Chip_8h.html" title="ITSMFTSimulation/Chip.h" alt="" coords="899,373,1072,400"/>
+<area shape="rect" id="node23" href="$d0/d06/ITSMFT_2common_2base_2include_2ITSMFTBase_2Digit_8h.html" title="ITSMFTBase/Digit.h" alt="" coords="586,456,728,483"/>
+<area shape="rect" id="node25" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="93,531,245,573"/>
+<area shape="rect" id="node27" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="1550,456,1716,483"/>
+<area shape="rect" id="node34" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="2271,539,2437,565"/>
+<area shape="rect" id="node42" href="$d4/d20/DetMatrixCache_8h.html" title="DetectorsBase/DetMatrixCache.h" alt="" coords="1927,373,2145,400"/>
+<area shape="rect" id="node43" href="$d6/d31/DetID_8h.html" title="DetectorsBase/DetID.h" alt="" coords="2558,456,2716,483"/>
+<area shape="rect" id="node48" href="$d9/ded/Utils_8h.html" title="DetectorsBase/Utils.h" alt="" coords="2823,539,2973,565"/>
+<area shape="rect" id="node49" href="$d1/daa/Base_2include_2DetectorsBase_2Constants_8h.html" title="DetectorsBase/Constants.h" alt="" coords="2812,629,2996,656"/>
+</map>

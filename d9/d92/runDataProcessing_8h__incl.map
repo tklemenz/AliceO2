@@ -1,0 +1,27 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Framework/Core/include/Framework/runDataProcessing.h" name="/home/travis/build/AliceO2Group/AliceO2/Framework/Core/include/Framework/runDataProcessing.h">
+<area shape="rect" id="node2" href="$df/da1/WorkflowSpec_8h.html" title="Framework/WorkflowSpec.h" alt="" coords="2516,125,2703,152"/>
+<area shape="rect" id="node3" href="$d0/df4/DataProcessorSpec_8h.html" title="Framework/DataProcessorSpec.h" alt="" coords="2369,200,2588,227"/>
+<area shape="rect" id="node45" href="$d0/d14/AlgorithmSpec_8h.html" title="Framework/AlgorithmSpec.h" alt="" coords="3160,275,3347,301"/>
+<area shape="rect" id="node4" href="$d5/d3f/InputSpec_8h.html" title="Framework/InputSpec.h" alt="" coords="2631,573,2792,600"/>
+<area shape="rect" id="node12" href="$db/d2d/OutputSpec_8h.html" title="Framework/OutputSpec.h" alt="" coords="3060,573,3231,600"/>
+<area shape="rect" id="node13" href="$d0/d1c/ConfigParamSpec_8h.html" title="Framework/ConfigParamSpec.h" alt="" coords="280,424,488,451"/>
+<area shape="rect" id="node21" href="$d5/dfb/DataRef_8h.html" title="Framework/DataRef.h" alt="" coords="4145,573,4295,600"/>
+<area shape="rect" id="node22" href="$d1/d28/DataAllocator_8h.html" title="Framework/DataAllocator.h" alt="" coords="2031,424,2212,451"/>
+<area shape="rect" id="node6" href="$dc/dcd/DataHeader_8h.html" title="Headers/DataHeader.h" alt="" coords="2945,648,3100,675"/>
+<area shape="rect" id="node14" href="$de/d56/Variant_8h.html" title="Framework/Variant.h" alt="" coords="243,499,385,525"/>
+<area shape="rect" id="node24" href="$d6/df4/OutputRoute_8h.html" title="Framework/OutputRoute.h" alt="" coords="2809,499,2985,525"/>
+<area shape="rect" id="node26" href="$d7/d31/DataChunk_8h.html" title="Framework/DataChunk.h" alt="" coords="1561,499,1729,525"/>
+<area shape="rect" id="node27" href="$dc/dc4/MessageContext_8h.html" title="Framework/MessageContext.h" alt="" coords="853,499,1053,525"/>
+<area shape="rect" id="node30" href="$d2/d80/RootObjectContext_8h.html" title="Framework/RootObjectContext.h" alt="" coords="614,499,828,525"/>
+<area shape="rect" id="node33" href="$d8/d3c/TMessageSerializer_8h.html" title="Framework/TMessageSerializer.h" alt="" coords="3903,573,4120,600"/>
+<area shape="rect" id="node41" href="$d0/d95/TypeTraits_8h.html" title="Framework/TypeTraits.h" alt="" coords="2125,499,2288,525"/>
+<area shape="rect" id="node46" href="$de/d6a/ProcessingContext_8h.html" title="Framework/ProcessingContext.h" alt="" coords="3249,349,3463,376"/>
+<area shape="rect" id="node58" href="$d7/dad/ErrorContext_8h.html" title="Framework/ErrorContext.h" alt="" coords="3487,349,3663,376"/>
+<area shape="rect" id="node59" href="$d4/d2b/InitContext_8h.html" title="Framework/InitContext.h" alt="" coords="3058,349,3224,376"/>
+<area shape="rect" id="node47" href="$d6/d5c/InputRecord_8h.html" title="Framework/InputRecord.h" alt="" coords="3508,424,3681,451"/>
+<area shape="rect" id="node54" href="$d8/d17/ServiceRegistry_8h.html" title="Framework/ServiceRegistry.h" alt="" coords="3239,424,3433,451"/>
+<area shape="rect" id="node48" href="$d5/db8/DataRefUtils_8h.html" title="Framework/DataRefUtils.h" alt="" coords="3847,499,4025,525"/>
+<area shape="rect" id="node51" href="$d5/d19/InputRoute_8h.html" title="Framework/InputRoute.h" alt="" coords="2618,499,2784,525"/>
+<area shape="rect" id="node60" href="$de/dc6/ConfigParamRegistry_8h.html" title="Framework/ConfigParamRegistry.h" alt="" coords="2721,424,2948,451"/>
+<area shape="rect" id="node61" href="$df/d72/ParamRetriever_8h.html" title="Framework/ParamRetriever.h" alt="" coords="1805,499,1997,525"/>
+</map>

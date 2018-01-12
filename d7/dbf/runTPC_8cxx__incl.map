@@ -1,0 +1,45 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/run/runTPC.cxx" name="/home/travis/build/AliceO2Group/AliceO2/run/runTPC.cxx">
+<area shape="rect" id="node5" href="$d7/d08/run__sim__tpc_8C.html" title="../macro/run_sim_tpc.C" alt="" coords="1031,109,1189,136"/>
+<area shape="rect" id="node52" href="$d3/db7/run__digi__tpc_8C.html" title="../macro/run_digi_tpc.C" alt="" coords="2037,109,2195,136"/>
+<area shape="rect" id="node70" href="$df/d9b/run__clus__tpc_8C.html" title="../macro/run_clus_tpc.C" alt="" coords="2511,109,2673,136"/>
+<area shape="rect" id="node82" href="$d1/d27/runCATracking_8C.html" title="../Detectors/TPC/reconstruction\l/macro/runCATracking.C" alt="" coords="5169,275,5377,317"/>
+<area shape="rect" id="node18" href="$db/d4b/MagneticField_8h.html" title="Definition of the MagF class. " alt="" coords="1199,192,1345,219"/>
+<area shape="rect" id="node31" href="$d9/d6d/Cave_8h.html" title="DetectorsPassive/Cave.h" alt="" coords="93,448,264,475"/>
+<area shape="rect" id="node35" href="$de/daf/GeneratorFromFile_8h.html" title="Generators/GeneratorFrom\lFile.h" alt="" coords="223,185,400,226"/>
+<area shape="rect" id="node37" href="$da/d96/TPC_2simulation_2include_2TPCSimulation_2Detector_8h.html" title="TPCSimulation/Detector.h" alt="" coords="333,365,507,392"/>
+<area shape="rect" id="node20" href="$d3/d91/MagFieldParam_8h.html" title="Definition of the MagFieldParam: container for ALICE mag. field parameters. " alt="" coords="710,283,865,309"/>
+<area shape="rect" id="node22" href="$dd/dfb/MagneticWrapperChebyshev_8h.html" title="Field/MagneticWrapperChebyshev.h" alt="" coords="1361,283,1593,309"/>
+<area shape="rect" id="node28" href="$da/df4/MagFieldFast_8h.html" title="Definition of the fast magnetic field parametrization MagFieldFast. " alt="" coords="1687,448,1831,475"/>
+<area shape="rect" id="node25" href="$d8/d64/Chebyshev3D_8h.html" title="MathUtils/Chebyshev3D.h" alt="" coords="1284,365,1460,392"/>
+<area shape="rect" id="node27" href="$d4/d08/Chebyshev3DCalc_8h.html" title="MathUtils/Chebyshev3DCalc.h" alt="" coords="1207,448,1409,475"/>
+<area shape="rect" id="node38" href="$d1/d3a/Base_2include_2DetectorsBase_2Detector_8h.html" title="DetectorsBase/Detector.h" alt="" coords="487,448,661,475"/>
+<area shape="rect" id="node45" href="$d4/de5/Point_8h.html" title="Class for TPC Point. " alt="" coords="2339,448,2492,475"/>
+<area shape="rect" id="node48" href="$d3/dd6/Sector_8h.html" title="TPCBase/Sector.h" alt="" coords="2747,539,2879,565"/>
+<area shape="rect" id="node46" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="3296,622,3448,663"/>
+<area shape="rect" id="node47" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="4135,712,4301,739"/>
+<area shape="rect" id="node49" href="$d6/d51/TPC_2base_2include_2TPCBase_2Constants_8h.html" title="TPCBase/Constants.h" alt="" coords="3628,629,3781,656"/>
+<area shape="rect" id="node50" href="$d1/d73/Defs_8h.html" title="Common definitions for 2D coordinates. " alt="" coords="3481,629,3604,656"/>
+<area shape="rect" id="node56" href="$dd/d4b/TPC_2simulation_2include_2TPCSimulation_2DigitizerTask_8h.html" title="TPCSimulation/DigitizerTask.h" alt="" coords="2084,192,2287,219"/>
+<area shape="rect" id="node58" href="$de/d92/TPC_2simulation_2include_2TPCSimulation_2Digitizer_8h.html" title="TPCSimulation/Digitizer.h" alt="" coords="2099,283,2272,309"/>
+<area shape="rect" id="node66" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="4149,441,4301,482"/>
+<area shape="rect" id="node59" href="$dd/d94/DigitContainer_8h.html" title="Definition of the Digit Container. " alt="" coords="2143,365,2351,392"/>
+<area shape="rect" id="node60" href="$d7/d0f/PadResponse_8h.html" title="Definition of the Pad Response. " alt="" coords="2426,365,2632,392"/>
+<area shape="rect" id="node61" href="$d7/d2c/Mapper_8h.html" title="TPCBase/Mapper.h" alt="" coords="2546,448,2683,475"/>
+<area shape="rect" id="node63" href="$db/dad/ParameterDetector_8h.html" title="Definition of the parameter class for the detector. " alt="" coords="1863,629,2067,656"/>
+<area shape="rect" id="node64" href="$d3/d47/ParameterElectronics_8h.html" title="Definition of the parameter class for the detector electronics. " alt="" coords="2092,629,2311,656"/>
+<area shape="rect" id="node65" href="$db/d5b/ParameterGas_8h.html" title="Definition of the parameter class for the detector gas. " alt="" coords="2335,629,2513,656"/>
+<area shape="rect" id="node71" href="$de/d64/TPC_2reconstruction_2include_2TPCReconstruction_2ClustererTask_8h.html" title="TPCReconstruction/Clusterer\lTask.h" alt="" coords="3237,185,3432,226"/>
+<area shape="rect" id="node72" href="$db/db1/TPC_2reconstruction_2include_2TPCReconstruction_2Clusterer_8h.html" title="TPCReconstruction/Clusterer.h" alt="" coords="3679,365,3884,392"/>
+<area shape="rect" id="node73" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="3265,441,3417,482"/>
+<area shape="rect" id="node74" href="$d2/df8/BoxClusterer_8h.html" title="Class for TPC cluster finding. " alt="" coords="3321,283,3548,309"/>
+<area shape="rect" id="node79" href="$de/df6/HwClusterer_8h.html" title="Class for TPC HW cluster finding. " alt="" coords="3859,283,4084,309"/>
+<area shape="rect" id="node75" href="$d6/d6f/TPC_2reconstruction_2include_2TPCReconstruction_2Cluster_8h.html" title="TPCReconstruction/Cluster.h" alt="" coords="4601,448,4796,475"/>
+<area shape="rect" id="node78" href="$d8/d81/CalDet_8h.html" title="TPCBase/CalDet.h" alt="" coords="3367,365,3501,392"/>
+<area shape="rect" id="node89" href="$df/d30/TPCCATracking_8h.html" title="Decoder to convert TPC ClusterHardware to ClusterNative. " alt="" coords="4567,365,4813,392"/>
+<area shape="rect" id="node91" href="$d5/dc9/TrackTPC_8h.html" title="TPCReconstruction/TrackTPC.h" alt="" coords="4990,365,5201,392"/>
+<area shape="rect" id="node92" href="$d7/d65/Detectors_2Base_2include_2DetectorsBase_2Track_8h.html" title="DetectorsBase/Track.h" alt="" coords="4952,539,5109,565"/>
+<area shape="rect" id="node90" href="$de/dcd/ClusterNative_8h.html" title="Class of a TPC cluster in TPC&#45;native coordinates (row, time) " alt="" coords="4871,448,5091,475"/>
+<area shape="rect" id="node98" href="$d4/de2/BaseCluster_8h.html" title="DetectorsBase/BaseCluster.h" alt="" coords="4551,629,4747,656"/>
+<area shape="rect" id="node99" href="$d1/daa/Base_2include_2DetectorsBase_2Constants_8h.html" title="DetectorsBase/Constants.h" alt="" coords="4377,712,4561,739"/>
+<area shape="rect" id="node100" href="$d9/ded/Utils_8h.html" title="DetectorsBase/Utils.h" alt="" coords="3909,629,4059,656"/>
+</map>

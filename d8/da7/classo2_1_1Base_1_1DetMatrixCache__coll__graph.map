@@ -1,0 +1,6 @@
+<map id="o2::Base::DetMatrixCache" name="o2::Base::DetMatrixCache">
+<area shape="rect" id="node2" href="$db/d0d/classo2_1_1Base_1_1MatrixCache.html" title="{o2::Base::MatrixCache\l\&lt; o2::Base::Transform3D \&gt;\n||+ MatrixCache()\l+ MatrixCache()\l+ ~MatrixCache()\l+ operator=()\l+ setSize()\l+ getSize()\l+ setMatrix()\l+ getMatrix()\l+ isFilled()\l}" alt="" coords="5,447,187,657"/>
+<area shape="rect" id="node3" href="$db/d0d/classo2_1_1Base_1_1MatrixCache.html" title="MatrixCache is a vector of cached transform matrices (per sensor) for specific Transformation type..." alt="" coords="99,5,287,200"/>
+<area shape="rect" id="node4" href="$db/d0d/classo2_1_1Base_1_1MatrixCache.html" title="{o2::Base::MatrixCache\l\&lt; o2::Base::Rotation2D \&gt;\n||+ MatrixCache()\l+ MatrixCache()\l+ ~MatrixCache()\l+ operator=()\l+ setSize()\l+ getSize()\l+ setMatrix()\l+ getMatrix()\l+ isFilled()\l}" alt="" coords="214,447,385,657"/>
+<area shape="rect" id="node5" href="$de/dee/classo2_1_1Base_1_1DetID.html" title="Static class with identifiers, bitmasks and names for ALICE detectors. " alt="" coords="413,411,539,693"/>
+</map>

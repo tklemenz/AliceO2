@@ -1,0 +1,25 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/TPC/simulation/include/TPCSimulation/DigitCRU.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/TPC/simulation/include/TPCSimulation/DigitCRU.h">
+<area shape="rect" id="node2" href="$d0/d60/DigitTime_8h.html" title="Definition of the Time Bin container. " alt="" coords="1659,133,1840,160"/>
+<area shape="rect" id="node18" href="$d6/dba/CommonModeContainer_8h.html" title="Definition of the Common Mode computation. " alt="" coords="1190,126,1388,167"/>
+<area shape="rect" id="node3" href="$de/dc8/DigitRow_8h.html" title="Definition of the Row container. " alt="" coords="1857,216,2036,243"/>
+<area shape="rect" id="node4" href="$d3/d5d/DigitPad_8h.html" title="Definition of the Pad container. " alt="" coords="2177,291,2351,317"/>
+<area shape="rect" id="node14" href="$df/db1/TPC_2base_2include_2TPCBase_2Digit_8h.html" title="TPCBase/Digit.h" alt="" coords="1886,291,2007,317"/>
+<area shape="rect" id="node16" href="$dd/df5/DigitMCMetaData_8h.html" title="Definition of the Meta Data object of the Monte Carlo Digit. " alt="" coords="1753,531,1943,573"/>
+<area shape="rect" id="node7" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="2093,366,2245,407"/>
+<area shape="rect" id="node12" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="2088,531,2240,573"/>
+<area shape="rect" id="node19" href="$dc/d14/ROC_8h.html" title="TPCBase/ROC.h" alt="" coords="614,456,737,483"/>
+<area shape="rect" id="node35" href="$d7/d2c/Mapper_8h.html" title="TPCBase/Mapper.h" alt="" coords="1221,216,1357,243"/>
+<area shape="rect" id="node20" href="$d1/d73/Defs_8h.html" title="Common definitions for 2D coordinates. " alt="" coords="927,621,1049,648"/>
+<area shape="rect" id="node33" href="$d3/dd6/Sector_8h.html" title="TPCBase/Sector.h" alt="" coords="510,539,641,565"/>
+<area shape="rect" id="node22" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="1309,779,1475,805"/>
+<area shape="rect" id="node25" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="875,696,1041,723"/>
+<area shape="rect" id="node34" href="$d6/d51/TPC_2base_2include_2TPCBase_2Constants_8h.html" title="TPCBase/Constants.h" alt="" coords="499,621,652,648"/>
+<area shape="rect" id="node39" href="$de/d41/PadPos_8h.html" title="TPCBase/PadPos.h" alt="" coords="865,456,1004,483"/>
+<area shape="rect" id="node40" href="$dd/d0b/PadSecPos_8h.html" title="TPCBase/PadSecPos.h" alt="" coords="473,373,636,400"/>
+<area shape="rect" id="node41" href="$da/d61/PadROCPos_8h.html" title="TPCBase/PadROCPos.h" alt="" coords="961,373,1132,400"/>
+<area shape="rect" id="node42" href="$d3/d54/DigitPos_8h.html" title="TPCBase/DigitPos.h" alt="" coords="743,291,887,317"/>
+<area shape="rect" id="node44" href="$d1/d1f/FECInfo_8h.html" title="TPCBase/FECInfo.h" alt="" coords="1446,621,1588,648"/>
+<area shape="rect" id="node45" href="$da/d9d/PadRegionInfo_8h.html" title="TPCBase/PadRegionInfo.h" alt="" coords="1135,291,1315,317"/>
+<area shape="rect" id="node46" href="$d6/d42/PartitionInfo_8h.html" title="TPCBase/PartitionInfo.h" alt="" coords="1646,291,1809,317"/>
+<area shape="rect" id="node43" href="$df/d26/CRU_8h.html" title="TPCBase/CRU.h" alt="" coords="661,373,784,400"/>
+</map>

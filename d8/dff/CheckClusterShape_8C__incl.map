@@ -1,0 +1,17 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/ITS/macros/test/CheckClusterShape.C" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/ITS/macros/test/CheckClusterShape.C">
+<area shape="rect" id="node8" href="$df/d9a/ITS_2base_2include_2ITSBase_2GeometryTGeo_8h.html" title="ITSBase/GeometryTGeo.h" alt="" coords="1671,125,1848,152"/>
+<area shape="rect" id="node43" href="$d3/dba/SegmentationAlpide_8h.html" title="Definition of the SegmentationAlpide class. " alt="" coords="2414,200,2644,227"/>
+<area shape="rect" id="node44" href="$d0/d06/ITSMFT_2common_2base_2include_2ITSMFTBase_2Digit_8h.html" title="ITSMFTBase/Digit.h" alt="" coords="2611,283,2753,309"/>
+<area shape="rect" id="node48" href="$d4/de5/Point_8h.html" title="Class for TPC Point. " alt="" coords="964,200,1117,227"/>
+<area shape="rect" id="node50" href="$d6/db4/ClusterShape_8h.html" title="Cluster shape class for the ALPIDE response simulation. " alt="" coords="502,275,679,317"/>
+<area shape="rect" id="node14" href="$d6/d31/DetID_8h.html" title="DetectorsBase/DetID.h" alt="" coords="2014,373,2172,400"/>
+<area shape="rect" id="node20" href="$d9/ded/Utils_8h.html" title="DetectorsBase/Utils.h" alt="" coords="2249,464,2399,491"/>
+<area shape="rect" id="node23" href="$db/dcc/Detectors_2Base_2include_2DetectorsBase_2GeometryManager_8h.html" title="DetectorsBase/GeometryManager.h" alt="" coords="1194,283,1424,309"/>
+<area shape="rect" id="node40" href="$d0/d2d/common_2base_2include_2ITSMFTBase_2GeometryTGeo_8h.html" title="ITSMFTBase/GeometryTGeo.h" alt="" coords="1849,200,2052,227"/>
+<area shape="rect" id="node21" href="$d1/daa/Base_2include_2DetectorsBase_2Constants_8h.html" title="DetectorsBase/Constants.h" alt="" coords="2356,555,2540,581"/>
+<area shape="rect" id="node30" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="1405,373,1571,400"/>
+<area shape="rect" id="node36" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="143,464,309,491"/>
+<area shape="rect" id="node41" href="$d4/d20/DetMatrixCache_8h.html" title="DetectorsBase/DetMatrixCache.h" alt="" coords="1993,283,2212,309"/>
+<area shape="rect" id="node46" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="2544,366,2696,407"/>
+<area shape="rect" id="node49" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="1449,275,1601,317"/>
+</map>

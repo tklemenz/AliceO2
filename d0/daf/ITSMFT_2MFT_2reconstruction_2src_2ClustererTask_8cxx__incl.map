@@ -1,0 +1,20 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/MFT/reconstruction/src/ClustererTask.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/MFT/reconstruction/src/ClustererTask.cxx">
+<area shape="rect" id="node2" href="$d9/d03/ITSMFT_2MFT_2base_2include_2MFTBase_2Constants_8h.html" title="MFTBase/Constants.h" alt="" coords="667,315,820,341"/>
+<area shape="rect" id="node4" href="$d6/d2e/ITSMFT_2MFT_2base_2include_2MFTBase_2Geometry_8h.html" title="MFTBase/Geometry.h" alt="" coords="1841,133,1991,160"/>
+<area shape="rect" id="node6" href="$d5/d61/EventHeader_8h.html" title="MFTSimulation/EventHeader.h" alt="" coords="147,133,348,160"/>
+<area shape="rect" id="node10" href="$db/d12/ITSMFT_2MFT_2reconstruction_2include_2MFTReconstruction_2ClustererTask_8h.html" title="MFTReconstruction/Clusterer\lTask.h" alt="" coords="712,126,907,167"/>
+<area shape="rect" id="node16" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="371,473,523,514"/>
+<area shape="rect" id="node50" href="$db/d14/MCTruthContainer_8h.html" title="Definition of a container to keep Monte Carlo truth external to simulation objects. " alt="" coords="2016,126,2168,167"/>
+<area shape="rect" id="node13" href="$df/d2e/PixelReader_8h.html" title="Definition of the ITS pixel reader. " alt="" coords="483,307,641,349"/>
+<area shape="rect" id="node18" href="$d6/d04/ITSMFT_2common_2reconstruction_2include_2ITSMFTReconstruction_2Clusterer_8h.html" title="ITSMFTReconstruction\l/Clusterer.h" alt="" coords="982,217,1140,258"/>
+<area shape="rect" id="node15" href="$d0/d06/ITSMFT_2common_2base_2include_2ITSMFTBase_2Digit_8h.html" title="ITSMFTBase/Digit.h" alt="" coords="262,397,404,424"/>
+<area shape="rect" id="node19" href="$dc/de1/ITSMFT_2common_2reconstruction_2include_2ITSMFTReconstruction_2Cluster_8h.html" title="ITSMFTReconstruction\l/Cluster.h" alt="" coords="1202,307,1360,349"/>
+<area shape="rect" id="node46" href="$d0/d2d/common_2base_2include_2ITSMFTBase_2GeometryTGeo_8h.html" title="ITSMFTBase/GeometryTGeo.h" alt="" coords="974,315,1177,341"/>
+<area shape="rect" id="node20" href="$d4/de2/BaseCluster_8h.html" title="DetectorsBase/BaseCluster.h" alt="" coords="1163,397,1359,424"/>
+<area shape="rect" id="node25" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="1051,563,1217,589"/>
+<area shape="rect" id="node35" href="$d4/d20/DetMatrixCache_8h.html" title="DetectorsBase/DetMatrixCache.h" alt="" coords="1496,480,1715,507"/>
+<area shape="rect" id="node32" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="201,645,367,672"/>
+<area shape="rect" id="node38" href="$d6/d31/DetID_8h.html" title="DetectorsBase/DetID.h" alt="" coords="1694,563,1852,589"/>
+<area shape="rect" id="node42" href="$d9/ded/Utils_8h.html" title="DetectorsBase/Utils.h" alt="" coords="2069,645,2219,672"/>
+<area shape="rect" id="node43" href="$d1/daa/Base_2include_2DetectorsBase_2Constants_8h.html" title="DetectorsBase/Constants.h" alt="" coords="2124,736,2308,763"/>
+</map>

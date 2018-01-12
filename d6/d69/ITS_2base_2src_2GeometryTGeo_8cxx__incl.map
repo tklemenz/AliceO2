@@ -1,0 +1,12 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/ITS/base/src/GeometryTGeo.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/ITS/base/src/GeometryTGeo.cxx">
+<area shape="rect" id="node2" href="$d3/dba/SegmentationAlpide_8h.html" title="Definition of the SegmentationAlpide class. " alt="" coords="5,200,235,227"/>
+<area shape="rect" id="node4" href="$df/d9a/ITS_2base_2include_2ITSBase_2GeometryTGeo_8h.html" title="ITSBase/GeometryTGeo.h" alt="" coords="730,125,907,152"/>
+<area shape="rect" id="node18" href="$db/dcc/Detectors_2Base_2include_2DetectorsBase_2GeometryManager_8h.html" title="DetectorsBase/GeometryManager.h" alt="" coords="1410,200,1640,227"/>
+<area shape="rect" id="node25" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="1290,349,1456,376"/>
+<area shape="rect" id="node10" href="$d6/d31/DetID_8h.html" title="DetectorsBase/DetID.h" alt="" coords="622,349,780,376"/>
+<area shape="rect" id="node15" href="$d9/ded/Utils_8h.html" title="DetectorsBase/Utils.h" alt="" coords="874,432,1024,459"/>
+<area shape="rect" id="node35" href="$d0/d2d/common_2base_2include_2ITSMFTBase_2GeometryTGeo_8h.html" title="ITSMFTBase/GeometryTGeo.h" alt="" coords="717,200,920,227"/>
+<area shape="rect" id="node16" href="$d1/daa/Base_2include_2DetectorsBase_2Constants_8h.html" title="DetectorsBase/Constants.h" alt="" coords="929,523,1113,549"/>
+<area shape="rect" id="node31" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="1533,432,1699,459"/>
+<area shape="rect" id="node36" href="$d4/d20/DetMatrixCache_8h.html" title="DetectorsBase/DetMatrixCache.h" alt="" coords="709,275,928,301"/>
+</map>

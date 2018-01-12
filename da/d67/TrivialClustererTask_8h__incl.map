@@ -1,0 +1,12 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/ITS/reconstruction/include/ITSReconstruction/TrivialClustererTask.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/ITS/reconstruction/include/ITSReconstruction/TrivialClustererTask.h">
+<area shape="rect" id="node3" href="$df/d9a/ITS_2base_2include_2ITSBase_2GeometryTGeo_8h.html" title="ITSBase/GeometryTGeo.h" alt="" coords="1255,163,1432,189"/>
+<area shape="rect" id="node38" href="$d1/d76/TrivialClusterer_8h.html" title="Definition of the ITS cluster finder. " alt="" coords="1947,155,2117,197"/>
+<area shape="rect" id="node9" href="$d6/d31/DetID_8h.html" title="DetectorsBase/DetID.h" alt="" coords="1029,395,1187,421"/>
+<area shape="rect" id="node15" href="$d9/ded/Utils_8h.html" title="DetectorsBase/Utils.h" alt="" coords="94,477,244,504"/>
+<area shape="rect" id="node18" href="$db/dcc/Detectors_2Base_2include_2DetectorsBase_2GeometryManager_8h.html" title="DetectorsBase/GeometryManager.h" alt="" coords="765,320,995,347"/>
+<area shape="rect" id="node35" href="$d0/d2d/common_2base_2include_2ITSMFTBase_2GeometryTGeo_8h.html" title="ITSMFTBase/GeometryTGeo.h" alt="" coords="1930,245,2133,272"/>
+<area shape="rect" id="node16" href="$d1/daa/Base_2include_2DetectorsBase_2Constants_8h.html" title="DetectorsBase/Constants.h" alt="" coords="5,568,189,595"/>
+<area shape="rect" id="node25" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="1461,395,1627,421"/>
+<area shape="rect" id="node31" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="2183,477,2349,504"/>
+<area shape="rect" id="node36" href="$d4/d20/DetMatrixCache_8h.html" title="DetectorsBase/DetMatrixCache.h" alt="" coords="1527,320,1745,347"/>
+</map>

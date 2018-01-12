@@ -1,0 +1,19 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/EMCAL/testsimulation/run_sim_emcal.C" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/EMCAL/testsimulation/run_sim_emcal.C">
+<area shape="rect" id="node16" href="$db/d4b/MagneticField_8h.html" title="Definition of the MagF class. " alt="" coords="2073,133,2220,160"/>
+<area shape="rect" id="node29" href="$d9/d6d/Cave_8h.html" title="DetectorsPassive/Cave.h" alt="" coords="822,216,993,243"/>
+<area shape="rect" id="node33" href="$de/daf/GeneratorFromFile_8h.html" title="Generators/GeneratorFrom\lFile.h" alt="" coords="4199,126,4376,167"/>
+<area shape="rect" id="node35" href="$da/d96/TPC_2simulation_2include_2TPCSimulation_2Detector_8h.html" title="TPCSimulation/Detector.h" alt="" coords="1413,133,1587,160"/>
+<area shape="rect" id="node18" href="$d3/d91/MagFieldParam_8h.html" title="Definition of the MagFieldParam: container for ALICE mag. field parameters. " alt="" coords="2069,216,2224,243"/>
+<area shape="rect" id="node20" href="$dd/dfb/MagneticWrapperChebyshev_8h.html" title="Field/MagneticWrapperChebyshev.h" alt="" coords="2407,216,2640,243"/>
+<area shape="rect" id="node26" href="$da/df4/MagFieldFast_8h.html" title="Definition of the fast magnetic field parametrization MagFieldFast. " alt="" coords="1799,216,1943,243"/>
+<area shape="rect" id="node23" href="$d8/d64/Chebyshev3D_8h.html" title="MathUtils/Chebyshev3D.h" alt="" coords="2385,299,2561,325"/>
+<area shape="rect" id="node25" href="$d4/d08/Chebyshev3DCalc_8h.html" title="MathUtils/Chebyshev3DCalc.h" alt="" coords="2497,381,2700,408"/>
+<area shape="rect" id="node36" href="$d1/d3a/Base_2include_2DetectorsBase_2Detector_8h.html" title="DetectorsBase/Detector.h" alt="" coords="1239,216,1413,243"/>
+<area shape="rect" id="node43" href="$d4/de5/Point_8h.html" title="Class for TPC Point. " alt="" coords="643,216,796,243"/>
+<area shape="rect" id="node55" href="$d3/dd6/Sector_8h.html" title="TPCBase/Sector.h" alt="" coords="357,216,488,243"/>
+<area shape="rect" id="node44" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="524,291,676,333"/>
+<area shape="rect" id="node45" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="590,381,756,408"/>
+<area shape="rect" id="node52" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="143,464,309,491"/>
+<area shape="rect" id="node56" href="$d6/d51/TPC_2base_2include_2TPCBase_2Constants_8h.html" title="TPCBase/Constants.h" alt="" coords="345,299,499,325"/>
+<area shape="rect" id="node57" href="$d1/d73/Defs_8h.html" title="Common definitions for 2D coordinates. " alt="" coords="199,299,321,325"/>
+</map>

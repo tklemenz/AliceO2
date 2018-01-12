@@ -1,0 +1,15 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/common/simulation/include/ITSMFTSimulation/Digitizer.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/common/simulation/include/ITSMFTSimulation/Digitizer.h">
+<area shape="rect" id="node6" href="$d7/d9e/SimulationAlpide_8h.html" title="Simulation of the ALIPIDE chip response. " alt="" coords="355,139,551,181"/>
+<area shape="rect" id="node26" href="$dc/d1a/AlpideSimResponse_8h.html" title="Definition of the ITSMFT Alpide simulated response parametrization. " alt="" coords="627,230,821,271"/>
+<area shape="rect" id="node29" href="$df/d29/DigiParams_8h.html" title="Simulation parameters for the ALIPIDE chip. " alt="" coords="678,147,892,173"/>
+<area shape="rect" id="node30" href="$d0/d2d/common_2base_2include_2ITSMFTBase_2GeometryTGeo_8h.html" title="ITSMFTBase/GeometryTGeo.h" alt="" coords="917,147,1120,173"/>
+<area shape="rect" id="node7" href="$d9/d55/Chip_8h.html" title="ITSMFTSimulation/Chip.h" alt="" coords="367,237,540,264"/>
+<area shape="rect" id="node11" href="$d0/d06/ITSMFT_2common_2base_2include_2ITSMFTBase_2Digit_8h.html" title="ITSMFTBase/Digit.h" alt="" coords="414,320,556,347"/>
+<area shape="rect" id="node13" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="539,395,691,437"/>
+<area shape="rect" id="node15" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="1490,320,1656,347"/>
+<area shape="rect" id="node22" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="2367,403,2533,429"/>
+<area shape="rect" id="node31" href="$d4/d20/DetMatrixCache_8h.html" title="DetectorsBase/DetMatrixCache.h" alt="" coords="1816,237,2035,264"/>
+<area shape="rect" id="node32" href="$d6/d31/DetID_8h.html" title="DetectorsBase/DetID.h" alt="" coords="2733,320,2891,347"/>
+<area shape="rect" id="node37" href="$d9/ded/Utils_8h.html" title="DetectorsBase/Utils.h" alt="" coords="3073,403,3223,429"/>
+<area shape="rect" id="node38" href="$d1/daa/Base_2include_2DetectorsBase_2Constants_8h.html" title="DetectorsBase/Constants.h" alt="" coords="2983,493,3167,520"/>
+</map>

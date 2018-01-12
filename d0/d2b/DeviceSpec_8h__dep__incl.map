@@ -1,0 +1,24 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Framework/Core/include/Framework/DeviceSpec.h" name="/home/travis/build/AliceO2Group/AliceO2/Framework/Core/include/Framework/DeviceSpec.h">
+<area shape="rect" id="node2" href="$d3/d4b/DataProcessingDevice_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/include\l/Framework/DataProcessingDevice.h" alt="" coords="499,126,739,197"/>
+<area shape="rect" id="node4" href="$d7/d54/runDataProcessing_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/runDataProcessing.cxx" alt="" coords="1232,253,1516,309"/>
+<area shape="rect" id="node5" href="$dd/d96/DataSourceDevice_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/include\l/Framework/DataSourceDevice.h" alt="" coords="763,126,979,197"/>
+<area shape="rect" id="node7" href="$dd/d9a/FrameworkGUIDebugger_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/include\l/Framework/FrameworkGUIDebugger.h" alt="" coords="1003,126,1253,197"/>
+<area shape="rect" id="node10" href="$dd/d49/FrameworkGUIDevicesGraph_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/include\l/Framework/FrameworkGUIDevicesGraph.h" alt="" coords="1278,126,1556,197"/>
+<area shape="rect" id="node11" href="$d7/d5a/FrameworkGUIDevicesGraph_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/Framework\lGUIDevicesGraph.cxx" alt="" coords="993,246,1207,317"/>
+<area shape="rect" id="node12" href="$d3/dc0/DDSConfigHelpers_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/DDSConfig\lHelpers.h" alt="" coords="1683,126,1899,197"/>
+<area shape="rect" id="node14" href="$d6/d53/test__FrameworkDataFlowToDDS_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/test/test\l_FrameworkDataFlowToDDS.cxx" alt="" coords="1781,246,2000,317"/>
+<area shape="rect" id="node15" href="$d8/d84/DeviceSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/DeviceSpec.cxx" alt="" coords="2648,133,2893,189"/>
+<area shape="rect" id="node16" href="$df/dda/DeviceSpecHelpers_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/DeviceSpec\lHelpers.h" alt="" coords="2025,126,2244,197"/>
+<area shape="rect" id="node17" href="$d1/dd9/DeviceSpecHelpers_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/DeviceSpec\lHelpers.cxx" alt="" coords="2025,246,2244,317"/>
+<area shape="rect" id="node18" href="$d9/d51/test__DeviceSpec_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/test/test\l_DeviceSpec.cxx" alt="" coords="2475,246,2649,317"/>
+<area shape="rect" id="node19" href="$d4/dc4/test__Graphviz_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/test/test\l_Graphviz.cxx" alt="" coords="2899,246,3073,317"/>
+<area shape="rect" id="node20" href="$dd/d8a/test__TimeParallelPipelining_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/test/test\l_TimeParallelPipelining.cxx" alt="" coords="2269,246,2451,317"/>
+<area shape="rect" id="node21" href="$da/d8f/GraphvizHelpers_8h.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/Graphviz\lHelpers.h" alt="" coords="2371,126,2572,197"/>
+<area shape="rect" id="node23" href="$dc/da7/WorkflowHelpers_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/Workflow\lHelpers.cxx" alt="" coords="2918,126,3121,197"/>
+<area shape="rect" id="node3" href="$db/dac/DataProcessingDevice_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/DataProcessing\lDevice.cxx" alt="" coords="5,246,248,317"/>
+<area shape="rect" id="node6" href="$d0/d9f/DataSourceDevice_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/DataSource\lDevice.cxx" alt="" coords="272,246,491,317"/>
+<area shape="rect" id="node8" href="$de/ddc/FrameworkDummyDebugger_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/Framework\lDummyDebugger.cxx" alt="" coords="515,246,729,317"/>
+<area shape="rect" id="node9" href="$d3/d29/FrameworkGUIDebugger_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/Framework\lGUIDebugger.cxx" alt="" coords="754,246,968,317"/>
+<area shape="rect" id="node13" href="$d3/d15/DDSConfigHelpers_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/DDSConfig\lHelpers.cxx" alt="" coords="1541,246,1757,317"/>
+<area shape="rect" id="node22" href="$dc/d0c/GraphvizHelpers_8cxx.html" title="/home/travis/build\l/AliceO2Group/AliceO2\l/Framework/Core/src/Graphviz\lHelpers.cxx" alt="" coords="2674,246,2875,317"/>
+</map>

@@ -1,0 +1,15 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/TRD/simulation/src/Detector.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/TRD/simulation/src/Detector.cxx">
+<area shape="rect" id="node2" href="$df/df0/TRD_2simulation_2include_2TRDSimulation_2Detector_8h.html" title="TRDSimulation/Detector.h" alt="" coords="1492,133,1668,160"/>
+<area shape="rect" id="node29" href="$da/d32/TRDCommonParam_8h.html" title="TRDBase/TRDCommonParam.h" alt="" coords="687,133,901,160"/>
+<area shape="rect" id="node31" href="$dd/d07/TRDGeometry_8h.html" title="TRDBase/TRDGeometry.h" alt="" coords="1178,224,1357,251"/>
+<area shape="rect" id="node32" href="$dc/db6/Stack_8h.html" title="Definition of the Stack class. " alt="" coords="1860,126,2012,167"/>
+<area shape="rect" id="node4" href="$d1/d3a/Base_2include_2DetectorsBase_2Detector_8h.html" title="DetectorsBase/Detector.h" alt="" coords="1421,224,1595,251"/>
+<area shape="rect" id="node14" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="831,217,983,258"/>
+<area shape="rect" id="node15" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="711,307,877,333"/>
+<area shape="rect" id="node22" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="489,389,655,416"/>
+<area shape="rect" id="node30" href="$d9/df4/TRDSimParam_8h.html" title="TRDBase/TRDSimParam.h" alt="" coords="623,224,807,251"/>
+<area shape="rect" id="node34" href="$d2/de2/MCTrack_8h.html" title="Definition of the MCTrack class. " alt="" coords="2175,217,2327,258"/>
+<area shape="rect" id="node38" href="$d6/d31/DetID_8h.html" title="DetectorsBase/DetID.h" alt="" coords="2846,307,3004,333"/>
+<area shape="rect" id="node43" href="$d9/ded/Utils_8h.html" title="DetectorsBase/Utils.h" alt="" coords="3069,389,3219,416"/>
+<area shape="rect" id="node44" href="$d1/daa/Base_2include_2DetectorsBase_2Constants_8h.html" title="DetectorsBase/Constants.h" alt="" coords="2979,480,3163,507"/>
+</map>

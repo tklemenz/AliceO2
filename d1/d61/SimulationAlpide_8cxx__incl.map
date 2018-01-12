@@ -1,0 +1,15 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/common/simulation/src/SimulationAlpide.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/common/simulation/src/SimulationAlpide.cxx">
+<area shape="rect" id="node8" href="$d0/d06/ITSMFT_2common_2base_2include_2ITSMFTBase_2Digit_8h.html" title="ITSMFTBase/Digit.h" alt="" coords="706,315,848,341"/>
+<area shape="rect" id="node13" href="$d3/dba/SegmentationAlpide_8h.html" title="Definition of the SegmentationAlpide class. " alt="" coords="343,224,573,251"/>
+<area shape="rect" id="node14" href="$d7/d9e/SimulationAlpide_8h.html" title="Simulation of the ALIPIDE chip response. " alt="" coords="991,126,1187,167"/>
+<area shape="rect" id="node35" href="$dc/da5/SimuClusterShaper_8h.html" title="Cluster shaper for the ALPIDE response simulation. " alt="" coords="1354,126,1560,167"/>
+<area shape="rect" id="node37" href="$d0/dae/ITSMFT_2common_2simulation_2include_2ITSMFTSimulation_2Hit_8h.html" title="ITSMFTSimulation/Hit.h" alt="" coords="1772,224,1935,251"/>
+<area shape="rect" id="node40" href="$df/d29/DigiParams_8h.html" title="Simulation parameters for the ALIPIDE chip. " alt="" coords="441,405,655,432"/>
+<area shape="rect" id="node10" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="1079,398,1231,439"/>
+<area shape="rect" id="node16" href="$d9/d55/Chip_8h.html" title="ITSMFTSimulation/Chip.h" alt="" coords="1107,224,1280,251"/>
+<area shape="rect" id="node32" href="$dc/d1a/AlpideSimResponse_8h.html" title="Definition of the ITSMFT Alpide simulated response parametrization. " alt="" coords="888,217,1083,258"/>
+<area shape="rect" id="node21" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="1827,405,1993,432"/>
+<area shape="rect" id="node28" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="2157,496,2323,523"/>
+<area shape="rect" id="node36" href="$d6/db4/ClusterShape_8h.html" title="Cluster shape class for the ALPIDE response simulation. " alt="" coords="1406,217,1583,258"/>
+<area shape="rect" id="node38" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="1835,307,1987,349"/>
+</map>

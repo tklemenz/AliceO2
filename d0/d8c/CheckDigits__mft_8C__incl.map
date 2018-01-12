@@ -1,0 +1,11 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/macro/CheckDigits_mft.C" name="/home/travis/build/AliceO2Group/AliceO2/macro/CheckDigits_mft.C">
+<area shape="rect" id="node8" href="$d9/ded/Utils_8h.html" title="DetectorsBase/Utils.h" alt="" coords="587,109,737,136"/>
+<area shape="rect" id="node12" href="$d3/dba/SegmentationAlpide_8h.html" title="Definition of the SegmentationAlpide class. " alt="" coords="558,275,788,301"/>
+<area shape="rect" id="node14" href="$d0/d06/ITSMFT_2common_2base_2include_2ITSMFTBase_2Digit_8h.html" title="ITSMFTBase/Digit.h" alt="" coords="857,109,999,136"/>
+<area shape="rect" id="node18" href="$d0/dae/ITSMFT_2common_2simulation_2include_2ITSMFTSimulation_2Hit_8h.html" title="ITSMFTSimulation/Hit.h" alt="" coords="1215,109,1377,136"/>
+<area shape="rect" id="node9" href="$d1/daa/Base_2include_2DetectorsBase_2Constants_8h.html" title="DetectorsBase/Constants.h" alt="" coords="397,192,581,219"/>
+<area shape="rect" id="node16" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="1163,185,1315,226"/>
+<area shape="rect" id="node19" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="1393,185,1545,226"/>
+<area shape="rect" id="node20" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="1390,275,1556,301"/>
+<area shape="rect" id="node27" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="2114,357,2280,384"/>
+</map>

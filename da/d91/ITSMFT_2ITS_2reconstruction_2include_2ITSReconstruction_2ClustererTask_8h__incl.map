@@ -1,0 +1,17 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/ITS/reconstruction/include/ITSReconstruction/ClustererTask.h" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/ITS/reconstruction/include/ITSReconstruction/ClustererTask.h">
+<area shape="rect" id="node3" href="$df/d9a/ITS_2base_2include_2ITSBase_2GeometryTGeo_8h.html" title="ITSBase/GeometryTGeo.h" alt="" coords="1151,237,1328,264"/>
+<area shape="rect" id="node38" href="$df/d2e/PixelReader_8h.html" title="Definition of the ITS pixel reader. " alt="" coords="2253,321,2411,362"/>
+<area shape="rect" id="node43" href="$d6/d04/ITSMFT_2common_2reconstruction_2include_2ITSMFTReconstruction_2Clusterer_8h.html" title="ITSMFTReconstruction\l/Clusterer.h" alt="" coords="2026,139,2184,181"/>
+<area shape="rect" id="node9" href="$d6/d31/DetID_8h.html" title="DetectorsBase/DetID.h" alt="" coords="315,493,473,520"/>
+<area shape="rect" id="node15" href="$d9/ded/Utils_8h.html" title="DetectorsBase/Utils.h" alt="" coords="31,584,181,611"/>
+<area shape="rect" id="node18" href="$db/dcc/Detectors_2Base_2include_2DetectorsBase_2GeometryManager_8h.html" title="DetectorsBase/GeometryManager.h" alt="" coords="782,328,1012,355"/>
+<area shape="rect" id="node35" href="$d0/d2d/common_2base_2include_2ITSMFTBase_2GeometryTGeo_8h.html" title="ITSMFTBase/GeometryTGeo.h" alt="" coords="1329,328,1532,355"/>
+<area shape="rect" id="node16" href="$d1/daa/Base_2include_2DetectorsBase_2Constants_8h.html" title="DetectorsBase/Constants.h" alt="" coords="88,675,272,701"/>
+<area shape="rect" id="node25" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="1577,493,1743,520"/>
+<area shape="rect" id="node31" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="2023,584,2189,611"/>
+<area shape="rect" id="node36" href="$d4/d20/DetMatrixCache_8h.html" title="DetectorsBase/DetMatrixCache.h" alt="" coords="1551,411,1769,437"/>
+<area shape="rect" id="node39" href="$d0/d06/ITSMFT_2common_2base_2include_2ITSMFTBase_2Digit_8h.html" title="ITSMFTBase/Digit.h" alt="" coords="2370,411,2512,437"/>
+<area shape="rect" id="node41" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="2252,486,2404,527"/>
+<area shape="rect" id="node44" href="$dc/de1/ITSMFT_2common_2reconstruction_2include_2ITSMFTReconstruction_2Cluster_8h.html" title="ITSMFTReconstruction\l/Cluster.h" alt="" coords="1967,230,2125,271"/>
+<area shape="rect" id="node45" href="$d4/de2/BaseCluster_8h.html" title="DetectorsBase/BaseCluster.h" alt="" coords="1745,328,1940,355"/>
+</map>

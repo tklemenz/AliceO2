@@ -1,0 +1,8 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/PHOS/testsimulation/run_sim_phos.C" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/PHOS/testsimulation/run_sim_phos.C">
+<area shape="rect" id="node16" href="$db/d4b/MagneticField_8h.html" title="Definition of the MagF class. " alt="" coords="693,125,840,152"/>
+<area shape="rect" id="node18" href="$d3/d91/MagFieldParam_8h.html" title="Definition of the MagFieldParam: container for ALICE mag. field parameters. " alt="" coords="315,200,471,227"/>
+<area shape="rect" id="node20" href="$dd/dfb/MagneticWrapperChebyshev_8h.html" title="Field/MagneticWrapperChebyshev.h" alt="" coords="495,200,728,227"/>
+<area shape="rect" id="node26" href="$da/df4/MagFieldFast_8h.html" title="Definition of the fast magnetic field parametrization MagFieldFast. " alt="" coords="1055,200,1199,227"/>
+<area shape="rect" id="node23" href="$d8/d64/Chebyshev3D_8h.html" title="MathUtils/Chebyshev3D.h" alt="" coords="419,275,595,301"/>
+<area shape="rect" id="node25" href="$d4/d08/Chebyshev3DCalc_8h.html" title="MathUtils/Chebyshev3DCalc.h" alt="" coords="405,349,608,376"/>
+</map>

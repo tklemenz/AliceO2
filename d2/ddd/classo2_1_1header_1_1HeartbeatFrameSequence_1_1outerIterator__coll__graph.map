@@ -1,0 +1,5 @@
+<map id="o2::header::HeartbeatFrameSequence&lt; SlotDataT &gt;::outerIterator&lt; Direction &gt;" name="o2::header::HeartbeatFrameSequence&lt; SlotDataT &gt;::outerIterator&lt; Direction &gt;">
+<area shape="rect" id="node2" href="$d6/dd7/classo2_1_1header_1_1HeartbeatFrameSequence_1_1iterator.html" title="Iterator class for configurable direction, i.e. either row or column. " alt="" coords="449,451,633,690"/>
+<area shape="rect" id="node3" href="$d7/dc2/classo2_1_1header_1_1HeartbeatFrameSequence.html" title="{o2::header::HeartbeatFrame\lSequence\&lt; SlotDataT \&gt;\n||+ HeartbeatFrameSequence()\l+ ~HeartbeatFrameSequence()\l+ addSlot()\l+ clear()\l+ getNColumns()\l+ getNSlots()\l+ getSlotData()\l+ begin()\l+ end()\l}" alt="" coords="5,147,208,357"/>
+<area shape="rect" id="node4" href="$dd/d76/structo2_1_1header_1_1HeartbeatFrameSequence_1_1FrameData.html" title="descriptor pointing to one frame " alt="" coords="233,199,417,305"/>
+</map>

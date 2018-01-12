@@ -1,0 +1,18 @@
+<map id="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/test/HitAnalysis/src/HitAnalysis.cxx" name="/home/travis/build/AliceO2Group/AliceO2/Detectors/ITSMFT/test/HitAnalysis/src/HitAnalysis.cxx">
+<area shape="rect" id="node2" href="$da/d9d/HitAnalysis_8h.html" title="HitAnalysis/HitAnalysis.h" alt="" coords="876,125,1047,152"/>
+<area shape="rect" id="node6" href="$d0/dae/ITSMFT_2common_2simulation_2include_2ITSMFTSimulation_2Hit_8h.html" title="ITSMFTSimulation/Hit.h" alt="" coords="655,200,817,227"/>
+<area shape="rect" id="node8" href="$dd/d76/Cartesian3D_8h.html" title="MathUtils/Cartesian3D.h" alt="" coords="599,373,765,400"/>
+<area shape="rect" id="node25" href="$d9/d55/Chip_8h.html" title="ITSMFTSimulation/Chip.h" alt="" coords="1336,200,1509,227"/>
+<area shape="rect" id="node32" href="$d3/dba/SegmentationAlpide_8h.html" title="Definition of the SegmentationAlpide class. " alt="" coords="1685,125,1915,152"/>
+<area shape="rect" id="node33" href="$df/d9a/ITS_2base_2include_2ITSBase_2GeometryTGeo_8h.html" title="ITSBase/GeometryTGeo.h" alt="" coords="2226,125,2403,152"/>
+<area shape="rect" id="node41" href="$d9/ded/Utils_8h.html" title="DetectorsBase/Utils.h" alt="" coords="3353,464,3503,491"/>
+<area shape="rect" id="node7" href="$d4/d25/BaseHits_8h.html" title="SimulationDataFormat\l/BaseHits.h" alt="" coords="503,275,655,317"/>
+<area shape="rect" id="node19" href="$d7/dcd/MCCompLabel_8h.html" title="SimulationDataFormat\l/MCCompLabel.h" alt="" coords="1383,366,1535,407"/>
+<area shape="rect" id="node15" href="$d2/dd0/Cartesian2D_8h.html" title="MathUtils/Cartesian2D.h" alt="" coords="823,464,989,491"/>
+<area shape="rect" id="node29" href="$d0/d06/ITSMFT_2common_2base_2include_2ITSMFTBase_2Digit_8h.html" title="ITSMFTBase/Digit.h" alt="" coords="1066,283,1208,309"/>
+<area shape="rect" id="node36" href="$d6/d31/DetID_8h.html" title="DetectorsBase/DetID.h" alt="" coords="3054,373,3212,400"/>
+<area shape="rect" id="node44" href="$db/dcc/Detectors_2Base_2include_2DetectorsBase_2GeometryManager_8h.html" title="DetectorsBase/GeometryManager.h" alt="" coords="2535,200,2765,227"/>
+<area shape="rect" id="node49" href="$d0/d2d/common_2base_2include_2ITSMFTBase_2GeometryTGeo_8h.html" title="ITSMFTBase/GeometryTGeo.h" alt="" coords="1851,200,2055,227"/>
+<area shape="rect" id="node42" href="$d1/daa/Base_2include_2DetectorsBase_2Constants_8h.html" title="DetectorsBase/Constants.h" alt="" coords="3329,555,3513,581"/>
+<area shape="rect" id="node50" href="$d4/d20/DetMatrixCache_8h.html" title="DetectorsBase/DetMatrixCache.h" alt="" coords="2032,283,2251,309"/>
+</map>

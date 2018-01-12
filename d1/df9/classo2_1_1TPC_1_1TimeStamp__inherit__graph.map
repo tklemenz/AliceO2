@@ -1,0 +1,3 @@
+<map id="o2::TPC::TimeStamp" name="o2::TPC::TimeStamp">
+<area shape="rect" id="node2" href="$dd/def/classo2_1_1TPC_1_1Digit.html" title="{o2::TPC::Digit\n|# mCharge\l# mCRU\l# mRow\l# mPad\l|+ Digit()\l+ Digit()\l+ ~Digit()\l+ getCharge()\l+ getChargeFloat()\l+ getCRU()\l+ getRow()\l+ getPad()\l+ getTimeStamp()\l# ClassDefNV()\l}" alt="" coords="13,160,143,413"/>
+</map>
