@@ -15,16 +15,12 @@
 #include "TPCBase/Defs.h"
 
 #include "TPCReconstruction/Cluster.h"
-<<<<<<< HEAD
 #include "DataFormatsTPC/ClusterNative.h"
-=======
 #include "TPCBase/CalDet.h"
 
 #include <TClonesArray.h>
 #include <TH2.h>
 #include <TH1.h>
-
->>>>>>> modified TrackTPC to my local version
 
 namespace o2 {
 namespace TPC {
@@ -77,8 +73,6 @@ class TrackTPC {
     /// \param removeRows option to remove certain rows from the dEdx calculation
     /// \param nclPID pass any pointer to have the number of used clusters written to it
     /// \return mean energy loss
-<<<<<<< HEAD
-    float getTruncatedMean(float low=0.05, float high=0.7, int type=1, int removeRows=0, int *nclPID=nullptr) const;
     
     float getTime0() const {return mTime0;}
     float getLastClusterZ() const {return mLastClusterZ;}
@@ -108,7 +102,7 @@ class TrackTPC {
       uint8_t sectorIndex, rowIndex;
       return(getCluster(nCluster, clusters, sectorIndex, rowIndex));
     }
-=======
+
     float getTruncatedMean(int runNr, float low=0.05, float high=0.7, int type=1, bool removeRows=false, bool removeEdge=false, bool removeEnd=false, TH2D *excludeHisto=nullptr, float ChargeCorr=1, int edgeCut=1, int *nclPID=nullptr, TH1F *TruncDist=nullptr, TH1F *ChargeDist=nullptr) const;
 
     void setGainMap(TString GainMapFile, int setting);
@@ -149,12 +143,10 @@ class TrackTPC {
 
     void  PrintParam()                   { mTrackParCov.PrintParam(); }
 
->>>>>>> modified TrackTPC to my local version
 
   private:
     o2::Base::Track::TrackParCov mTrackParCov;
     std::vector<Cluster> mClusterVector;
-<<<<<<< HEAD
     float mTime0 = 0.f; //Reference Z of the track assumed for the vertex, scaled with pseudo VDrift and reference timeframe length.
     float mLastClusterZ = 0.f; //Z position of last cluster
     char mSide = Side::UNDEFINED;
@@ -162,13 +154,11 @@ class TrackTPC {
     //New structure to store cluster references
     int mNClusters = 0;
     std::vector<uint32_t> mClusterReferences;
-=======
 
     //static std::unique_ptr<o2::TPC::CalDet<float>> mGainMap;
 
     static o2::TPC::CalDet<float> *mGainMap;
 
->>>>>>> modified TrackTPC to my local version
 };
 
 inline
