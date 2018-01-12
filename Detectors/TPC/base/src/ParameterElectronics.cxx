@@ -33,6 +33,6 @@ void ParameterElectronics::setDefaultValues()
   mChipGain = 20.f;
   mADCdynamicRange = 2200.f;
   mADCsaturation = 1024.f;
-  mZbinWidth = 0.19379844961f;
+  mZbinWidth = 0.2f;
   mElectronCharge = 1.602e-19f;
 }
