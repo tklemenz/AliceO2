@@ -80,7 +80,7 @@ void run_sim_tpc(Int_t nEvents = 1, TString mcEngine = "TGeant3")
   // Create PrimaryGenerator
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
 #ifdef BOX_GENERATOR
-  FairBoxGenerator* boxGenPi = new FairBoxGenerator(211, 1); /*pions*/
+  FairBoxGenerator* boxGenEle = new FairBoxGenerator(11, 1); /*electrons*/
 /*
   //boxGen->SetThetaRange(0.0, 90.0);
   boxGen->SetEtaRange(-0.9,0.9);
@@ -91,16 +91,16 @@ void run_sim_tpc(Int_t nEvents = 1, TString mcEngine = "TGeant3")
   primGen->AddGenerator(boxGen);
 */
 
-  boxGenPi->SetThetaRange(90.-0.24,90.+0.24);
-  boxGenPi->SetPRange(1.,1.);
-  boxGenPi->SetPhiRange(193.39-0.34,193.39+0.34);
-//  boxGenPi->SetBoxXYZ(127.387, 30.93, 127.387, 30.93, 245);
-  boxGenPi->SetBoxXYZ(127.8, 28.47, 126.8, 34.38, 247);
-  boxGenPi->SetDebug(kTRUE);
+  boxGenEle->SetThetaRange(90.-0.24,90.+0.24);
+  boxGenEle->SetPRange(1.,1.);
+  boxGenEle->SetPhiRange(193.39-0.34,193.39+0.34);
+//  boxGenEle->SetBoxXYZ(127.387, 30.93, 127.387, 30.93, 245);
+  boxGenEle->SetBoxXYZ(127.8, 28.47, 126.8, 34.38, 247);
+  boxGenEle->SetDebug(kTRUE);
 
   primGen->SetBeam(0.,0.,0.,0.);
   primGen->SetBeamAngle(0.,0.,0.,0.);
-  primGen->AddGenerator(boxGenPi);
+  primGen->AddGenerator(boxGenEle);
 
 
 #else
