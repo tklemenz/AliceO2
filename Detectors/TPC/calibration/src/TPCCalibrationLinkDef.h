@@ -16,5 +16,6 @@
 
 #pragma link C++ class o2::TPC::CalibRawBase;
 #pragma link C++ class o2::TPC::CalibPedestal;
+#pragma link C++ class o2::TPC::CalibTimeStructure;
 
 #endif

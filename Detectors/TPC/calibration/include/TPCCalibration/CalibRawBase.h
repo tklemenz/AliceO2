@@ -114,10 +114,10 @@ class CalibRawBase
     /// number of processed time bins in last event
     size_t getNumberOfProcessedTimeBins() const { return mProcessedTimeBins; }
 
-  protected:
-    const Mapper&  mMapper;    //!< TPC mapper
 
-  private:
+
+
+    // im Original private!!!
     size_t    mNevents;                //!< number of processed events
     Int_t     mTimeBinsPerCall;        //!< number of time bins to process in processEvent
     size_t    mProcessedTimeBins;      //!< number of processed time bins in last event
@@ -134,6 +134,18 @@ class CalibRawBase
 
     /// Process one event using RawReader
     ProcessStatus processEventRawReader(int eventNumber=-1);
+    //
+
+
+
+
+
+
+  protected:
+    const Mapper&  mMapper;    //!< TPC mapper
+
+  //private:
+
 
 };
 

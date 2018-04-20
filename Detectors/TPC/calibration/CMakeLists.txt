@@ -7,11 +7,13 @@ link_directories( ${LINK_DIRECTORIES})
 set(SRCS
   src/CalibPedestal.cxx
   src/CalibRawBase.cxx
+  src/CalibTimeStructure.cxx
 )
 
 set(HEADERS
   include/${MODULE_NAME}/CalibPedestal.h
   include/${MODULE_NAME}/CalibRawBase.h
+  include/${MODULE_NAME}/CalibTimeStructure.h
 )
 Set(LINKDEF src/${MODULE_NAME}LinkDef.h)
 Set(LIBRARY_NAME ${MODULE_NAME})

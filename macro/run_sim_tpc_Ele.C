@@ -83,7 +83,7 @@ void run_sim_tpc(Int_t nEvents = 1, TString mcEngine = "TGeant3")
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
 #ifdef BOX_GENERATOR
   FairBoxGenerator* boxGenEle = new FairBoxGenerator(11, 1); /*electron*/
-
+/*
   boxGenEle->SetThetaRange(89.5, 90.5);
   //boxGenEle->SetEtaRange(-0.9,0.9);
   boxGenEle->SetPRange(1, 1);
@@ -93,6 +93,19 @@ void run_sim_tpc(Int_t nEvents = 1, TString mcEngine = "TGeant3")
   boxGenEle->SetDebug(kTRUE);
 
   primGen->AddGenerator(boxGenEle);
+*/
+
+  boxGenEle->SetThetaRange(90.-0.24,90.+0.24);
+  boxGenEle->SetPRange(1.,1.);
+  boxGenEle->SetPhiRange(193.39-0.34,193.39+0.34);
+//  boxGenEle->SetBoxXYZ(127.387, 30.93, 127.387, 30.93, 245);
+  boxGenEle->SetBoxXYZ(127.8, 28.47, 126.8, 34.38, 247);
+  boxGenEle->SetDebug(kTRUE);
+
+  primGen->SetBeam(0.,0.,0.,0.);
+  primGen->SetBeamAngle(0.,0.,0.,0.);
+  primGen->AddGenerator(boxGenPi);
+
 #else
   // reading the events from a kinematics file (produced by AliRoot)
   auto extGen =  new o2::eventgen::GeneratorFromFile("Kinematics.root");
