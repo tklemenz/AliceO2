@@ -80,13 +80,18 @@ GEMAmplification::~GEMAmplification()
 
 int GEMAmplification::getStackAmplification(int nElectrons)
 {
+  float totalEle = 0;
+  for (int nEle = 0; nEle < nElectrons; ++nEle) {
+    totalEle += 2000 * 0.122 * gRandom->Gaus() + 2000;
+  }
+  return totalEle;
   /// We start with an arbitrary number of electrons given to the first amplification stage
   /// The amplification in the GEM stack is handled for each electron individually and the resulting amplified electrons are passed to the next amplification stage.
-  const int nElectronsGEM1 = getSingleGEMAmplification(nElectrons, 1);
-  const int nElectronsGEM2 = getSingleGEMAmplification(nElectronsGEM1, 2);
-  const int nElectronsGEM3 = getSingleGEMAmplification(nElectronsGEM2, 3);
-  const int nElectronsGEM4 = getSingleGEMAmplification(nElectronsGEM3, 4);
-  return nElectronsGEM4;
+  //const int nElectronsGEM1 = getSingleGEMAmplification(nElectrons, 1);
+  //const int nElectronsGEM2 = getSingleGEMAmplification(nElectronsGEM1, 2);
+  //const int nElectronsGEM3 = getSingleGEMAmplification(nElectronsGEM2, 3);
+  //const int nElectronsGEM4 = getSingleGEMAmplification(nElectronsGEM3, 4);
+  //return nElectronsGEM4;
 }
 
 int GEMAmplification::getSingleGEMAmplification(int nElectrons, int GEM)

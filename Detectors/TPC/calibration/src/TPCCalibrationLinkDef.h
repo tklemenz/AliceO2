@@ -18,5 +18,6 @@
 #pragma link C++ class o2::TPC::CalibPedestal;
 #pragma link C++ class o2::TPC::CalibPulser;
 #pragma link C++ class o2::TPC::CalibTreeDump;
+#pragma link C++ class o2::TPC::CalibTimeStructure;
 
 #endif

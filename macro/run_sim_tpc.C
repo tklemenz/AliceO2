@@ -106,17 +106,36 @@ void run_sim_tpc(Int_t nEvents = 1, TString mcEngine = "TGeant3")
   primGen->AddGenerator(boxGenPi);
 */
 
+
+//======================  void boxGen ==================================
+
+
+  FairBoxGenerator* boxGenVoid = new FairBoxGenerator(211, 1);
+
+  boxGenVoid->SetThetaRange(90.,90.);
+  boxGenVoid->SetPRange(5, 5);
+  boxGenVoid->SetPhiRange(170., 170.);
+  boxGenVoid->SetBoxXYZ(0, 0, 0, 0, 247);
+  boxGenVoid->SetDebug(kTRUE);
+
+  primGen->AddGenerator(boxGenVoid);
+
+//======================  Box at IROC sector 0 ============================
+
+  FairBoxGenerator* boxGenPi = new FairBoxGenerator(211, 1); /*pi+*/
+
   boxGenPi->SetThetaRange(90.-0.24,90.+0.24);
-  boxGenPi->SetPRange(1.,1.);
+  boxGenPi->SetPRange(2.,2.);
   boxGenPi->SetPhiRange(193.39-0.34,193.39+0.34);
 //  boxGenPi->SetBoxXYZ(127.387, 30.93, 127.387, 30.93, 245);
-  boxGenPi->SetBoxXYZ(127.387, 30.93, 127.387, 30.93, 245);
+  boxGenPi->SetBoxXYZ(127.8, 28.47, 126.8, 34.38, 249, 241);
   boxGenPi->SetDebug(kTRUE);
 
   primGen->SetBeam(0.,0.,0.,0.);
   primGen->SetBeamAngle(0.,0.,0.,0.);
   primGen->AddGenerator(boxGenPi);
 
+//=========================================================================
 
 #else
   // reading the events from a kinematics file (produced by AliRoot)

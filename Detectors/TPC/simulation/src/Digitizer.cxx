@@ -127,6 +127,12 @@ void Digitizer::ProcessHitGroup(const HitGroup& inputgroup, const Sector& sector
       }
 
       /// Electron amplification
+      ///Added for less computing time in my simulation in sector 0 IROC
+      if(digiPadPos.getCRU() > 3) continue;
+      const PadSecPos digiSecPos = digiPadPos.getPadSecPos();
+      const Sector digiSector = digiSecPos.getSector();
+      if(digiSector.getSector() != 0) continue;
+
       const int nElectronsGEM = gemAmplification.getStackAmplification();
       if (nElectronsGEM == 0) {
         continue;

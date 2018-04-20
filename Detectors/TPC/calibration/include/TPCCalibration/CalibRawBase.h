@@ -126,7 +126,9 @@ class CalibRawBase
     const Mapper&  mMapper;            //!< TPC mapper
     int   mDebugLevel;                 //!< debug level
 
-  private:
+
+
+    // im Original private!!!
     size_t    mNevents;                //!< number of processed events
     int       mTimeBinsPerCall;        //!< number of time bins to process in processEvent
     size_t    mProcessedTimeBins;      //!< number of processed time bins in last event
@@ -145,6 +147,10 @@ class CalibRawBase
 
     /// Process one event using RawReader
     ProcessStatus processEventRawReader(int eventNumber=-1);
+
+  protected:
+    const Mapper&  mMapper;    //!< TPC mapper
+
 
 };
 

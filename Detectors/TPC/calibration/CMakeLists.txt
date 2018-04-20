@@ -9,6 +9,7 @@ set(SRCS
   src/CalibPedestal.cxx
   src/CalibPulser.cxx
   src/CalibTreeDump.cxx
+  src/CalibTimeStructure.cxx
 )
 
 set(HEADERS
@@ -16,6 +17,7 @@ set(HEADERS
   include/${MODULE_NAME}/CalibPedestal.h
   include/${MODULE_NAME}/CalibPulser.h
   include/${MODULE_NAME}/CalibTreeDump.h
+  include/${MODULE_NAME}/CalibTimeStructure.h
 )
 Set(LINKDEF src/${MODULE_NAME}LinkDef.h)
 Set(LIBRARY_NAME ${MODULE_NAME})
