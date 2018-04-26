@@ -24,7 +24,7 @@
 
 #define BOX_GENERATOR 1
 
-void run_sim_tpc(Int_t nEvents = 10, TString mcEngine = "TGeant3")
+void run_sim_tpc(Int_t nEvents = 1, TString mcEngine = "TGeant3",Int_t pdgCode = 11 /*211: pion, 11: electron*/)
 {
   TString dir = getenv("VMCWORKDIR");
   TString geom_dir = dir + "/Detectors/Geometry/";
@@ -69,7 +69,7 @@ void run_sim_tpc(Int_t nEvents = 10, TString mcEngine = "TGeant3")
   cave->SetGeometryFileName("cave.geo");
   run->AddModule(cave);
 
-  auto magField = std::make_unique<o2::field::MagneticField>("Maps","Maps", -1., -1., o2::field::MagFieldParam::k5kG);
+  auto magField = std::make_unique<o2::field::MagneticField>("Maps","Maps", 0., -1., o2::field::MagFieldParam::k5kG);
   run->SetField(magField.get());
 
   // ===| Add TPC |============================================================
@@ -80,15 +80,39 @@ void run_sim_tpc(Int_t nEvents = 10, TString mcEngine = "TGeant3")
   // Create PrimaryGenerator
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
 #ifdef BOX_GENERATOR
-  FairBoxGenerator* boxGen = new FairBoxGenerator(211, 10); /*protons*/
 
-  //boxGen->SetThetaRange(0.0, 90.0);
-  boxGen->SetEtaRange(-0.9,0.9);
-  boxGen->SetPRange(0.1, 5);
-  boxGen->SetPhiRange(0., 360.);
-  boxGen->SetDebug(kTRUE);
 
-  primGen->AddGenerator(boxGen);
+  //======================  void boxGen ==================================
+
+
+  FairBoxGenerator* boxGenVoid = new FairBoxGenerator(pdgCode, 1);
+
+  boxGenVoid->SetThetaRange(90.,90.);
+  boxGenVoid->SetPRange(5, 5);
+  boxGenVoid->SetPhiRange(170., 170.);
+  boxGenVoid->SetBoxXYZ(0, 0, 0, 0, 247);
+  boxGenVoid->SetDebug(kTRUE);
+
+  primGen->AddGenerator(boxGenVoid);
+
+//======================  Box at IROC sector 0 ============================
+
+  FairBoxGenerator* boxGenPi = new FairBoxGenerator(pdgCode, 1);
+
+  boxGenPi->SetThetaRange(90.-0.24,90.+0.24);
+  boxGenPi->SetPRange(2.,2.);
+  boxGenPi->SetPhiRange(193.39-0.34,193.39+0.34);
+//  boxGenPi->SetBoxXYZ(127.387, 30.93, 127.387, 30.93, 245);
+  boxGenPi->SetBoxXYZ(127.8, 28.47, 126.8, 34.38, 249, 241);
+  boxGenPi->SetDebug(kTRUE);
+
+  primGen->SetBeam(0.,0.,0.,0.);
+  primGen->SetBeamAngle(0.,0.,0.,0.);
+  primGen->AddGenerator(boxGenPi);
+
+//=========================================================================
+
+
 #else
   // reading the events from a kinematics file (produced by AliRoot)
   auto extGen =  new o2::eventgen::GeneratorFromFile("Kinematics.root");

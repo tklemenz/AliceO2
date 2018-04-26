@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
     ("nEvents,n",   bpo::value<int>()->default_value(2),                "number of events to simulate.")
     ("mcEngine,e",  bpo::value<std::string>()->default_value("TGeant3"), "MC generator to be used.")
     ("continuous,c", bpo::value<int>()->default_value(1),                "Running in continuous mode 1 - Triggered mode 0")
+    ("pdgCode,p", bpo::value<int>()->default_value(211),                 "PDG code of desired particle")
     ("threads,j",   bpo::value<unsigned>()->default_value(0),            "Parallel processing threads");
   bpo::store(parse_command_line(argc, argv, desc), vm);
   bpo::notify(vm);
@@ -50,17 +51,18 @@ int main(int argc, char *argv[])
   const std::string engine = vm["mcEngine"].as<std::string>();
   const std::string mode = vm["mode"].as<std::string>();
   const int isContinuous = vm["continuous"].as<int>();
+  const int pdgCode      = vm["pdgCode"].as<int>();
   const unsigned threads = vm["threads"].as<unsigned>();
 
   std::cout << "####" << std::endl;
   std::cout << "#### Starting TPC simulation tool for" << std::endl;
-  std::cout << "#### " << events << " events and " << engine << " as MC engine" << std::endl;
+  std::cout << "#### " << events << " events and " << engine << " as MC engine with particle " << pdgCode << std::endl;
   std::cout << "####" << std::endl;
   std::cout << std::endl << std::endl;
 
 
   if (mode == "sim") {
-    run_sim_tpc(events,engine);
+    run_sim_tpc(events,engine,pdgCode);
   } else if (mode == "digi") {
     run_digi_tpc(events,engine, isContinuous);
   } else if (mode == "clus") {
@@ -74,7 +76,7 @@ int main(int argc, char *argv[])
     int status;
     pid_t PID = fork();
     if (PID == -1) { std::cout << "ERROR" << std::endl; return EXIT_FAILURE;}
-    if (PID == 0)  { run_sim_tpc(events,engine); return EXIT_SUCCESS;}
+    if (PID == 0)  { run_sim_tpc(events,engine,pdgCode); return EXIT_SUCCESS;}
     else waitpid(PID,&status,0);
 
     PID = fork();

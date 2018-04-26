@@ -101,6 +101,12 @@ DigitContainer* Digitizer::Process(const std::vector<o2::TPC::HitGroup>& hits, i
         if (!digiPadPos.isValid())
           continue;
 
+        /// Added for less computing time: only use electrons in IROC sector 0
+        if(digiPadPos.getCRU() > 3) continue;
+        const PadSecPos digiSecPos = digiPadPos.getPadSecPos();
+        const Sector digiSector = digiSecPos.getSector();
+        if(digiSector.getSector() != 0) continue;
+
         const int nElectronsGEM = gemAmplification.getStackAmplification();
         if (nElectronsGEM == 0)
           continue;
