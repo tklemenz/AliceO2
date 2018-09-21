@@ -128,28 +128,38 @@ void Digitizer::ProcessHitGroup(const HitGroup& inputgroup, const Sector& sector
     /// Loop over electrons
     for (int iEle = 0; iEle < nPrimaryElectrons; ++iEle) {
 
+      //================================================================================================================
       /// Drift and Diffusion
       float driftTime = 0.f;
-      const GlobalPosition3D posEleDiff = electronTransport.getElectronDrift(posEle, driftTime);
+      const GlobalPosition3D posEleDiff = electronTransport.getElectronDrift(posEle, driftTime);  // ON
+      //const GlobalPosition3D posEleDiff = posEle;                                               // OFF
       const float absoluteTime = driftTime + eventTime + eh.GetTime() * 0.001; /// in us
+      //================================================================================================================
 
+      //================================================================================================================
       /// Attachment
       if (electronTransport.isElectronAttachment(driftTime)) {
         continue;
       }
+      //================================================================================================================
 
+      //================================================================================================================
       /// Remove electrons that end up outside the active volume
       if (std::abs(posEleDiff.Z()) > detParam.getTPClength()) {
         continue;
       }
+      //================================================================================================================
 
+      //================================================================================================================
       /// Compute digit position and check for validity
       const DigitPos digiPadPos = mapper.findDigitPosFromGlobalPosition(posEleDiff);
       if (!digiPadPos.isValid()) {
         continue;
       }
+      //================================================================================================================
 
       ///Added for less computing time in my simulation in sector 0 IROC
+
       /*if(digiPadPos.getCRU() > 3) continue;
       const PadSecPos digiSecPos = digiPadPos.getPadSecPos();
       const Sector digiSector = digiSecPos.getSector();
@@ -160,15 +170,22 @@ void Digitizer::ProcessHitGroup(const HitGroup& inputgroup, const Sector& sector
       if (digiPadPos.getCRU().sector() != sector) {
         continue;
       }
+      //================================================================================================================
 
+      //================================================================================================================
       /// Electron amplification
-      const int nElectronsGEM = gemAmplification.getStackAmplification(digiPadPos.getCRU(), digiPadPos.getPadPos());
+      const int nElectronsGEM = gemAmplification.getStackAmplification(digiPadPos.getCRU(), digiPadPos.getPadPos()); // ON
+      //const int nElectronsGEM = 1;                                                                                 // OFF
       if (nElectronsGEM == 0) {
         continue;
       }
+      //================================================================================================================
 
+      //================================================================================================================
+      // SAMPLING
       const GlobalPadNumber globalPad = mapper.globalPadNumber(digiPadPos.getGlobalPadPos());
       const float ADCsignal = sampaProcessing.getADCvalue(static_cast<float>(nElectronsGEM));
+      /// Sampling ON
       sampaProcessing.getShapedSignal(ADCsignal, absoluteTime, signalArray);
       for (float i = 0; i < nShapedPoints; ++i) {
         const float time = absoluteTime + i * eleParam.getZBinWidth();
@@ -178,6 +195,10 @@ void Digitizer::ProcessHitGroup(const HitGroup& inputgroup, const Sector& sector
       }
 
       /// TODO: add ion backflow to space-charge density
+      /// Sampling OFF
+      //mDigitContainer->addDigit(eventID, MCTrackID, digiPos.getCRU().number(), absoluteTime, row, pad, ADCsignal);
+      //================================================================================================================
+
     }
     /// end of loop over electrons
   }

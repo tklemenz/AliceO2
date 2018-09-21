@@ -96,15 +96,37 @@ DataProcessorSpec sim_tpc() {
         // Create PrimaryGenerator
         FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
 #ifdef BOX_GENERATOR
-        FairBoxGenerator* boxGen = new FairBoxGenerator(211, 10); /*protons*/
+        int pdgCode = setup.options().get<int>("pdgCode");
 
+        //======================  original boxGen ==================================
+
+        //FairBoxGenerator* boxGen = new FairBoxGenerator(pdgCode, 1); /*protons*/
         //boxGen->SetThetaRange(0.0, 90.0);
-        boxGen->SetEtaRange(-0.9,0.9);
+/*        boxGen->SetEtaRange(-0.9,0.9);
         boxGen->SetPRange(0.1, 5);
         boxGen->SetPhiRange(0., 360.);
         boxGen->SetDebug(kTRUE);
 
         primGen->AddGenerator(boxGen);
+*/
+        //======================  Box at IROC sector 0 ============================
+
+          FairBoxGenerator* boxGenPi = new FairBoxGenerator(pdgCode, 1); /*pi+*/
+
+          boxGenPi->SetThetaRange(90.-0.24,90.+0.24);
+          boxGenPi->SetPRange(2.,2.);
+          boxGenPi->SetPhiRange(193.39-0.34,193.39+0.34);
+        ///  boxGenPi->SetBoxXYZ(127.8, 28.47, 243.5, 126.8, 34.38, 247.5); not all rows on right side
+          boxGenPi->SetBoxXYZ(130, 28.7, 243, 129, 34.61, 248);							// proper distance for testbeam simulation
+          //boxGenPi->SetBoxXYZ(130, 28.7, 43, 129, 34.61, 48);
+          boxGenPi->SetDebug(kTRUE);
+
+          primGen->SetBeam(0.,0.,0.,0.);
+          primGen->SetBeamAngle(0.,0.,0.,0.);
+          primGen->AddGenerator(boxGenPi);
+
+        //=========================================================================
+
 #else
         // reading the events from a kinematics file (produced by AliRoot)
         auto extGen = new o2::eventgen::GeneratorFromFile(params.get<std::string>("extKinFile"));
@@ -149,7 +171,8 @@ DataProcessorSpec sim_tpc() {
       {"mcEngine", VariantType::String, "TGeant3", {"Engine to use"}},
       {"nEvents", VariantType::Int, 10, {"Events to process"}},
       {"extKinFile", VariantType::String, "Kinematics.root", {"name of kinematics file for event generator from file (when applicable)"}},
-      {"startEvent", VariantType::Int, 2, {"Events to skip"}}
+      {"startEvent", VariantType::Int, 2, {"Events to skip"}},
+      {"pdgCode", VariantType::Int, 211, {"PDG Code of particle to be created"}}
     }
     };
   };

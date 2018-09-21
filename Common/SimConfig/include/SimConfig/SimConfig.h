@@ -44,6 +44,7 @@ struct SimConfigData {
   int mSimWorkers = 1;                       // number of parallel sim workers (when it applies)
 
   ClassDefNV(SimConfigData, 2);
+  unsigned int mPDGCode;                     // pdgCode of particle to be created
 };
 
 // A singleton class which can be used
@@ -102,6 +103,7 @@ class SimConfig
   int getInternalChunkSize() const { return mConfigData.mInternalChunkSize; }
   int getStartSeed() const { return mConfigData.mStartSeed; }
   int getNSimWorkers() const { return mConfigData.mSimWorkers; }
+  unsigned int getPDGCode() const { return mConfigData.mPDGCode; }
 
  private:
   SimConfigData mConfigData; //!
