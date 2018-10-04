@@ -166,6 +166,7 @@ void Digitizer::ProcessHitGroup(const HitGroup& inputgroup, const Sector& sector
       if(digiSector.getSector() != 0) continue;
 */
 
+      //================================================================================================================
       /// Remove digits the end up outside the currently produced sector
       if (digiPadPos.getCRU().sector() != sector) {
         continue;
