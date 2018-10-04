@@ -149,6 +149,13 @@ void Digitizer::ProcessHitGroup(const HitGroup& inputgroup, const Sector& sector
         continue;
       }
 
+      ///Added for less computing time in my simulation in sector 0 IROC
+      /*if(digiPadPos.getCRU() > 3) continue;
+      const PadSecPos digiSecPos = digiPadPos.getPadSecPos();
+      const Sector digiSector = digiSecPos.getSector();
+      if(digiSector.getSector() != 0) continue;
+*/
+
       /// Remove digits the end up outside the currently produced sector
       if (digiPadPos.getCRU().sector() != sector) {
         continue;
