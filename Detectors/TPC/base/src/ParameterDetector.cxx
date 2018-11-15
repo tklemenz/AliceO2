@@ -16,4 +16,4 @@
 
 using namespace o2::TPC;
 
-ParameterDetector::ParameterDetector() : mTPClength(250.f), mPadCapacitance(0.1f), mTmaxTriggered(550) {}
+ParameterDetector::ParameterDetector() : mTPClength(250.f), mPadCapacitance(0.1f), mTmaxTriggered(20) {}
