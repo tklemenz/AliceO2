@@ -180,7 +180,7 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
 
   } else if (genconfig.compare("testBeam") == 0) {
     // a "box" generator resembling the 2017 CERN PS test beam
-    std::cout << "Init box IROC test beam 2017 generator\n";
+    std::cout << "Init box IROC test beam 2017 generator with short drift and tilted tracks\n";
     auto pdgCode = conf.getPDGCode();
     //======================  void boxGen ==================================
 
@@ -198,8 +198,38 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
 
     FairBoxGenerator* boxGenPi = new FairBoxGenerator(pdgCode, 1); /*pi+*/
 
-    //boxGenPi->SetThetaRange(90.-0.24,90.+0.24); // tilted tracks for real testbeam
-    boxGenPi->SetThetaRange(90.,90.); //
+    boxGenPi->SetThetaRange(90.-0.24,90.+0.24); // tilted tracks for real testbeam
+    boxGenPi->SetPRange(2.,2.);
+    boxGenPi->SetPhiRange(193.39-0.34,193.39+0.34); // tilted tracks for real testbeam
+    //boxGenPi->SetPhiRange(193.39,193.39);
+  ///  boxGenPi->SetBoxXYZ(127.8, 28.47, 243.5, 126.8, 34.38, 247.5); not all rows on right side
+    boxGenPi->SetBoxXYZ(130, 28.7, 243, 129, 34.61, 248);							// proper distance for testbeam simulation
+    boxGenPi->SetDebug(kTRUE);
+
+    primGen->SetBeam(0.,0.,0.,0.);
+    primGen->SetBeamAngle(0.,0.,0.,0.);
+    primGen->AddGenerator(boxGenPi);
+  } else if (genconfig.compare("testBeam_straight") == 0) {
+    // a "box" generator resembling the 2017 CERN PS test beam with straight particles
+    std::cout << "Init box IROC test beam 2017 generator with short drift and straight tracks\n";
+    auto pdgCode = conf.getPDGCode();
+    //======================  void boxGen ==================================
+
+
+    FairBoxGenerator* boxGenVoid = new FairBoxGenerator(211, 1);
+
+    boxGenVoid->SetThetaRange(90.,90.);
+    boxGenVoid->SetPRange(5, 5);
+    boxGenVoid->SetPhiRange(170., 170.);
+    boxGenVoid->SetBoxXYZ(0, 0, 247, 0, 0, 247);
+    boxGenVoid->SetDebug(kTRUE);
+
+    primGen->AddGenerator(boxGenVoid);
+
+
+    FairBoxGenerator* boxGenPi = new FairBoxGenerator(pdgCode, 1); /*pi+*/
+
+    boxGenPi->SetThetaRange(90.,90.);
     boxGenPi->SetPRange(2.,2.);
     //boxGenPi->SetPhiRange(193.39-0.34,193.39+0.34); // tilted tracks for real testbeam
     boxGenPi->SetPhiRange(193.39,193.39);
@@ -212,7 +242,9 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
     primGen->AddGenerator(boxGenPi);
   } else if (genconfig.compare("testBeam_long") == 0) {
     // a "box" generator resembling the 2017 CERN PS test beam
-    std::cout << "Init box IROC test beam 2017 generator\n";
+
+    std::cout << "Init box IROC test beam 2017 generator with long drift and tilted tracks\n";
+
     auto pdgCode = conf.getPDGCode();
     //======================  void boxGen ==================================
 
@@ -241,6 +273,36 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
     primGen->SetBeamAngle(0.,0.,0.,0.);
     primGen->AddGenerator(boxGenPi);
 
+  } else if (genconfig.compare("testBeam_long_straight") == 0) {
+    // a "box" generator resembling the 2017 CERN PS test beam
+    std::cout << "Init box IROC test beam 2017 generator with long drift and straight tracks\n";
+    auto pdgCode = conf.getPDGCode();
+    //======================  void boxGen ==================================
+
+
+    FairBoxGenerator* boxGenVoid = new FairBoxGenerator(211, 1);
+
+    boxGenVoid->SetThetaRange(90.,90.);
+    boxGenVoid->SetPRange(5, 5);
+    boxGenVoid->SetPhiRange(170., 170.);
+    boxGenVoid->SetBoxXYZ(0, 0, 247, 0, 0, 247);
+    boxGenVoid->SetDebug(kTRUE);
+
+    primGen->AddGenerator(boxGenVoid);
+
+
+    FairBoxGenerator* boxGenPi = new FairBoxGenerator(pdgCode, 1); /*pi+*/
+
+    boxGenPi->SetThetaRange(90.,90.);
+    boxGenPi->SetPRange(2.,2.);
+    boxGenPi->SetPhiRange(193.39,193.39);
+
+    boxGenPi->SetBoxXYZ(130, 28.7, 43, 129, 34.61, 48);
+    boxGenPi->SetDebug(kTRUE);
+
+    primGen->SetBeam(0.,0.,0.,0.);
+    primGen->SetBeamAngle(0.,0.,0.,0.);
+    primGen->AddGenerator(boxGenPi);
   } else {
     LOG(FATAL) << "Invalid generator";
   }
