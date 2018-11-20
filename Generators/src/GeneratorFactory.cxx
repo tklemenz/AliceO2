@@ -190,7 +190,7 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
     boxGenVoid->SetThetaRange(90.,90.);
     boxGenVoid->SetPRange(5, 5);
     boxGenVoid->SetPhiRange(170., 170.);
-    boxGenVoid->SetBoxXYZ(0, 0, 247, 0, 0, 247);
+    boxGenVoid->SetBoxXYZ(0., 0., 247., 0., 0., 247.);
     boxGenVoid->SetDebug(kTRUE);
 
     primGen->AddGenerator(boxGenVoid);
@@ -221,7 +221,7 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
     boxGenVoid->SetThetaRange(90.,90.);
     boxGenVoid->SetPRange(5, 5);
     boxGenVoid->SetPhiRange(170., 170.);
-    boxGenVoid->SetBoxXYZ(0, 0, 247, 0, 0, 247);
+    boxGenVoid->SetBoxXYZ(0., 0., 247., 0., 0., 247.);
     boxGenVoid->SetDebug(kTRUE);
 
     primGen->AddGenerator(boxGenVoid);
@@ -254,7 +254,7 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
     boxGenVoid->SetThetaRange(90.,90.);
     boxGenVoid->SetPRange(5, 5);
     boxGenVoid->SetPhiRange(170., 170.);
-    boxGenVoid->SetBoxXYZ(0, 0, 247, 0, 0, 247);
+    boxGenVoid->SetBoxXYZ(0., 0., 247., 0., 0., 247.);
     boxGenVoid->SetDebug(kTRUE);
 
     primGen->AddGenerator(boxGenVoid);
@@ -285,7 +285,7 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
     boxGenVoid->SetThetaRange(90.,90.);
     boxGenVoid->SetPRange(5, 5);
     boxGenVoid->SetPhiRange(170., 170.);
-    boxGenVoid->SetBoxXYZ(0, 0, 247, 0, 0, 247);
+    boxGenVoid->SetBoxXYZ(0., 0., 247., 0., 0., 247.);
     boxGenVoid->SetDebug(kTRUE);
 
     primGen->AddGenerator(boxGenVoid);
