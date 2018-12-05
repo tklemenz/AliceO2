@@ -81,6 +81,7 @@ inline void InteractionSampler::generateCollisionTimes(std::vector<o2::Interacti
   for (int i = dest.capacity(); i--;) {
     dest.push_back(generateCollisionTime());
   }
+  //dest.push_back(o2::InteractionRecord(0));
 }
 
 //_________________________________________________
