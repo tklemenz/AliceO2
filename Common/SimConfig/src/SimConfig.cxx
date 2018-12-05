@@ -40,14 +40,10 @@ void SimConfig::initOptions(boost::program_options::options_description& options
     "logverbosity", bpo::value<std::string>()->default_value("low"), "level of verbosity for FairLogger (low, medium, high, veryhigh)")(
     "configKeyValues", bpo::value<std::string>()->default_value(""), "comma separated key=value strings (e.g.: 'TPC.gasDensity=1,...")("chunkSize", bpo::value<unsigned int>()->default_value(10000), "max size of primary chunk (subevent) distributed by server")(
     "chunkSizeI", bpo::value<int>()->default_value(-1), "internalChunkSize")(
-
     "seed", bpo::value<int>()->default_value(-1), "initial seed (default: -1 random)")(
     "nworkers,j", bpo::value<int>()->default_value(nsimworkersdefault), "number of parallel simulation workers (only for parallel mode)");
-
-
-
-    "pdgCode,x", bpo::value<unsigned int>()->default_value(211), "pdgCode of particle to be created");
-
+    "pdgCode,x", bpo::value<int>()->default_value(211), "pdgCode of particle to be created")(
+    "multiplicity, y", bpo::value<int>()->default_value(1), "particle multiplicity");
 }
 
 bool SimConfig::resetFromParsedMap(boost::program_options::variables_map const& vm)
@@ -94,11 +90,9 @@ bool SimConfig::resetFromParsedMap(boost::program_options::variables_map const& 
   mConfigData.mPrimaryChunkSize = vm["chunkSize"].as<unsigned int>();
   mConfigData.mInternalChunkSize = vm["chunkSizeI"].as<int>();
   mConfigData.mStartSeed = vm["seed"].as<int>();
-
   mConfigData.mSimWorkers = vm["nworkers"].as<int>();
-
-  mConfigData.mPDGCode = vm["pdgCode"].as<unsigned int>();
-
+  mConfigData.mPDGCode = vm["pdgCode"].as<int>();
+  mConfigData.mMultiplicity = vm["multiplicity"].as<int>();
   return true;
 }
 

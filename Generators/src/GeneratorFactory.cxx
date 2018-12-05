@@ -37,11 +37,15 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
     LOG(WARNING) << "No primary generator instance; Cannot setup";
     return;
   }
+
+  auto pdgCode = conf.getPDGCode();
+  auto multiplicity = conf.getMultiplicity();
+
   auto genconfig = conf.getGenerator();
   if (genconfig.compare("boxgen") == 0) {
     // a simple "box" generator
     LOG(INFO) << "Init box generator";
-    auto boxGen = new FairBoxGenerator(211, 10); /*protons*/
+    auto boxGen = new FairBoxGenerator(pdgCode, multiplicity); /*protons*/
     boxGen->SetEtaRange(-0.9, 0.9);
     boxGen->SetPRange(0.1, 5);
     boxGen->SetPhiRange(0., 360.);
@@ -181,7 +185,6 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
   } else if (genconfig.compare("testBeam") == 0) {
     // a "box" generator resembling the 2017 CERN PS test beam
     std::cout << "Init box IROC test beam 2017 generator with short drift and tilted tracks\n";
-    auto pdgCode = conf.getPDGCode();
     //======================  void boxGen ==================================
 
 
@@ -196,7 +199,7 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
     primGen->AddGenerator(boxGenVoid);
 
 
-    FairBoxGenerator* boxGenPi = new FairBoxGenerator(pdgCode, 1); /*pi+*/
+    FairBoxGenerator* boxGenPi = new FairBoxGenerator(pdgCode, multiplicity); /*pi+*/
 
     boxGenPi->SetThetaRange(90.-0.24,90.+0.24); // tilted tracks for real testbeam
     boxGenPi->SetPRange(2.,2.);
@@ -212,7 +215,7 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
   } else if (genconfig.compare("testBeam_straight") == 0) {
     // a "box" generator resembling the 2017 CERN PS test beam with straight particles
     std::cout << "Init box IROC test beam 2017 generator with short drift and straight tracks\n";
-    auto pdgCode = conf.getPDGCode();
+
     //======================  void boxGen ==================================
 
 
@@ -227,7 +230,7 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
     primGen->AddGenerator(boxGenVoid);
 
 
-    FairBoxGenerator* boxGenPi = new FairBoxGenerator(pdgCode, 1); /*pi+*/
+    FairBoxGenerator* boxGenPi = new FairBoxGenerator(pdgCode, multiplicity); /*pi+*/
 
     boxGenPi->SetThetaRange(90.,90.);
     boxGenPi->SetPRange(2.,2.);
@@ -260,7 +263,7 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
     primGen->AddGenerator(boxGenVoid);
 
 
-    FairBoxGenerator* boxGenPi = new FairBoxGenerator(pdgCode, 1); /*pi+*/
+    FairBoxGenerator* boxGenPi = new FairBoxGenerator(pdgCode, multiplicity); /*pi+*/
 
     boxGenPi->SetThetaRange(90.-0.24,90.+0.24);
     boxGenPi->SetPRange(2.,2.);
@@ -276,7 +279,6 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
   } else if (genconfig.compare("testBeam_long_straight") == 0) {
     // a "box" generator resembling the 2017 CERN PS test beam
     std::cout << "Init box IROC test beam 2017 generator with long drift and straight tracks\n";
-    auto pdgCode = conf.getPDGCode();
     //======================  void boxGen ==================================
 
 
@@ -291,7 +293,7 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
     primGen->AddGenerator(boxGenVoid);
 
 
-    FairBoxGenerator* boxGenPi = new FairBoxGenerator(pdgCode, 1); /*pi+*/
+    FairBoxGenerator* boxGenPi = new FairBoxGenerator(pdgCode, multiplicity); /*pi+*/
 
     boxGenPi->SetThetaRange(90.,90.);
     boxGenPi->SetPRange(2.,2.);
