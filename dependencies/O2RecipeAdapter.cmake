@@ -44,9 +44,9 @@ if(ALICEO2_MODULAR_BUILD)
   # retrieve the ALIBUILD_BASEDIR
   #
 
-  if(NOT Common_O2_ROOT)
-    message(FATAL_ERROR "Don't know how to adapt (yet) to this situation")
-  endif()
+ # if(NOT Common_O2_ROOT)
+ #   message(FATAL_ERROR "Don't know how to adapt (yet) to this situation")
+ # endif()
   get_filename_component(ALIBUILD_BASEDIR ${Common_O2_ROOT}/../.. ABSOLUTE)
   message(
     STATUS

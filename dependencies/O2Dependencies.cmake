@@ -143,5 +143,5 @@ endif()
 
 find_package(O2GPU)
 
-feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
+#feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
