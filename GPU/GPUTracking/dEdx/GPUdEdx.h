@@ -33,6 +33,7 @@ class GPUdEdx
   GPUd() void fillCluster(float qtot, float qmax, int padRow, float trackSnp, float trackTgl, const GPUParam& param) {}
   GPUd() void fillSubThreshold(int padRow, const GPUParam& param) {}
   GPUd() void computedEdx(GPUdEdxInfo& output, const GPUParam& param) {}
+  GPUd() void computedEdxTestBeam(GPUdEdxInfo& output, const GPUParam& param) {}
 };
 
 #else
@@ -45,9 +46,11 @@ class GPUdEdx
   GPUd() void fillCluster(float qtot, float qmax, int padRow, float trackSnp, float trackTgl, const GPUParam& param);
   GPUd() void fillSubThreshold(int padRow, const GPUParam& param);
   GPUd() void computedEdx(GPUdEdxInfo& output, const GPUParam& param);
+  GPUd() void computedEdxTestBeam(GPUdEdxInfo& output, const GPUParam& param);
 
  private:
   GPUd() float GetSortTruncMean(float* array, int count, int trunclow, int trunchigh);
+  GPUd() float GetSortTruncMeanTestBeam(float* array, int count, int trunclow, int trunchigh);
   GPUd() void checkSubThresh(int roc);
 
   static constexpr int MAX_NCL = GPUCA_ROW_COUNT; // Must fit in mNClsROC (unsigned char)!
