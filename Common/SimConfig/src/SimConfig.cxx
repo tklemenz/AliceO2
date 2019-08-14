@@ -47,7 +47,9 @@ void SimConfig::initOptions(boost::program_options::options_description& options
     "chunkSizeI", bpo::value<int>()->default_value(-1), "internalChunkSize")(
     "seed", bpo::value<int>()->default_value(-1), "initial seed (default: -1 random)")(
     "nworkers,j", bpo::value<int>()->default_value(nsimworkersdefault), "number of parallel simulation workers (only for parallel mode)")(
-    "noemptyevents", "only writes events with at least one hit");
+    "noemptyevents", "only writes events with at least one hit")(
+    "pdgCode,x", bpo::value<int>()->default_value(211), "pdgCode of particle to be created")(
+    "multiplicity,y", bpo::value<int>()->default_value(1), "particle multiplicity");
 }
 
 bool SimConfig::resetFromParsedMap(boost::program_options::variables_map const& vm)
@@ -98,6 +100,8 @@ bool SimConfig::resetFromParsedMap(boost::program_options::variables_map const& 
   mConfigData.mInternalChunkSize = vm["chunkSizeI"].as<int>();
   mConfigData.mStartSeed = vm["seed"].as<int>();
   mConfigData.mSimWorkers = vm["nworkers"].as<int>();
+  mConfigData.mPDGCode = vm["pdgCode"].as<int>();
+  mConfigData.mMultiplicity = vm["multiplicity"].as<int>();
   if (vm.count("noemptyevents")) {
     mConfigData.mFilterNoHitEvents = true;
   }
