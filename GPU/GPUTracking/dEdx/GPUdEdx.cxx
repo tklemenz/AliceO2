@@ -50,6 +50,50 @@ GPUd() void GPUdEdx::computedEdx(GPUdEdxInfo& output, const GPUParam& param)
   output.NHitsSubThresholdOROC2 = countOROC3;
 }
 
+GPUd() void GPUdEdx::computedEdxTestBeam(GPUdEdxInfo& output, const GPUParam& param)
+{
+  checkSubThresh(255);
+  const int truncLow = 0;
+  const int truncHigh = 0.7;
+  const int countIROC = mNClsROC[0];
+  const int countOROC1 = mNClsROC[1];
+  const int countOROC2 = mNClsROC[2];
+  const int countOROC3 = mNClsROC[3];
+  output.dEdxTotIROC = GetSortTruncMeanTestBeam(mChargeTot + countOROC3 + countOROC2 + countOROC1, countIROC, truncLow, truncHigh);
+  output.dEdxTotOROC1 = GetSortTruncMeanTestBeam(mChargeTot + countOROC3 + countOROC2, countOROC1, truncLow, truncHigh);
+  output.dEdxTotOROC2 = GetSortTruncMeanTestBeam(mChargeTot + countOROC3, countOROC2, truncLow, truncHigh);
+  output.dEdxTotOROC3 = GetSortTruncMeanTestBeam(mChargeTot, countOROC3, truncLow, truncHigh);
+  output.dEdxTotTPC = GetSortTruncMeanTestBeam(mChargeTot, mCount, truncLow, truncHigh);
+  output.dEdxMaxIROC = GetSortTruncMeanTestBeam(mChargeMax + countOROC3 + countOROC2 + countOROC1, countIROC, truncLow, truncHigh);
+  output.dEdxMaxOROC1 = GetSortTruncMeanTestBeam(mChargeMax + countOROC3 + countOROC2, countOROC1, truncLow, truncHigh);
+  output.dEdxMaxOROC2 = GetSortTruncMeanTestBeam(mChargeMax + countOROC3, countOROC2, truncLow, truncHigh);
+  output.dEdxMaxOROC3 = GetSortTruncMeanTestBeam(mChargeMax, countOROC3, truncLow, truncHigh);
+  output.dEdxMaxTPC = GetSortTruncMeanTestBeam(mChargeMax, mCount, truncLow, truncHigh);
+  output.NHitsIROC = countIROC - mNClsROCSubThresh[0];
+  output.NHitsSubThresholdIROC = countIROC;
+  output.NHitsOROC1 = countOROC1 - mNClsROCSubThresh[1];
+  output.NHitsSubThresholdOROC1 = countOROC1;
+  output.NHitsOROC2 = countOROC2 - mNClsROCSubThresh[2];
+  output.NHitsSubThresholdOROC2 = countOROC2;
+  output.NHitsOROC2 = countOROC3 - mNClsROCSubThresh[3];
+  output.NHitsSubThresholdOROC2 = countOROC3;
+}
+
+GPUd() float GPUdEdx::GetSortTruncMeanTestBeam(float* array, int count, int trunclow, int trunchigh)
+{
+  trunclow = count * trunclow;
+  trunchigh = count * trunchigh;
+  if (trunclow >= trunchigh) {
+    return (0.);
+  }
+  CAAlgo::sort(array, array + count);
+  float mean = 0;
+  for (int i = trunclow; i < trunchigh; i++) {
+    mean += array[i];
+  }
+  return (mean / (trunchigh - trunclow));
+}
+
 GPUd() float GPUdEdx::GetSortTruncMean(float* array, int count, int trunclow, int trunchigh)
 {
   trunclow = count * trunclow / 128;
