@@ -46,6 +46,8 @@ struct SimConfigData {
   int mStartSeed;                            // base for random number seeds
   int mSimWorkers = 1;                       // number of parallel sim workers (when it applies)
   bool mFilterNoHitEvents = false;           // whether to filter out events not leaving any response
+  int mPDGCode;                              // pdgCode of particle to be created
+  int mMultiplicity;			     // particle multiplicity in boxGen
 
   ClassDefNV(SimConfigData, 2);
 };
@@ -109,6 +111,8 @@ class SimConfig
   int getStartSeed() const { return mConfigData.mStartSeed; }
   int getNSimWorkers() const { return mConfigData.mSimWorkers; }
   bool isFilterOutNoHitEvents() const { return mConfigData.mFilterNoHitEvents; }
+  int getPDGCode() const { return mConfigData.mPDGCode; }
+  int getMultiplicity() const { return mConfigData.mMultiplicity; }
 
  private:
   SimConfigData mConfigData; //!

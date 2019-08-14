@@ -539,6 +539,8 @@ MagneticField* MagneticField::createFieldMap(Float_t l3Cur, Float_t diCur, Int_t
       sclL3 = 0;
       sclDip = 0;
       map = MagFieldParam::k5kGUniform;
+    } else if (l3Cur == 0) {
+      map = MagFieldParam::k5kGUniform;
     } else {
       LOG(FATAL) << "MagneticField::createFieldMap: Wrong L3 current (" << l3Cur << "  A)!";
     }
