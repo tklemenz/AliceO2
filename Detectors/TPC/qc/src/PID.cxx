@@ -42,13 +42,13 @@ bool PID::processTrack(o2::tpc::TrackTPC const& track)
 
   // ===| cuts |===
   // hard coded cuts. Should be more configural in future
-  if (std::abs(p - 0.5) > 0.05) {
-    return false;
-  }
-
-  if (dEdx > 70) {
-    return false;
-  }
+//  if (std::abs(p - 0.5) > 0.05) {
+//    return false;
+//  }
+//
+//  if (dEdx > 70) {
+//    return false;
+//  }
 
   // ===| histogram filling |===
   mHist1D[0].Fill(dEdx);
