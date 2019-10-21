@@ -99,7 +99,9 @@ GPUdi() void GPUdEdx::fillCluster(float qtot, float qmax, int padRow, float trac
   qmax *= factor / param.tpcGeometry.PadWidth(padRow);
 
   mChargeTot[mCount] = qtot;
+  std::cout<<"Filled qTot = "<<qtot<<" in mChargeTot. GPUdEdx.h"<<std::endl;
   mChargeMax[mCount++] = qmax;
+  std::cout<<"Filled qMax = "<<qmax<<" in mChargeMax. GPUdEdx.h"<<std::endl;
   mNClsROC[roc]++;
   if (qtot < mSubThreshMinTot) {
     mSubThreshMinTot = qtot;
