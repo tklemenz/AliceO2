@@ -10,15 +10,29 @@
 
 o2_add_library(TPCQC
                SOURCES src/PID.cxx
+               		   src/thomasDigits.cxx
                PUBLIC_LINK_LIBRARIES O2::TPCBase)
 
 
 
 o2_target_root_dictionary(TPCQC
-                          HEADERS include/TPCQC/PID.h)
+                          HEADERS include/TPCQC/PID.h
+                          		  include/TPCQC/thomasDigits.h)
 
 o2_add_test(PID
             COMPONENT_NAME tpc
             PUBLIC_LINK_LIBRARIES O2::TPCQC
             SOURCES test/test_PID.cxx
             LABELS tpc)
+
+o2_add_test(thomasDigits
+            COMPONENT_NAME tpc
+            PUBLIC_LINK_LIBRARIES O2::TPCQC
+            SOURCES test/test_thomasDigits.cxx
+            LABELS tpc)
+
+o2_add_test_root_macro(macro/PID.C
+                       PUBLIC_LINK_LIBRARIES O2::DataFormatsTPC
+                                             O2::SimulationDataFormat
+                                             O2::TPCBase
+                       LABELS tpc)

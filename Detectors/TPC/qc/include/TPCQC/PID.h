@@ -13,8 +13,8 @@
 /// @author Jens Wiechula, Jens.Wiechula@ikf.uni-frankfurt.de
 ///
 
-#ifndef AliceO2_TPC_ROC_H
-#define AliceO2_TPC_ROC_H
+#ifndef AliceO2_TPC_PID_H
+#define AliceO2_TPC_PID_H
 
 //root includes
 #include "TH1F.h"
