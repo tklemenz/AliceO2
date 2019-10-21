@@ -171,7 +171,7 @@ FairRunSim* o2sim_init(bool asservice)
     if (field) {
       o2::units::Current_t currDip = field->getCurrentDipole();
       o2::units::Current_t currL3 = field->getCurrentSolenoid();
-      grp.setL3Current(0);
+      grp.setL3Current(currL3);
       grp.setDipoleCurrent(currDip);
     }
     // save

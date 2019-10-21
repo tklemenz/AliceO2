@@ -320,8 +320,8 @@ GPUd() bool GPUTPCGMTrackParam::Fit(const GPUTPCGMMerger* merger, int iTrk, GPUT
   }
 
   if (dEdxOut) {
-    //dEdx.computedEdx(*dEdxOut, param);
-    dEdx.computedEdxTestBeam(*dEdxOut, param);
+    dEdx.computedEdx(*dEdxOut, param);
+    //dEdx.computedEdxTestBeam(*dEdxOut, param);
   }
   Alpha = prop.GetAlpha();
   if (param.rec.TrackReferenceX <= 500) {
