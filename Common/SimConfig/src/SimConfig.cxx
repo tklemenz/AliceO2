@@ -52,7 +52,9 @@ void SimConfig::initOptions(boost::program_options::options_description& options
     "nworkers,j", bpo::value<int>()->default_value(nsimworkersdefault), "number of parallel simulation workers (only for parallel mode)")(
     "noemptyevents", "only writes events with at least one hit")(
     "CCDBUrl", bpo::value<std::string>()->default_value("ccdb-test.cern.ch:8080"), "URL for CCDB to be used.")(
-    "timestamp", bpo::value<long>()->default_value(-1), "global timestamp value (for anchoring) - default is now");
+    "timestamp", bpo::value<long>()->default_value(-1), "global timestamp value (for anchoring) - default is now")(
+    "pdgCode,x", bpo::value<int>()->default_value(211), "pdgCode of particle to be created")(
+    "multiplicity,y", bpo::value<int>()->default_value(1), "particle multiplicity");
 }
 
 bool SimConfig::resetFromParsedMap(boost::program_options::variables_map const& vm)
@@ -106,6 +108,8 @@ bool SimConfig::resetFromParsedMap(boost::program_options::variables_map const& 
   mConfigData.mSimWorkers = vm["nworkers"].as<int>();
   mConfigData.mTimestamp = vm["timestamp"].as<long>();
   mConfigData.mCCDBUrl = vm["CCDBUrl"].as<std::string>();
+  mConfigData.mPDGCode = vm["pdgCode"].as<int>();
+  mConfigData.mMultiplicity = vm["multiplicity"].as<int>();
   if (vm.count("noemptyevents")) {
     mConfigData.mFilterNoHitEvents = true;
   }

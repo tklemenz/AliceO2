@@ -30,16 +30,16 @@ GPUd() void GPUdEdx::computedEdx(GPUdEdxInfo& output, const GPUParam& param)
   const int countOROC1 = mNClsROC[1];
   const int countOROC2 = mNClsROC[2];
   const int countOROC3 = mNClsROC[3];
-  output.dEdxTotIROC = GetSortTruncMean(mChargeTot + countOROC3 + countOROC2 + countOROC1, countIROC, truncLow, truncHigh);
-  output.dEdxTotOROC1 = GetSortTruncMean(mChargeTot + countOROC3 + countOROC2, countOROC1, truncLow, truncHigh);
-  output.dEdxTotOROC2 = GetSortTruncMean(mChargeTot + countOROC3, countOROC2, truncLow, truncHigh);
-  output.dEdxTotOROC3 = GetSortTruncMean(mChargeTot, countOROC3, truncLow, truncHigh);
-  output.dEdxTotTPC = GetSortTruncMean(mChargeTot, mCount, truncLow, truncHigh);
-  output.dEdxMaxIROC = GetSortTruncMean(mChargeMax + countOROC3 + countOROC2 + countOROC1, countIROC, truncLow, truncHigh);
-  output.dEdxMaxOROC1 = GetSortTruncMean(mChargeMax + countOROC3 + countOROC2, countOROC1, truncLow, truncHigh);
-  output.dEdxMaxOROC2 = GetSortTruncMean(mChargeMax + countOROC3, countOROC2, truncLow, truncHigh);
-  output.dEdxMaxOROC3 = GetSortTruncMean(mChargeMax, countOROC3, truncLow, truncHigh);
-  output.dEdxMaxTPC = GetSortTruncMean(mChargeMax, mCount, truncLow, truncHigh);
+  output.dEdxTotIROC = GetSortTruncMean(mChargeTot + countOROC3 + countOROC2 + countOROC1, countIROC, truncLow, truncHigh);//, countOROC3 + countOROC2 + countOROC1);
+  output.dEdxTotOROC1 = GetSortTruncMean(mChargeTot + countOROC3 + countOROC2, countOROC1, truncLow, truncHigh);//, countOROC3 + countOROC2);
+  output.dEdxTotOROC2 = GetSortTruncMean(mChargeTot + countOROC3, countOROC2, truncLow, truncHigh);//, countOROC3);
+  output.dEdxTotOROC3 = GetSortTruncMean(mChargeTot, countOROC3, truncLow, truncHigh);//, 0);
+  output.dEdxTotTPC = GetSortTruncMean(mChargeTot, mCount, truncLow, truncHigh);//, 0);
+  output.dEdxMaxIROC = GetSortTruncMean(mChargeMax + countOROC3 + countOROC2 + countOROC1, countIROC, truncLow, truncHigh);//, countOROC3 + countOROC2 + countOROC1);
+  output.dEdxMaxOROC1 = GetSortTruncMean(mChargeMax + countOROC3 + countOROC2, countOROC1, truncLow, truncHigh);//, countOROC3 + countOROC2);
+  output.dEdxMaxOROC2 = GetSortTruncMean(mChargeMax + countOROC3, countOROC2, truncLow, truncHigh);//, countOROC3);
+  output.dEdxMaxOROC3 = GetSortTruncMean(mChargeMax, countOROC3, truncLow, truncHigh);//, 0);
+  output.dEdxMaxTPC = GetSortTruncMean(mChargeMax, mCount, truncLow, truncHigh);//, 0);
   output.NHitsIROC = countIROC - mNClsROCSubThresh[0];
   output.NHitsSubThresholdIROC = countIROC;
   output.NHitsOROC1 = countOROC1 - mNClsROCSubThresh[1];
@@ -50,17 +50,33 @@ GPUd() void GPUdEdx::computedEdx(GPUdEdxInfo& output, const GPUParam& param)
   output.NHitsSubThresholdOROC2 = countOROC3;
 }
 
-GPUd() float GPUdEdx::GetSortTruncMean(float* array, int count, int trunclow, int trunchigh)
+GPUd() float GPUdEdx::GetSortTruncMean(float* array, int count, int trunclow, int trunchigh)//, int startForLoop)
 {
+  //const int countIROC = mNClsROC[0];
+  //const int countOROC1 = mNClsROC[1];
+  //const int countOROC2 = mNClsROC[2];
+  //const int countOROC3 = mNClsROC[3];
+
   trunclow = count * trunclow / 128;
   trunchigh = count * trunchigh / 128;
   if (trunclow >= trunchigh) {
     return (0.);
   }
+  //for (int i=startForLoop; i<(startForLoop+count); i++) {
+  //  std::cout<<"unsorted charge "<<i<<": "<<array[i]<<std::endl;
+  //}
   CAAlgo::sort(array, array + count);
+  //for (int i=startForLoop; i<(startForLoop+count); i++) {
+  //  std::cout<<"sorted charge "<<i<<": "<<array[i]<<std::endl;
+  //}
   float mean = 0;
   for (int i = trunclow; i < trunchigh; i++) {
     mean += array[i];
   }
+  //std::cout<<"Clusters in IROC: "<<countIROC<<std::endl;
+  //std::cout<<"Clusters in OROC1: "<<countOROC1<<std::endl;
+  //std::cout<<"Clusters in OROC2: "<<countOROC2<<std::endl;
+  //std::cout<<"Clusters in OROC3: "<<countOROC3<<std::endl;
+  //std::cout<<"trunc Mean: "<<mean / (trunchigh - trunclow)<<std::endl;
   return (mean / (trunchigh - trunclow));
 }

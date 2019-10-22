@@ -47,7 +47,7 @@ class GPUdEdx
   GPUd() void computedEdx(GPUdEdxInfo& output, const GPUParam& param);
 
  private:
-  GPUd() float GetSortTruncMean(float* array, int count, int trunclow, int trunchigh);
+  GPUd() float GetSortTruncMean(float* array, int count, int trunclow, int trunchigh);//, int startForLoop);
   GPUd() void checkSubThresh(int roc);
 
   static constexpr int MAX_NCL = GPUCA_ROW_COUNT; // Must fit in mNClsROC (unsigned char)!
@@ -99,9 +99,9 @@ GPUdi() void GPUdEdx::fillCluster(float qtot, float qmax, int padRow, float trac
   qmax *= factor / param.tpcGeometry.PadWidth(padRow);
 
   mChargeTot[mCount] = qtot;
-  std::cout<<"Filled qTot = "<<qtot<<" in mChargeTot. GPUdEdx.h"<<std::endl;
+  //std::cout<<"Filled qTot = "<<qtot<<" in mChargeTot. GPUdEdx.h GPUdEdx::fillCluster"<<std::endl;
   mChargeMax[mCount++] = qmax;
-  std::cout<<"Filled qMax = "<<qmax<<" in mChargeMax. GPUdEdx.h"<<std::endl;
+  //std::cout<<"Filled qMax = "<<qmax<<" in mChargeMax. GPUdEdx.h GPUdEdx::fillCluster"<<std::endl;
   mNClsROC[roc]++;
   if (qtot < mSubThreshMinTot) {
     mSubThreshMinTot = qtot;
