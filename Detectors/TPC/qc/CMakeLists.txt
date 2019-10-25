@@ -10,13 +10,15 @@
 
 o2_add_library(TPCQC
                SOURCES src/PID.cxx
-               		   src/thomasDigits.cxx
+                       src/TPCTrackQA.cxx
+               		     src/thomasDigits.cxx
                PUBLIC_LINK_LIBRARIES O2::TPCBase)
 
 
 
 o2_target_root_dictionary(TPCQC
                           HEADERS include/TPCQC/PID.h
+                                  include/TPCQC/TPCTrackQA.h
                           		  include/TPCQC/thomasDigits.h)
 
 o2_add_test(PID
@@ -24,7 +26,11 @@ o2_add_test(PID
             PUBLIC_LINK_LIBRARIES O2::TPCQC
             SOURCES test/test_PID.cxx
             LABELS tpc)
-
+o2_add_test(TPCTrackQA
+            COMPONENT_NAME tpc
+            PUBLIC_LINK_LIBRARIES O2::TPCQC
+            SOURCES test/test_TPCTrackQA.cxx
+            LABELS tpc)
 o2_add_test(thomasDigits
             COMPONENT_NAME tpc
             PUBLIC_LINK_LIBRARIES O2::TPCQC

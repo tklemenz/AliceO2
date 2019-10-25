@@ -1,6 +1,6 @@
 using namespace o2::tpc;
 
-float GetTruncatedMean(std::vector<float> clqVec, float trunclow, float trunchigh) {
+float getTruncatedMean(std::vector<float> clqVec, float trunclow, float trunchigh) {
   trunclow = clqVec.size() * trunclow/128;
   trunchigh = clqVec.size() * trunchigh/128;
   if (trunclow >= trunchigh) {
@@ -21,6 +21,20 @@ float GetTruncatedMean(std::vector<float> clqVec, float trunclow, float trunchig
   return (mean / (trunchigh - trunclow));
 }
 
+void correctCharge(float qtot, float qmax, float trackSnp, float trackTgl, float padHeight, float padWidth) {      // trackSnp = sin(angle in x-y plane), trackTgl = tan(angle btw track and x-y plane)
+  float snp2 = trackSnp * trackSnp;
+  if (snp2 > 0.99) {
+    snp2 = 0.99;
+  }
+  float factor = std::sqrt((1 - snp2) / (1 + trackTgl * trackTgl));                                                // normalize charge to tracks going straight above and perpendicular to pads: 
+  //std::cout<<"     qTot: "<<qtot<<",          qMax: "<<qmax<<",      correction factor: "<<factor<<std::endl;    // factor = cos(asin(trackSnp)) * cos(atan(trackTgl))  = sqrt((1/(1-trackTgl^2))/(1+trackSnp^2))
+  factor /= padHeight;
+  qtot *= factor;
+  qmax *= factor / padWidth;
+  //std::cout<<"corr qTot: "<<qtot<<", corr qMax: "<<qmax<<factor<<std::endl<<std::endl;
+  return;
+}
+
 void PID(const char *Filename="PID_output.root", const char *OutputPath="/home/tklemenz/ResultsDumpster") {
 
   gStyle->SetMarkerStyle(20);
@@ -34,19 +48,28 @@ void PID(const char *Filename="PID_output.root", const char *OutputPath="/home/t
 
   // ===| initiate histograms |=================================================
 
-  auto tuple = new TNtuple("tuple", "tuple", "qMax:qTot:pad:row");
+  auto tuple = new TNtuple("tuple", "tuple", "qMax:qTot:pad:row:time");
 
   auto *hNClusters = new TH1F("hNClusters","; NCluster per track; counts",250,0,250);
 
-  auto *hChargeTot = new TH1F("hChargeTot","; charge tot; counts",3000,0,3000);
-  auto *hChargeMax = new TH1F("hChargeMax","; charge max; counts",3000,0,3000);
+  auto *hChargeTot = new TH1F("hChargeTot","; charge tot; counts",1000,0,1000);
+  auto *hChargeMax = new TH1F("hChargeMax","; charge max; counts",500,0,500);
+
+  auto *hTime = new TH1F("hTime","; time; counts",10000,0,100000);
+  auto *hSigmaTime = new TH1F("hSigmaTime","; sigma time; counts",40,0,2);
+
+  auto *hPad = new TH1F("hPad","; time; counts",1400,0,140);
+  auto *hSigmaPad = new TH1F("hSigmaPad","; sigma time; counts",60,0,2);
 
   auto *hOcc = new TH2F("hOcc","; pad row; pad", 160,0,160,200,-100,100);
 
-  auto *hdEdxTot = new TH1F("hdEdxTot","; dEdxTot; counts",3000,0,3000);
-  auto *hdEdxMax = new TH1F("hdEdxMax","; dEdxMax; counts",3000,0,3000);
+  auto *hdEdxTot = new TH1F("hdEdxTot","; dEdxTot; counts",200,0,200);
+  auto *hdEdxMax = new TH1F("hdEdxMax","; dEdxMax; counts",200,0,200);
 
-  auto *hTrackIDs = new TH1F("hTrackIDs","; track ID; counts", 50,0,50);
+  auto *hdEdxTotCut = new TH1F("hdEdxTotCut","; dEdxTot_Cut; counts",200,0,200);
+  auto *hdEdxMaxCut = new TH1F("hdEdxMaxCut","; dEdxMax_Cut; counts",200,0,200);
+
+  auto *hTrackIDs = new TH1F("hTrackIDs","; track ID; counts", 100,0,100);
 
   auto *grClusA = new TGraph();
   auto *grClusC = new TGraph();
@@ -84,6 +107,10 @@ void PID(const char *Filename="PID_output.root", const char *OutputPath="/home/t
   float trunclow = 2.;
   float trunchigh = 77.;
 
+  // ===| initiate cuts |=======================================================
+  int nClusterCut = 100;
+  int chargeThreshold = 4;
+
   // ===| process the tracks |==================================================
   auto file   = TFile::Open("tpctracks.root");
   auto tree = (TTree *)file->Get("tpcrec");
@@ -120,7 +147,7 @@ void PID(const char *Filename="PID_output.root", const char *OutputPath="/home/t
       const auto& trackLabel = mcTPC->getLabels(k);
       for(auto& label : trackLabel) {
         trackID = label.getTrackID();
-        std::cout<<"trackID: "<<trackID<<std::endl;
+        //std::cout<<"trackID: "<<trackID<<std::endl;
       }
       hTrackIDs->Fill(trackID);
       if (trackID == superTrackID) { ++trackWithSuperTrackID; }
@@ -136,17 +163,29 @@ void PID(const char *Filename="PID_output.root", const char *OutputPath="/home/t
         for(auto& label : clusterLabel) {
           clusterTrackID = label.getTrackID();
         }
-        if (trackID==clusterTrackID) {
-          clusterqTotVec.emplace_back(cl.qTot);
-          clusterqMaxVec.emplace_back(cl.qMax);
+        CRU cru = mapper.getCRU(Sector(int(sector)),mapper.globalPadNumber(PadPos(int(row), cl.getPad())));
+        auto& info = mapper.getPadRegionInfo(cru.region());
+        float padHeight = info.getPadHeight();
+        float padWidth  = info.getPadWidth();
+        //std::cout<<"PadHeight: "<<padHeight<<", PadWidth: "<<padWidth<<std::endl;
+        float qtot = cl.qTot;
+        float qmax = cl.qMax;
+        correctCharge(qtot, qmax, track.getSnp(), track.getTgl(), padHeight, padWidth);
+        if (trackID==clusterTrackID && qmax>chargeThreshold) {
+          clusterqTotVec.emplace_back(qtot);
+          clusterqMaxVec.emplace_back(qmax);
         }
       }
       //std::cout<<"number of clusters in qTot vector: "<<clusterqTotVec.size()<<std::endl;
       //std::cout<<"number of clusters in qMax vector: "<<clusterqMaxVec.size()<<std::endl;
-      float truncMeanTot = GetTruncatedMean(clusterqTotVec,trunclow,trunchigh);
-      float truncMeanMax = GetTruncatedMean(clusterqMaxVec,trunclow,trunchigh);
+      float truncMeanTot = getTruncatedMean(clusterqTotVec,trunclow,trunchigh);
+      float truncMeanMax = getTruncatedMean(clusterqMaxVec,trunclow,trunchigh);
       hdEdxTot->Fill(truncMeanTot);
       hdEdxMax->Fill(truncMeanMax);
+      if (track.getNClusterReferences() > nClusterCut) {
+        hdEdxTotCut->Fill(truncMeanTot);
+        hdEdxMaxCut->Fill(truncMeanMax);
+      }
       //======================================================================================================
       
       
@@ -173,13 +212,17 @@ void PID(const char *Filename="PID_output.root", const char *OutputPath="/home/t
 
         for(auto& label : clusterLabel) {
           clusterTrackID = label.getTrackID();
-          std::cout<<"clusterTrackID: "<<clusterTrackID<<std::endl;
+          //std::cout<<"clusterTrackID: "<<clusterTrackID<<std::endl;
         }
 
 
-        tuple->Fill(cl.qMax,cl.qTot,padLoc,rowCl);
+        tuple->Fill(cl.qMax,cl.qTot,padLoc,rowCl,cl.getTime());
         hChargeTot->Fill(cl.qTot);
         hChargeMax->Fill(cl.qMax);
+        hTime->Fill(cl.getTime());
+        hSigmaTime->Fill(cl.getSigmaTime());
+        hPad->Fill(cl.getPad());
+        hSigmaPad->Fill(cl.getSigmaPad());
 
         if (clusterTrackID == trackID) {
           hOcc->Fill(row,padLoc);
@@ -282,10 +325,16 @@ void PID(const char *Filename="PID_output.root", const char *OutputPath="/home/t
 
   OutFile->WriteObject(hChargeTot, "chargeTot");
   OutFile->WriteObject(hChargeMax, "chargeMax");
+  OutFile->WriteObject(hTime, "time");
+  OutFile->WriteObject(hSigmaTime, "sigmaTime");
+  OutFile->WriteObject(hPad, "pad");
+  OutFile->WriteObject(hSigmaPad, "sigmaPad");
   OutFile->WriteObject(hNClusters, "NClusters");
   OutFile->WriteObject(hOcc, "hOcc");
   OutFile->WriteObject(hdEdxTot, "hdEdxTot");
   OutFile->WriteObject(hdEdxMax, "hdEdxMax");
+  OutFile->WriteObject(hdEdxTotCut, "hdEdxTotCut");
+  OutFile->WriteObject(hdEdxMaxCut, "hdEdxMaxCut");
   OutFile->WriteObject(hTrackIDs, "hTrackIDs");
   tuple->Write();
   OutFile->WriteObject(c, "all_tracks");
