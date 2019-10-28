@@ -112,13 +112,13 @@ inline int GEMAmplification::getStackAmplification(const CRU& cru, const PadPos&
   /// pad
   switch (mode) {
     case AmplificationMode::FullMode: {
-      return static_cast<int>(static_cast<float>(getStackAmplification(nElectrons)) *
-                              mGainMap->getValue(cru, pos.getRow(), pos.getPad()));
+      return static_cast<int>(static_cast<float>(getStackAmplification(nElectrons)));// *
+                              //mGainMap->getValue(cru, pos.getRow(), pos.getPad()));
       break;
     }
     case AmplificationMode::EffectiveMode: {
-      return static_cast<int>(static_cast<float>(getEffectiveStackAmplification(nElectrons)) *
-                              mGainMap->getValue(cru, pos.getRow(), pos.getPad()));
+      return static_cast<int>(static_cast<float>(getEffectiveStackAmplification(nElectrons)));// *
+                              //mGainMap->getValue(cru, pos.getRow(), pos.getPad()));
       break;
     }
   }
