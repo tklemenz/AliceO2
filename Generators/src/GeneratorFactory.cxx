@@ -103,21 +103,6 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
     boxGenA->SetPhiRange(0., 360.);
     primGen->AddGenerator(boxGenC);
     primGen->AddGenerator(boxGenA);
-  } else if (genconfig.compare("emcgenele") == 0) {
-    // box generator with one electron per event
-    LOG(INFO) << "Init box generator for electrons in EMCAL";
-    auto elecgen = new FairBoxGenerator(11, 1);
-    elecgen->SetEtaRange(-0.67, 0.67);
-    elecgen->SetPhiRange(80., 187.); // Phi range of the EMCAL
-    elecgen->SetPtRange(15., 15.);
-    primGen->AddGenerator(elecgen);
-  } else if (genconfig.compare("emcgenphoton") == 0) {
-    LOG(INFO) << "Init box generator for photons in EMCAL";
-    auto photongen = new FairBoxGenerator(22, 1);
-    photongen->SetEtaRange(-0.67, 0.67);
-    photongen->SetPhiRange(80., 187.); // Phi range of the EMCAL
-    photongen->SetPtRange(15., 15.);
-    primGen->AddGenerator(photongen);
   } else if (genconfig.compare("fddgen") == 0) {
     LOG(INFO) << "Init box FDD generator";
     auto boxGenFDC = new FairBoxGenerator(13, 1000);
@@ -254,7 +239,7 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
     boxGenPi->SetThetaRange(90.-0.24,90.+0.24); // tilted tracks for real testbeam
     boxGenPi->SetPRange(2.,2.);
     boxGenPi->SetPhiRange(193.39-0.34,193.39+0.34); // tilted tracks for real testbeam
-    boxGenPi->SetBoxXYZ(130, 28.7, 129, 34.61, 245);             // proper distance for testbeam simulation
+    boxGenPi->SetBoxXYZ(130, 28.7, 129, 34.61, 205);             // proper distance for testbeam simulation
     boxGenPi->SetDebug(kTRUE);
 
     primGen->AddGenerator(boxGenPi);

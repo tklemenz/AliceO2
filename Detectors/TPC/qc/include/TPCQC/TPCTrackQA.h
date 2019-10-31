@@ -18,6 +18,8 @@
 
 //root includes
 #include "TH1F.h"
+#include "TH2F.h"
+#include "TFile.h"
 //o2 includes
 #include "DataFormatsTPC/Defs.h"
 #include "DataFormatsTPC/TrackTPC.h"
@@ -39,7 +41,11 @@ class TPCTrackQA
  public:
   TPCTrackQA();
 
-  bool startTrackQA();
+  static TPCTrackQA& instance()
+  {
+    static TPCTrackQA tpcTrackQA;
+    return tpcTrackQA;
+  }
 
   bool processTrack(o2::tpc::TrackTPC const& track);
 
@@ -48,6 +54,12 @@ class TPCTrackQA
 
   /// Reset all histograms
   void resetHistograms();
+
+  /// Set nice style for histograms
+  void styleHistogram1D(TH1* histo);
+
+  /// Dump results to a file
+  void dumpToFile(const std::string filename);
 
   // calculate the truncated mean of a vector of cluster charges clqVec
   float getTruncatedMean(std::vector<float> clqVec, float trunclow, float trunchigh);
@@ -58,8 +70,12 @@ class TPCTrackQA
   std::vector<TH1F>& getHistograms1D() { return mHist1D; }
   const std::vector<TH1F>& getHistograms1D() const { return mHist1D; }
 
+  std::vector<TH2F>& getHistograms2D() { return mHist2D; }
+  const std::vector<TH2F>& getHistograms2D() const { return mHist2D; }
+
  private:
   std::vector<TH1F> mHist1D;
+  std::vector<TH2F> mHist2D;
 
   ClassDefNV(TPCTrackQA, 1)
 };
