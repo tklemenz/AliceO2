@@ -15,7 +15,6 @@
 #pragma link off all functions;
 
 #pragma link C++ class o2::tpc::qc::PID+;
-#pragma link C++ class o2::tpc::qc::thomasDigits+;
 #pragma link C++ class o2::tpc::qc::TPCTrackQA+;
 
 #endif
