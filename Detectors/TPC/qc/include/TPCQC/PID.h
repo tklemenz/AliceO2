@@ -10,18 +10,28 @@
 
 ///
 /// @file   PID.h
-/// @author Jens Wiechula, Jens.Wiechula@ikf.uni-frankfurt.de
+/// @author Thomas Klemenz, thomas.klemenz@tum.de
 ///
 
-#ifndef AliceO2_TPC_ROC_H
-#define AliceO2_TPC_ROC_H
+/// @brief  PID quality control class
+///
+/// This class is used to extract PID related variables
+/// from TrackTPC objects and store it in histograms
+///
+/// origin: TPC
+/// @author Thomas Klemenz, thomas.klemenz@tum.de
+
+#ifndef AliceO2_TPC_PID_H
+#define AliceO2_TPC_PID_H
 
 //root includes
 #include "TH1F.h"
+#include "TH2F.h"
+#include "TFile.h"
+#include "TCanvas.h"
 //o2 includes
 #include "DataFormatsTPC/Defs.h"
 #include "DataFormatsTPC/TrackTPC.h"
-#include "TPCBase/Sector.h"
 
 namespace o2
 {
@@ -30,15 +40,14 @@ namespace tpc
 namespace qc
 {
 
-/// Keep QC information for PID related observables
-///
-/// This is just a dummy implementation to get started with QC
-/// @author Jens Wiechula, Jens.Wiechula@ikf.uni-frankfurt.de
 class PID
 {
  public:
-  PID();
+  /// default constructor
+  PID() = default;
 
+  /// bool extracts intormation from track and fills it to histograms
+  // \return true if information can be extracted and filled to histograms
   bool processTrack(o2::tpc::TrackTPC const& track);
 
   /// Initialize all histograms
@@ -47,11 +56,23 @@ class PID
   /// Reset all histograms
   void resetHistograms();
 
+  /// Set color palette, OptStat and call setStyleHistogram
+  void setNiceStyle();
+
+  /// Dump results to a file
+  void dumpToFile(const std::string filename);
+
+  /// get 1D histograms
   std::vector<TH1F>& getHistograms1D() { return mHist1D; }
   const std::vector<TH1F>& getHistograms1D() const { return mHist1D; }
 
+  /// get 2D histograms
+  std::vector<TH2F>& getHistograms2D() { return mHist2D; }
+  const std::vector<TH2F>& getHistograms2D() const { return mHist2D; }
+
  private:
-  std::vector<TH1F> mHist1D;
+  std::vector<TH1F> mHist1D{};
+  std::vector<TH2F> mHist2D{};
 
   ClassDefNV(PID, 1)
 };
