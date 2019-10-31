@@ -11,6 +11,7 @@
 #define _USE_MATH_DEFINES
 
 #include <cmath>
+#include "TStyle.h"
 
 #include "DataFormatsTPC/dEdxInfo.h"
 
@@ -31,19 +32,18 @@ void TPCTrackQA::initializeHistograms()
   mHist1D.emplace_back("hNClusters","; # of clusters; counts",160,0,160);         //| mHist1D[0]
   mHist1D.emplace_back("hdedxTot","; dedxTot (a.u.); counts",200,0,200);          //| mHist1D[1]
   mHist1D.emplace_back("hdedxMax","; dedxMax (a.u.); counts",200,0,200);          //| mHist1D[2]
-  mHist1D.emplace_back("hPhi","; #phi (rad); counts",500,-250,250);	              //| mHist1D[3]
-  mHist1D.emplace_back("hTgl","; tan#lambda; counts",500,-250,250);		            //| mHist1D[4]
-  mHist1D.emplace_back("hSnp","; sin p; counts",500,-250,250);			              //| mHist1D[5]
+  mHist1D.emplace_back("hPhi","; #phi (rad); counts",180,-M_PI,M_PI);	          //| mHist1D[3]
+  mHist1D.emplace_back("hTgl","; tan#lambda; counts",60,-2,2);		          //| mHist1D[4]
+  mHist1D.emplace_back("hSnp","; sin p; counts",60,-2,2);			  //| mHist1D[5]
 
-  mHist2D.emplace_back("hdedxVsPhi","; #phi (rad); dedx (a.u.)", 180,-M_PI,M_PI,300,0,300);     //| mHist2D[0]
-  mHist2D.emplace_back("hdedxVsTgl","; tan#lambda; dedx (a.u.)", 60,-2,2,300,0,300);            //| mHist2D[1]
-  mHist2D.emplace_back("hdedxVsncls","; ncls; dedx (a.u.)", 80,0,160,300,0,300);                //| mHist2D[2]
-  mHist2D.emplace_back("hdedxVsp","; p (G#it(e)V/#it(c)); dedx (a.u.)", 30,0.1,10,300,0,300);   //| mHist2D[3]
+  mHist2D.emplace_back("hdedxVsPhi","dedx (a.u.) vs #phi (rad); #phi (rad); dedx (a.u.)", 180,-M_PI,M_PI,300,0,300);              //| mHist2D[0]
+  mHist2D.emplace_back("hdedxVsTgl","dedx (a.u.) vs tan#lambda; tan#lambda; dedx (a.u.)", 60,-2,2,300,0,300);                     //| mHist2D[1]
+  mHist2D.emplace_back("hdedxVsncls","dedx (a.u.) vs ncls; ncls; dedx (a.u.)", 80,0,160,300,0,300);                               //| mHist2D[2]
+  mHist2D.emplace_back("hdedxVsp","dedx (a.u.) vs p (G#it{e}V/#it{c}); p (G#it{e}V/#it{c}); dedx (a.u.)", 30,-1,1,300,0,300);     //| mHist2D[3]
   //mHist2D.emplace_back("hdedxVsphiMIPA","; #phi (rad); dedx (a.u.)", 180,-M_PI,M_PI,25,35,60);  //| mHist2D[4]
   //mHist2D.emplace_back("hdedxVsphiMIPC","; #phi (rad); dedx (a.u.)", 180,-M_PI,M_PI,25,35,60);  //| mHist2D[5]
 
-  mHist1D[0].GetYaxis()->SetTitleOffset(0.9);
-  //mHist1D[0].SetDrawOption("P");
+  //mHist1D[0].GetYaxis()->SetTitleOffset(0.9);
 }
 
 //______________________________________________________________________________
@@ -92,6 +92,63 @@ bool TPCTrackQA::processTrack(o2::tpc::TrackTPC const& track)
 }
 
 //______________________________________________________________________________
+void TPCTrackQA::drawHistograms()
+{
+  auto* c1 = new TCanvas("c1","PID",1200,600);
+  c1->Divide(2,2);
+  c1->cd(1);
+  mHist2D[0].Draw();
+  gPad->SetLogz();
+  c1->cd(2);
+  mHist2D[1].Draw();
+  gPad->SetLogz();
+  c1->cd(3);
+  mHist2D[2].Draw();
+  gPad->SetLogz();
+  c1->cd(4);
+  TPCTrackQA::binLogX(&mHist2D[3]);
+  mHist2D[3].Draw();
+  gPad->SetLogz();
+  gPad->SetLogx();
+}
+
+//______________________________________________________________________________
+void TPCTrackQA::binLogX(TH2 *h)
+{
+  TAxis *axis = h->GetXaxis();
+  int bins = axis->GetNbins();
+
+  Axis_t from = axis->GetXmin();
+  Axis_t to = axis->GetXmax();
+  Axis_t width = (to - from) / bins;
+  Axis_t *new_bins = new Axis_t[bins +1];
+
+  for (int i = 0; i<= bins; i++) {
+    new_bins[i] = std::pow(10, from + i * width);
+  }
+  axis->Set(bins,new_bins);
+  delete new_bins;
+}
+
+//______________________________________________________________________________
+void TPCTrackQA::setStyleHistogram2D(TH2 &histo)
+{
+  histo.SetOption("colz");
+  histo.SetMinimum(0.9);
+}
+
+//______________________________________________________________________________
+void TPCTrackQA::setNiceStyle()
+{
+  gStyle->SetOptStat(0);
+  gStyle->SetPalette(kCividis);
+
+  for (auto& hist : mHist2D) {
+    TPCTrackQA::setStyleHistogram2D(hist);
+  }
+}
+
+//______________________________________________________________________________
 void TPCTrackQA::dumpToFile(const std::string filename)
 {
   auto f = std::unique_ptr<TFile>(TFile::Open(filename.c_str(), "recreate"));
@@ -107,34 +164,3 @@ void TPCTrackQA::dumpToFile(const std::string filename)
   f->WriteObject(&mHist2D[3], "dEdxVsp");
   f->Close();
 }
-
-//______________________________________________________________________________
-float TPCTrackQA::getTruncatedMean(std::vector<float> clqVec, float trunclow, float trunchigh)
-{
-  trunclow = clqVec.size() * trunclow/128;
-  trunchigh = clqVec.size() * trunchigh/128;
-  if (trunclow >= trunchigh) {
-    return (0.);
-  }
-  std::sort(clqVec.begin(), clqVec.end());
-  float mean = 0;
-  for (int i = trunclow; i < trunchigh; i++) {
-    mean += clqVec.at(i);
-  }
-  return (mean / (trunchigh - trunclow));
-}
-
-//______________________________________________________________________________
-void TPCTrackQA::correctCharge(float qtot, float qmax, float trackSnp, float trackTgl, float padHeight, float padWidth) 
-{
-  float snp2 = trackSnp * trackSnp;
-  float factor = std::sqrt((1 - snp2) / (1 + trackTgl * trackTgl));factor /= padHeight;
-  qtot *= factor;
-  qmax *= factor / padWidth;
-  return;
-}
-
-// How can I read the track and the cluster file "event by event" to have the references to the proper clusters? 
-// In the macro a o2::tpc::ClusterNativeHelper::Reader is used which reads the cluster file event by event simultaneously to the event loop
-
-

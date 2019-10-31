@@ -20,6 +20,7 @@
 #include "TH1F.h"
 #include "TH2F.h"
 #include "TFile.h"
+#include "TCanvas.h"
 //o2 includes
 #include "DataFormatsTPC/Defs.h"
 #include "DataFormatsTPC/TrackTPC.h"
@@ -55,17 +56,23 @@ class TPCTrackQA
   /// Reset all histograms
   void resetHistograms();
 
-  /// Set nice style for histograms
-  void styleHistogram1D(TH1* histo);
+  /// Set nice style for 1D histograms
+  void setStyleHistogram1D(TH1& histo);
+
+  /// Set nice style for 2D histograms
+  void setStyleHistogram2D(TH2& histo);
+
+  /// Set color palette and OptStat
+  void setNiceStyle();
 
   /// Dump results to a file
   void dumpToFile(const std::string filename);
 
-  // calculate the truncated mean of a vector of cluster charges clqVec
-  float getTruncatedMean(std::vector<float> clqVec, float trunclow, float trunchigh);
+  /// Draw histograms
+  void drawHistograms();
 
-  // correct cluster charge for track angles and pad size
-  void correctCharge(float qtot, float qmax, float trackSnp, float trackTgl, float padHeight, float padWidth);
+  /// rebin x-axis of a TH2 to a log scale to have constant sized bins
+  void binLogX(TH2 *h);
 
   std::vector<TH1F>& getHistograms1D() { return mHist1D; }
   const std::vector<TH1F>& getHistograms1D() const { return mHist1D; }
@@ -76,6 +83,7 @@ class TPCTrackQA
  private:
   std::vector<TH1F> mHist1D;
   std::vector<TH2F> mHist2D;
+  TCanvas* mCanvas;
 
   ClassDefNV(TPCTrackQA, 1)
 };
