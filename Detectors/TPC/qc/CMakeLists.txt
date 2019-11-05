@@ -23,7 +23,7 @@ o2_add_test(PID
             SOURCES test/test_PID.cxx
             LABELS tpc)
 
-o2_add_test_root_macro(macro/runTPCTrackQA.C
+o2_add_test_root_macro(macro/runPID.C
                        PUBLIC_LINK_LIBRARIES O2::DataFormatsTPC
                                              O2::TPCBase
                                              LABELS tpc)

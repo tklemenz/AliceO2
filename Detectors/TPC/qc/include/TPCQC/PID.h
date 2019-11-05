@@ -42,6 +42,12 @@ class PID
  public:
   PID();
 
+  static PID& instance()
+  {
+    static PID pid;
+    return pid;
+  }
+
   bool processTrack(o2::tpc::TrackTPC const& track);
 
   /// Initialize all histograms
