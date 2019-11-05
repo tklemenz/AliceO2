@@ -43,8 +43,6 @@ void PID::initializeHistograms()
   mHist2D.emplace_back("hdEdxVsp", "dEdx (a.u.) vs p (G#it{e}V/#it{c}); p (G#it{e}V/#it{c}); dEdx (a.u.)", 30, -1, 1, 300, 0, 300); //| mHist2D[3]
   //mHist2D.emplace_back("hdedxVsphiMIPA","; #phi (rad); dedx (a.u.)", 180,-M_PI,M_PI,25,35,60);  //| mHist2D[4]
   //mHist2D.emplace_back("hdedxVsphiMIPC","; #phi (rad); dedx (a.u.)", 180,-M_PI,M_PI,25,35,60);  //| mHist2D[5]
-
-  //mHist1D[0].GetYaxis()->SetTitleOffset(0.9);
 }
 
 //______________________________________________________________________________
