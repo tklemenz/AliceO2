@@ -50,17 +50,23 @@ class PID
   /// Reset all histograms
   void resetHistograms();
 
+  /// Initialize canvases
+  void initializeCanvases();
+
+  /// Purge canvas vector content
+  void resetCanvases();
+
   /// Set nice style for 1D histograms
   void setStyleHistogram1D(TH1& histo);
 
   /// Set nice style for 2D histograms
   void setStyleHistogram2D(TH2& histo);
 
-  /// Set color palette and OptStat
+  /// Set color palette, OptStat and call setStyleHistogram
   void setNiceStyle();
 
   /// Dump results to a file
-  void dumpToFile(const std::string filename);
+  void dumpToFile(const std::string filename, const std::string draw = "");
 
   /// Draw histograms
   void drawHistograms();
@@ -77,7 +83,7 @@ class PID
  private:
   std::vector<TH1F> mHist1D;
   std::vector<TH2F> mHist2D;
-  TCanvas* mCanvas;
+  std::vector<TCanvas*> mCanvas;
 
   ClassDefNV(PID, 1)
 };

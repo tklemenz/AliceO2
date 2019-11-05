@@ -16,7 +16,7 @@ using namespace o2::tpc;
   delete new_bins;
 }*/
 
-void runTPCTrackQA(std::string_view outputfileName = "TPCTrackQA.root", std::string_view inputfileName = "tpctracks.root", const size_t maxTracks = 0)
+void runTPCTrackQA(std::string_view outputfileName = "TPCTrackQA.root", std::string_view inputfileName = "tpctracks.root", std::string_view draw = "draw", const size_t maxTracks = 0)
 {
   // ===| track file and tree |=================================================
   auto file = TFile::Open(inputfileName.data());
@@ -71,12 +71,15 @@ void runTPCTrackQA(std::string_view outputfileName = "TPCTrackQA.root", std::str
 */
 
   //===| draw histograms |=======================================================
-  tpcTrackQA.setNiceStyle();
-  tpcTrackQA.drawHistograms();
+  //tpcTrackQA.setNiceStyle();
+  //tpcTrackQA.drawHistograms();
 
   //===| dump histograms to a file |=============================================
-  tpcTrackQA.dumpToFile(outputfileName.data());
+  tpcTrackQA.dumpToFile(outputfileName.data(), draw.data());
 
   //===| reset histograms |======================================================
   //tpcTrackQA.resetHistograms();
+
+  //===| reset canvases |========================================================
+  //tpcTrackQA.resetCanvases();
 }
