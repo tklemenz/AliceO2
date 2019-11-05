@@ -24,7 +24,6 @@
 //o2 includes
 #include "DataFormatsTPC/Defs.h"
 #include "DataFormatsTPC/TrackTPC.h"
-#include "TPCBase/Sector.h"
 
 namespace o2
 {

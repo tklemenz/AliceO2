@@ -11,10 +11,11 @@
 #define _USE_MATH_DEFINES
 
 #include <cmath>
+#include <assert.h>
+
 #include "TStyle.h"
 
 #include "DataFormatsTPC/dEdxInfo.h"
-
 #include "TPCQC/PID.h"
 
 ClassImp(o2::tpc::qc::PID);
@@ -37,12 +38,14 @@ void PID::initializeHistograms()
   mHist1D.emplace_back("hTgl", "; tan#lambda; counts", 60, -2, 2);            //| mHist1D[4]
   mHist1D.emplace_back("hSnp", "; sin p; counts", 60, -2, 2);                 //| mHist1D[5]
 
-  mHist2D.emplace_back("hdEdxVsPhi", "dEdx (a.u.) vs #phi (rad); #phi (rad); dEdx (a.u.)", 180, -M_PI, M_PI, 300, 0, 300);                                          //| mHist2D[0]
-  mHist2D.emplace_back("hdEdxVsTgl", "dEdx (a.u.) vs tan#lambda; tan#lambda; dEdx (a.u.)", 60, -2, 2, 300, 0, 300);                                                 //| mHist2D[1]
-  mHist2D.emplace_back("hdEdxVsncls", "dEdx (a.u.) vs ncls; ncls; dEdx (a.u.)", 80, 0, 160, 300, 0, 300);                                                           //| mHist2D[2]
+  mHist2D.emplace_back("hdEdxVsPhi", "dEdx (a.u.) vs #phi (rad); #phi (rad); dEdx (a.u.)", 180, -M_PI, M_PI, 300, 0, 300);                                            //| mHist2D[0]
+  mHist2D.emplace_back("hdEdxVsTgl", "dEdx (a.u.) vs tan#lambda; tan#lambda; dEdx (a.u.)", 60, -2, 2, 300, 0, 300);                                                   //| mHist2D[1]
+  mHist2D.emplace_back("hdEdxVsncls", "dEdx (a.u.) vs ncls; ncls; dEdx (a.u.)", 80, 0, 160, 300, 0, 300);                                                             //| mHist2D[2]
 
-  const auto logPtBinning = PID::makeLogBinning(30,0.1,10);
-  mHist2D.emplace_back("hdEdxVsp", "dEdx (a.u.) vs p (G#it{e}V/#it{c}); p (G#it{e}V/#it{c}); dEdx (a.u.)", logPtBinning.size()-1, logPtBinning.data(), 300,0,300);  //| mHist2D[3]
+  const auto logPtBinning = PID::makeLogBinning(30,0.1,100);
+  if (logPtBinning.size() > 0) {
+    mHist2D.emplace_back("hdEdxVsp", "dEdx (a.u.) vs p (G#it{e}V/#it{c}); p (G#it{e}V/#it{c}); dEdx (a.u.)", logPtBinning.size()-1, logPtBinning.data(), 300,0,300);  //| mHist2D[3]
+  }
   //mHist2D.emplace_back("hdedxVsphiMIPA","; #phi (rad); dedx (a.u.)", 180,-M_PI,M_PI,25,35,60);  //| mHist2D[4]
   //mHist2D.emplace_back("hdedxVsphiMIPC","; #phi (rad); dedx (a.u.)", 180,-M_PI,M_PI,25,35,60);  //| mHist2D[5]
 }
@@ -133,6 +136,9 @@ void PID::drawHistograms()
 //______________________________________________________________________________
 std::vector<double> PID::makeLogBinning(const int nbins, const double min, const double max)
 {
+  assert(min > 0);
+  assert(min < max);
+
   std::vector<double> binLim(nbins + 1);
 
   const double expMax = std::log(max / min);
