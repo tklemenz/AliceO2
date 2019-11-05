@@ -37,10 +37,12 @@ void PID::initializeHistograms()
   mHist1D.emplace_back("hTgl", "; tan#lambda; counts", 60, -2, 2);            //| mHist1D[4]
   mHist1D.emplace_back("hSnp", "; sin p; counts", 60, -2, 2);                 //| mHist1D[5]
 
-  mHist2D.emplace_back("hdEdxVsPhi", "dEdx (a.u.) vs #phi (rad); #phi (rad); dEdx (a.u.)", 180, -M_PI, M_PI, 300, 0, 300);          //| mHist2D[0]
-  mHist2D.emplace_back("hdEdxVsTgl", "dEdx (a.u.) vs tan#lambda; tan#lambda; dEdx (a.u.)", 60, -2, 2, 300, 0, 300);                 //| mHist2D[1]
-  mHist2D.emplace_back("hdEdxVsncls", "dEdx (a.u.) vs ncls; ncls; dEdx (a.u.)", 80, 0, 160, 300, 0, 300);                           //| mHist2D[2]
-  mHist2D.emplace_back("hdEdxVsp", "dEdx (a.u.) vs p (G#it{e}V/#it{c}); p (G#it{e}V/#it{c}); dEdx (a.u.)", 30, -1, 1, 300, 0, 300); //| mHist2D[3]
+  mHist2D.emplace_back("hdEdxVsPhi", "dEdx (a.u.) vs #phi (rad); #phi (rad); dEdx (a.u.)", 180, -M_PI, M_PI, 300, 0, 300);                                          //| mHist2D[0]
+  mHist2D.emplace_back("hdEdxVsTgl", "dEdx (a.u.) vs tan#lambda; tan#lambda; dEdx (a.u.)", 60, -2, 2, 300, 0, 300);                                                 //| mHist2D[1]
+  mHist2D.emplace_back("hdEdxVsncls", "dEdx (a.u.) vs ncls; ncls; dEdx (a.u.)", 80, 0, 160, 300, 0, 300);                                                           //| mHist2D[2]
+
+  const auto logPtBinning = PID::makeLogBinning(30,0.1,10);
+  mHist2D.emplace_back("hdEdxVsp", "dEdx (a.u.) vs p (G#it{e}V/#it{c}); p (G#it{e}V/#it{c}); dEdx (a.u.)", logPtBinning.size()-1, logPtBinning.data(), 300,0,300);  //| mHist2D[3]
   //mHist2D.emplace_back("hdedxVsphiMIPA","; #phi (rad); dedx (a.u.)", 180,-M_PI,M_PI,25,35,60);  //| mHist2D[4]
   //mHist2D.emplace_back("hdedxVsphiMIPC","; #phi (rad); dedx (a.u.)", 180,-M_PI,M_PI,25,35,60);  //| mHist2D[5]
 }
@@ -123,29 +125,29 @@ void PID::drawHistograms()
   mHist2D[2].Draw();
   gPad->SetLogz();
   mCanvas[0]->cd(4);
-  PID::binLogX(&mHist2D[3]);
   mHist2D[3].Draw();
   gPad->SetLogz();
   gPad->SetLogx();  
 }
 
 //______________________________________________________________________________
-void PID::binLogX(TH2* h)
+std::vector<double> PID::makeLogBinning(const int nbins, const double min, const double max)
 {
-  TAxis* axis = h->GetXaxis();
-  int bins = axis->GetNbins();
+  std::vector<double> binLim(nbins + 1);
 
-  Axis_t from = axis->GetXmin();
-  Axis_t to = axis->GetXmax();
-  Axis_t width = (to - from) / bins;
-  Axis_t* new_bins = new Axis_t[bins + 1];
+  const double expMax = std::log(max / min);
+  const double binWidth = expMax / nbins;
 
-  for (int i = 0; i <= bins; i++) {
-    new_bins[i] = std::pow(10, from + i * width);
+  binLim[0] = min;
+  binLim[nbins] = max;
+
+  for (Int_t i = 1; i < nbins; ++i) {
+    binLim[i] = min * std::exp(i * binWidth);
   }
-  axis->Set(bins, new_bins);
-  delete new_bins;
+
+  return binLim;
 }
+
 
 //______________________________________________________________________________
 void PID::setStyleHistogram2D(TH2& histo)

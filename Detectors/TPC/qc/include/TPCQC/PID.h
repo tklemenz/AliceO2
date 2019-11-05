@@ -77,8 +77,8 @@ class PID
   /// Draw histograms
   void drawHistograms();
 
-  /// rebin x-axis of a TH2 to a log scale to have constant sized bins
-  void binLogX(TH2 *h);
+  /// get a vector containing binning info for constant sized bins on a log axis
+  std::vector<double> makeLogBinning(const int nbins, const double min, const double max);
 
   std::vector<TH1F>& getHistograms1D() { return mHist1D; }
   const std::vector<TH1F>& getHistograms1D() const { return mHist1D; }
