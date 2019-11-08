@@ -1,9 +1,9 @@
 using namespace o2::tpc;
 
-void runPID(std::string_view outputfileName = "PID.root", std::string_view inputfileName = "tpctracks.root", std::string_view draw = "draw", const size_t maxTracks = 0)
+void runPID(std::string_view outputFileName = "PID", std::string_view inputFileName = "tpctracks.root", std::string_view draw = "draw", const size_t maxTracks = 0)
 {
   // ===| track file and tree |=================================================
-  auto file = TFile::Open(inputfileName.data());
+  auto file = TFile::Open(inputFileName.data());
   auto tree = (TTree*)file->Get("tpcrec");
   if (tree == nullptr) {
     std::cout << "Error getting tree\n";
@@ -14,10 +14,11 @@ void runPID(std::string_view outputfileName = "PID.root", std::string_view input
   std::vector<TrackTPC>* tpcTracks = nullptr;
   tree->SetBranchAddress("TPCTracks", &tpcTracks);
 
-  // ===| create PID object |==============================================
+  // ===| create PID object |=====================================================
   auto& pid = o2::tpc::qc::PID::instance();
 
   pid.initializeHistograms();
+  pid.setNiceStyle();
 
   // ===| event loop |============================================================
   for (int i = 0; i < tree->GetEntriesFast(); ++i) {
@@ -30,7 +31,31 @@ void runPID(std::string_view outputfileName = "PID.root", std::string_view input
     }
   }
 
-  //===| dump histograms to a file |=============================================
-  pid.dumpToFile(outputfileName.data(), draw.data());
+  // ===| create canvas |========================================================
+  auto* c1 = new TCanvas("c1", "PID", 1200, 600);
+  c1->Divide(2, 2);
+  auto histos2D = pid.getHistograms2D();
+  c1->cd(1);
+  histos2D[0].Draw();
+  gPad->SetLogz();
+  c1->cd(2);
+  histos2D[1].Draw();
+  gPad->SetLogz();
+  c1->cd(3);
+  histos2D[2].Draw();
+  gPad->SetLogz();
+  c1->cd(4);
+  histos2D[3].Draw();
+  gPad->SetLogz();
+  gPad->SetLogx();
 
+  auto f = std::unique_ptr<TFile>(TFile::Open(Form("%s_canvas.root",outputFileName.data()), "recreate"));
+  f->WriteObject(c1, "PID");
+  f->Close();
+  delete c1;
+
+  //===| dump histograms to a file |=============================================
+  pid.dumpToFile(Form("%s.root",outputFileName.data()), draw.data());
+
+  pid.resetHistograms();
 }

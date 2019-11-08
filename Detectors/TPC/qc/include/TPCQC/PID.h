@@ -34,8 +34,7 @@ namespace qc
 
 /// Keep QC information for PID related observables
 ///
-/// This is just a dummy implementation to get started with QC
-/// @author Thomas Klemenz thomas.klemenz@tum.de
+
 class PID
 {
  public:
@@ -55,29 +54,11 @@ class PID
   /// Reset all histograms
   void resetHistograms();
 
-  /// Initialize canvases
-  void initializeCanvases();
-
-  /// Purge canvas vector content
-  void resetCanvases();
-
-  /// Set nice style for 1D histograms
-  void setStyleHistogram1D(TH1& histo);
-
-  /// Set nice style for 2D histograms
-  void setStyleHistogram2D(TH2& histo);
-
   /// Set color palette, OptStat and call setStyleHistogram
   void setNiceStyle();
 
   /// Dump results to a file
-  void dumpToFile(const std::string filename, const std::string draw = "");
-
-  /// Draw histograms
-  void drawHistograms();
-
-  /// get a vector containing binning info for constant sized bins on a log axis
-  std::vector<double> makeLogBinning(const int nbins, const double min, const double max);
+  void dumpToFile(const std::string filename);
 
   std::vector<TH1F>& getHistograms1D() { return mHist1D; }
   const std::vector<TH1F>& getHistograms1D() const { return mHist1D; }
@@ -88,7 +69,6 @@ class PID
  private:
   std::vector<TH1F> mHist1D;
   std::vector<TH2F> mHist2D;
-  std::vector<TCanvas*> mCanvas;
 
   ClassDefNV(PID, 1)
 };

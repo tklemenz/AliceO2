@@ -11,20 +11,19 @@
 #define _USE_MATH_DEFINES
 
 #include <cmath>
-#include <assert.h>
 
 #include "TStyle.h"
 
 #include "DataFormatsTPC/dEdxInfo.h"
 #include "TPCQC/PID.h"
+#include "TPCQC/Helpers.h"
 
 ClassImp(o2::tpc::qc::PID);
 
 using namespace o2::tpc::qc;
 
 PID::PID() : mHist1D{},
-             mHist2D{},
-             mCanvas{}
+             mHist2D{}
 {
 }
 
@@ -42,19 +41,12 @@ void PID::initializeHistograms()
   mHist2D.emplace_back("hdEdxVsTgl", "dEdx (a.u.) vs tan#lambda; tan#lambda; dEdx (a.u.)", 60, -2, 2, 300, 0, 300);                                                   //| mHist2D[1]
   mHist2D.emplace_back("hdEdxVsncls", "dEdx (a.u.) vs ncls; ncls; dEdx (a.u.)", 80, 0, 160, 300, 0, 300);                                                             //| mHist2D[2]
 
-  const auto logPtBinning = PID::makeLogBinning(30,0.1,100);
+  const auto logPtBinning = helpers::makeLogBinning(30,0.1,10);
   if (logPtBinning.size() > 0) {
     mHist2D.emplace_back("hdEdxVsp", "dEdx (a.u.) vs p (G#it{e}V/#it{c}); p (G#it{e}V/#it{c}); dEdx (a.u.)", logPtBinning.size()-1, logPtBinning.data(), 300,0,300);  //| mHist2D[3]
   }
   //mHist2D.emplace_back("hdedxVsphiMIPA","; #phi (rad); dedx (a.u.)", 180,-M_PI,M_PI,25,35,60);  //| mHist2D[4]
   //mHist2D.emplace_back("hdedxVsphiMIPC","; #phi (rad); dedx (a.u.)", 180,-M_PI,M_PI,25,35,60);  //| mHist2D[5]
-}
-
-//______________________________________________________________________________
-void PID::initializeCanvases()
-{
-  auto* c1 = new TCanvas("c1", "PID", 1200, 600);
-  mCanvas.emplace_back(c1);
 }
 
 //______________________________________________________________________________
@@ -66,16 +58,6 @@ void PID::resetHistograms()
   for (auto& hist : mHist2D) {
     hist.Reset();
   }
-}
-
-//______________________________________________________________________________
-void PID::resetCanvases()
-{
-  for (std::vector<TCanvas*>::iterator pObject = mCanvas.begin(); pObject != mCanvas.end(); ++pObject) {
-    delete *pObject;
-  }
-
-  mCanvas.clear();
 }
 
 //______________________________________________________________________________
@@ -113,80 +95,22 @@ bool PID::processTrack(o2::tpc::TrackTPC const& track)
 }
 
 //______________________________________________________________________________
-void PID::drawHistograms()
-{
-  PID::initializeCanvases();
-
-  mCanvas[0]->Divide(2, 2);
-  mCanvas[0]->cd(1);
-  mHist2D[0].Draw();
-  gPad->SetLogz();
-  mCanvas[0]->cd(2);
-  mHist2D[1].Draw();
-  gPad->SetLogz();
-  mCanvas[0]->cd(3);
-  mHist2D[2].Draw();
-  gPad->SetLogz();
-  mCanvas[0]->cd(4);
-  mHist2D[3].Draw();
-  gPad->SetLogz();
-  gPad->SetLogx();  
-}
-
-//______________________________________________________________________________
-std::vector<double> PID::makeLogBinning(const int nbins, const double min, const double max)
-{
-  assert(min > 0);
-  assert(min < max);
-
-  std::vector<double> binLim(nbins + 1);
-
-  const double expMax = std::log(max / min);
-  const double binWidth = expMax / nbins;
-
-  binLim[0] = min;
-  binLim[nbins] = max;
-
-  for (Int_t i = 1; i < nbins; ++i) {
-    binLim[i] = min * std::exp(i * binWidth);
-  }
-
-  return binLim;
-}
-
-
-//______________________________________________________________________________
-void PID::setStyleHistogram2D(TH2& histo)
-{
-  histo.SetOption("colz");
-  histo.SetStats(0);
-  histo.SetMinimum(0.9);
-}
-
-//______________________________________________________________________________
-void PID::setStyleHistogram1D(TH1& histo)
-{
-  histo.SetStats(0);
-}
-
-//______________________________________________________________________________
 void PID::setNiceStyle()
 {
   gStyle->SetPalette(kCividis);
 
   for (auto& hist : mHist2D) {
-    PID::setStyleHistogram2D(hist);
+    helpers::setStyleHistogram2D(hist);
   }
 
   for (auto& hist : mHist1D) {
-    PID::setStyleHistogram1D(hist);
+    helpers::setStyleHistogram1D(hist);
   }
 }
 
 //______________________________________________________________________________
-void PID::dumpToFile(const std::string filename, const std::string draw)
+void PID::dumpToFile(const std::string filename)
 {  
-  PID::setNiceStyle();
   auto f = std::unique_ptr<TFile>(TFile::Open(filename.c_str(), "recreate"));
   f->WriteObject(&mHist1D[0], "nclusters");
   f->WriteObject(&mHist1D[1], "dEdxTot");
@@ -198,14 +122,5 @@ void PID::dumpToFile(const std::string filename, const std::string draw)
   f->WriteObject(&mHist2D[1], "dEdxVstgl");
   f->WriteObject(&mHist2D[2], "dEdxVsnclusters");
   f->WriteObject(&mHist2D[3], "dEdxVsp");
-  if (draw == "draw") {
-    PID::drawHistograms();
-    f->WriteObject(mCanvas[0], "PID");
-    PID::resetCanvases();
-  }
-  else {
-    std::cout<<"You can draw a PID canvas to "<<filename.data()<<" by giving the option 'draw' to the 'dumpToFile' function."<<std::endl;
-  }
   f->Close();
-  PID::resetHistograms();
 }

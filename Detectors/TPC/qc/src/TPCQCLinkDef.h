@@ -15,5 +15,8 @@
 #pragma link off all functions;
 
 #pragma link C++ class o2::tpc::qc::PID+;
+#pragma link C++ function o2::tpc::qc::helpers::makeLogBinning+;
+#pragma link C++ function o2::tpc::qc::helpers::setStyleHistogram1D+;
+#pragma link C++ function o2::tpc::qc::helpers::setStyleHistogram2D+;
 
 #endif
