@@ -1,6 +1,6 @@
 using namespace o2::tpc;
 
-void runPID(std::string_view outputFileName = "PID", std::string_view inputFileName = "tpctracks.root", std::string_view draw = "draw", const size_t maxTracks = 0)
+void runPID(std::string_view outputFileName = "PID", std::string_view inputFileName = "tpctracks.root", const size_t maxTracks = 0)
 {
   // ===| track file and tree |=================================================
   auto file = TFile::Open(inputFileName.data());
@@ -55,7 +55,7 @@ void runPID(std::string_view outputFileName = "PID", std::string_view inputFileN
   delete c1;
 
   //===| dump histograms to a file |=============================================
-  pid.dumpToFile(Form("%s.root",outputFileName.data()), draw.data());
+  pid.dumpToFile(Form("%s.root",outputFileName.data()));
 
   pid.resetHistograms();
 }
