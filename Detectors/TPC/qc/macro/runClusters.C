@@ -1,29 +1,52 @@
+// Copyright CERN and copyright holders of ALICE O2. This software is
+// distributed under the terms of the GNU General Public License v3 (GPL
+// Version 3), copied verbatim in the file "COPYING".
+//
+// See http://alice-o2.web.cern.ch/license for full licensing information.
+//
+// In applying this license CERN does not waive the privileges and immunities
+// granted to it by virtue of its status as an Intergovernmental Organization
+// or submit itself to any jurisdiction.
+
+#if !defined(__CLING__) || defined(__ROOTCLING__)
+#include "TFile.h"
+#include "TTree.h"
+#include "DataFormatsTPC/ClusterNative.h"
+#include "DataFormatsTPC/ClusterNativeHelper.h"
+#include "DataFormatsTPC/ClusterNativeAccess.h"
+#include "SimulationDataFormat/MCTruthContainer.h"
+#include "DataFormatsTPC/Constants.h"
+#include "TPCQC/Clusters.h"
+#endif
+
+using namespace o2::tpc;
+
 void runClusters(std::string_view fileName = "tpc-native-clusters.root", std::string_view outputFile = "ClusterQC", const size_t maxNClusters = 0)
 {
-  o2::tpc::ClusterNativeHelper::Reader tpcClusterReader;
+  ClusterNativeHelper::Reader tpcClusterReader;
   tpcClusterReader.init(fileName.data());
 
-  o2::tpc::ClusterNativeAccess clusterIndex;
-  std::unique_ptr<o2::tpc::ClusterNative[]> clusterBuffer;
+  ClusterNativeAccess clusterIndex;
+  std::unique_ptr<ClusterNative[]> clusterBuffer;
   memset(&clusterIndex, 0, sizeof(clusterIndex));
-  o2::tpc::MCLabelContainer clusterMCBuffer;
+  MCLabelContainer clusterMCBuffer;
 
-  o2::tpc::qc::Clusters clusters;
+  qc::Clusters clusters;
 
   for (int i = 0; i < tpcClusterReader.getTreeSize(); ++i) {
     std::cout << "Event " << i << "\n";
     tpcClusterReader.read(i);
     tpcClusterReader.fillIndex(clusterIndex, clusterBuffer, clusterMCBuffer);
     size_t iClusters = 0;
-    for (int isector = 0; isector < o2::tpc::Constants::MAXSECTOR; ++isector) {
-      for (int irow = 0; irow < o2::tpc::Constants::MAXGLOBALPADROW; ++irow) {
+    for (int isector = 0; isector < Constants::MAXSECTOR; ++isector) {
+      for (int irow = 0; irow < Constants::MAXGLOBALPADROW; ++irow) {
         const int nClusters = clusterIndex.nClusters[isector][irow];
         if (!nClusters) {
           continue;
         }
         for (int icl = 0; icl < nClusters; ++icl) {
           const auto& cl = *(clusterIndex.clusters[isector][irow] + icl);
-          clusters.processCluster(cl, o2::tpc::Sector(isector), irow);
+          clusters.processCluster(cl, Sector(isector), irow);
           ++iClusters;
           if (maxNClusters > 0 && iClusters >= maxNClusters) {
             return;
@@ -36,11 +59,11 @@ void runClusters(std::string_view fileName = "tpc-native-clusters.root", std::st
   clusters.dumpToFile(outputFile.data());
   //gROOT->cd();
   //clusters.draw();
-  /*o2::tpc::painter::draw(clusters.getNLocalMaxima());
-  o2::tpc::painter::draw(clusters.getMaxCharge());
-  o2::tpc::painter::draw(clusters.getMeanCharge());
-  o2::tpc::painter::draw(clusters.getNTimeBins());
-  o2::tpc::painter::draw(clusters.getNPads());
-  o2::tpc::painter::draw(clusters.getTimePosition());
+  /*painter::draw(clusters.getNLocalMaxima());
+  painter::draw(clusters.getMaxCharge());
+  painter::draw(clusters.getMeanCharge());
+  painter::draw(clusters.getNTimeBins());
+  painter::draw(clusters.getNPads());
+  painter::draw(clusters.getTimePosition());
 */
 }
