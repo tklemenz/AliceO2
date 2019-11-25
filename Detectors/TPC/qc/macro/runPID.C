@@ -1,3 +1,22 @@
+// Copyright CERN and copyright holders of ALICE O2. This software is
+// distributed under the terms of the GNU General Public License v3 (GPL
+// Version 3), copied verbatim in the file "COPYING".
+//
+// See http://alice-o2.web.cern.ch/license for full licensing information.
+//
+// In applying this license CERN does not waive the privileges and immunities
+// granted to it by virtue of its status as an Intergovernmental Organization
+// or submit itself to any jurisdiction.
+
+#if !defined(__CLING__) || defined(__ROOTCLING__)
+#include "TFile.h"
+#include "TTree.h"
+#include "DataFormatsTPC/TrackTPC.h"
+#include "DataFormatsTPC/ClusterNative.h"
+#include "TPCQC/PID.h"
+#include "TCanvas.h"
+#endif
+
 using namespace o2::tpc;
 
 void runPID(std::string_view outputFileName = "PID", std::string_view inputFileName = "tpctracks.root", const size_t maxTracks = 0)
@@ -15,7 +34,7 @@ void runPID(std::string_view outputFileName = "PID", std::string_view inputFileN
   tree->SetBranchAddress("TPCTracks", &tpcTracks);
 
   // ===| create PID object |=====================================================
-  o2::tpc::qc::PID pid;
+  qc::PID pid;
 
   pid.initializeHistograms();
   pid.setNiceStyle();
