@@ -50,6 +50,7 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
 
   auto pdgCode = conf.getPDGCode();
   auto multiplicity = conf.getMultiplicity();
+  auto zCoordinate = conf.getZCoordinate();
   auto genconfig = conf.getGenerator();
   if (genconfig.compare("boxgen") == 0) {
     // a simple "box" generator configurable via BoxGunparam
@@ -259,7 +260,7 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
     boxGenPi->SetThetaRange(90.-0.24,90.+0.24); // tilted tracks for real testbeam
     boxGenPi->SetPRange(2.,2.);
     boxGenPi->SetPhiRange(193.39-0.34,193.39+0.34); // tilted tracks for real testbeam
-    boxGenPi->SetBoxXYZ(130, 28.7, 243.5, 129, 34.61, 247.5);             // proper distance for testbeam simulation
+    boxGenPi->SetBoxXYZ(130, 28.7, zCoordinate-2.5, 129, 34.61, zCoordinate+2.5);             // proper distance for testbeam simulation
     boxGenPi->SetDebug(kTRUE);
 
     primGen->AddGenerator(boxGenPi);

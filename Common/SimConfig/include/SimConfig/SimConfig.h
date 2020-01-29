@@ -55,6 +55,7 @@ struct SimConfigData {
   int mField;                                // L3 field setting in kGauss: +-2,+-5 and 0
   int mPDGCode;                              // pdgCode of particle to be created
   int mMultiplicity;                         // particle multiplicity in boxGen
+  float mZCoordinate;                        // mean z coordinate of particle gun
 
   ClassDefNV(SimConfigData, 3);
 };
@@ -124,6 +125,7 @@ class SimConfig
   bool isFilterOutNoHitEvents() const { return mConfigData.mFilterNoHitEvents; }
   int getPDGCode() const { return mConfigData.mPDGCode; }
   int getMultiplicity() const { return mConfigData.mMultiplicity; }
+  float getZCoordinate() const { return mConfigData.mZCoordinate; }
 
  private:
   SimConfigData mConfigData; //!

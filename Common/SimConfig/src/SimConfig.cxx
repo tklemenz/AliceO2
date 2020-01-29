@@ -59,7 +59,8 @@ void SimConfig::initOptions(boost::program_options::options_description& options
     "CCDBUrl", bpo::value<std::string>()->default_value("ccdb-test.cern.ch:8080"), "URL for CCDB to be used.")(
     "timestamp", bpo::value<long>()->default_value(-1), "global timestamp value (for anchoring) - default is now")(
     "pdgCode,x", bpo::value<int>()->default_value(211), "pdgCode of particle to be created")(
-    "multiplicity,y", bpo::value<int>()->default_value(1), "particle multiplicity");
+    "multiplicity,y", bpo::value<int>()->default_value(1), "particle multiplicity")(
+    "zCoordinate,z", bpo::value<float>()->default_value(245), "mean z coordinate");
 }
 
 bool SimConfig::resetFromParsedMap(boost::program_options::variables_map const& vm)
@@ -118,6 +119,7 @@ bool SimConfig::resetFromParsedMap(boost::program_options::variables_map const& 
   mConfigData.mCCDBUrl = vm["CCDBUrl"].as<std::string>();
   mConfigData.mPDGCode = vm["pdgCode"].as<int>();
   mConfigData.mMultiplicity = vm["multiplicity"].as<int>();
+  mConfigData.mZCoordinate = vm["zCoordinate"].as<float>();
   if (vm.count("noemptyevents")) {
     mConfigData.mFilterNoHitEvents = true;
   }
