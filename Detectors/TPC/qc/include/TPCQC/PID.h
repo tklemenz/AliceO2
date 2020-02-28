@@ -17,6 +17,7 @@
 #define AliceO2_TPC_QC_PID_H
 
 #include <vector>
+#include <gsl/span>
 
 //root includes
 #include "TH1F.h"
@@ -51,6 +52,8 @@ class PID
   /// bool extracts intormation from track and fills it to histograms
   /// @return true if information can be extracted and filled to histograms
   bool processTrack(const o2::tpc::TrackTPC& track);
+
+  bool processTracks(const gsl::span<const o2::tpc::TrackTPC>& tracks);
 
   /// Initialize all histograms
   void initializeHistograms();

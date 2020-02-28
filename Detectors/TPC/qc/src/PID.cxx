@@ -89,6 +89,16 @@ bool PID::processTrack(const o2::tpc::TrackTPC& track)
 }
 
 //______________________________________________________________________________
+bool PID::processTracks(const gsl::span<const o2::tpc::TrackTPC>& tracks)
+{
+  for (auto const& track : tracks) {
+    processTrack(track);
+  }
+
+  return true;
+}
+
+//______________________________________________________________________________
 void PID::dumpToFile(const std::string filename)
 {
   auto f = std::unique_ptr<TFile>(TFile::Open(filename.c_str(), "recreate"));
