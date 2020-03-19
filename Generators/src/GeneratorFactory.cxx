@@ -51,6 +51,7 @@ void GeneratorFactory::setPrimaryGenerator(o2::conf::SimConfig const& conf, Fair
   auto makeBoxGen = [](int pdgid, int mult, double etamin, double etamax, double pmin, double pmax, double phimin, double phimax, bool debug = false) {
     auto gen = new FairBoxGenerator(pdgid, mult);
     gen->SetEtaRange(etamin, etamax);
+    gen->SetBoxXYZ(130, 28.7, 129, 34.61, 245);
     gen->SetPRange(pmin, pmax);
     gen->SetPhiRange(phimin, phimax);
     gen->SetDebug(debug);
