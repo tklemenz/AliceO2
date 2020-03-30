@@ -53,6 +53,9 @@ struct SimConfigData {
   std::string mCCDBUrl;                      // the URL where to find CCDB
   long mTimestamp;                           // timestamp to anchor transport simulation to
   int mField;                                // L3 field setting in kGauss: +-2,+-5 and 0
+  int mPDGCode;
+  int mMultiplicity;
+  float mZCoordinate;
 
   ClassDefNV(SimConfigData, 3);
 };
@@ -120,6 +123,9 @@ class SimConfig
   int getStartSeed() const { return mConfigData.mStartSeed; }
   int getNSimWorkers() const { return mConfigData.mSimWorkers; }
   bool isFilterOutNoHitEvents() const { return mConfigData.mFilterNoHitEvents; }
+  int getPDGCode() const { return mConfigData.mPDGCode; }
+  int getMultiplicity() const { return mConfigData.mMultiplicity; }
+  float getZCoordinate() const { return mConfigData.mZCoordinate; }
 
  private:
   SimConfigData mConfigData; //!
