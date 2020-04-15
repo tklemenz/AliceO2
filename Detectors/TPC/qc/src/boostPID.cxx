@@ -20,17 +20,18 @@
 //o2 includes
 #include "DataFormatsTPC/dEdxInfo.h"
 #include "DataFormatsTPC/TrackTPC.h"
-#include "TPCQC/PID.h"
+#include "TPCQC/boostPID.h"
 #include "TPCQC/Helpers.h"
 
-ClassImp(o2::tpc::qc::PID);
+ClassImp(o2::tpc::qc::boostPID);
 
 using namespace o2::tpc::qc;
+using namespace boost::histogram;
 
 //______________________________________________________________________________
-void PID::initializeHistograms()
+void boostPID::initializeHistograms()
 {
-  mHist1D.emplace_back("hNClusters", "; # of clusters; counts", 160, 0, 160); //| mHist1D[0]
+  mHist1D.emplace_back("hNClusters", "; # of clusters; counts", 160, 0, 1600); //| mHist1D[0]
   mHist1D.emplace_back("hdEdxTot", "; dEdxTot (a.u.); counts", 200, 0, 200);   //| mHist1D[1]
   mHist1D.emplace_back("hdEdxMax", "; dEdxMax (a.u.); counts", 200, 0, 200);   //| mHist1D[2]
   mHist1D.emplace_back("hPhi", "; #phi (rad); counts", 180, -M_PI, M_PI);      //| mHist1D[3]
@@ -50,7 +51,7 @@ void PID::initializeHistograms()
 }
 
 //______________________________________________________________________________
-void PID::resetHistograms()
+void boostPID::resetHistograms()
 {
   for (auto& hist : mHist1D) {
     hist.Reset();
@@ -61,7 +62,7 @@ void PID::resetHistograms()
 }
 
 //______________________________________________________________________________
-bool PID::processTrack(const o2::tpc::TrackTPC& track)
+bool boostPID::processTrack(const o2::tpc::TrackTPC& track)
 {
   // ===| variables required for cutting and filling |===
   const auto p = track.getP();
@@ -89,7 +90,7 @@ bool PID::processTrack(const o2::tpc::TrackTPC& track)
 }
 
 //______________________________________________________________________________
-void PID::dumpToFile(const std::string filename)
+void boostPID::dumpToFile(const std::string filename)
 {
   auto f = std::unique_ptr<TFile>(TFile::Open(filename.c_str(), "recreate"));
   for (auto& hist : mHist1D) {
@@ -100,3 +101,38 @@ void PID::dumpToFile(const std::string filename)
   }
   f->Close();
 }
+
+
+//______________________________________________________________________________
+void boostPID::testBoostHisto()
+{
+  auto h = make_histogram(axis::regular<>(6, -1.0, 2.0, "x"));
+  auto data = {-0.5, 1.1, 0.3, 1.7};
+  std::for_each(data.begin(), data.end(), std::ref(h));
+  h(-1.5); // is placed in underflow bin -1
+  h(-1.0); // is placed in bin 0, bin interval is semi-open
+  h(2.0);  // is placed in overflow bin 6, bin interval is semi-open
+  h(20.0); // is placed in overflow bin 6
+  h(0.1, weight(1.0));
+  std::ostringstream os;
+  for (auto x : indexed(h, coverage::all)) {
+    os << boost::format("bin %2i [%4.1f, %4.1f): %i\n") % x.index() % x.bin().lower() %
+              x.bin().upper() % *x;
+  }
+
+  std::cout << os.str() << std::flush;
+
+  std::cout << "type of boost histogram: " << type_name<decltype(h)> << std::endl;
+
+  assert(os.str() == "bin -1 [-inf, -1.0): 1\n"
+                     "bin  0 [-1.0, -0.5): 1\n"
+                     "bin  1 [-0.5, -0.0): 1\n"
+                     "bin  2 [-0.0,  0.5): 2\n"
+                     "bin  3 [ 0.5,  1.0): 0\n"
+                     "bin  4 [ 1.0,  1.5): 1\n"
+                     "bin  5 [ 1.5,  2.0): 1\n"
+                     "bin  6 [ 2.0,  inf): 2\n");
+}
+
+
+
