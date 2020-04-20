@@ -11,6 +11,15 @@
 #define _USE_MATH_DEFINES
 
 #include <cmath>
+#include <algorithm>           // std::for_each
+#include <boost/format.hpp>    // only needed for printing
+#include <boost/histogram.hpp> // make_histogram, regular, weight, indexed
+#include <cassert>             // assert
+#include <functional>          // std::ref
+#include <iostream>            // std::cout, std::cout, std::flush
+#include <sstream>             // std::ostringstream
+#include <typeinfo>
+#include <type_traits>
 
 //root includes
 #include "TStyle.h"
@@ -122,7 +131,7 @@ void boostPID::testBoostHisto()
 
   std::cout << os.str() << std::flush;
 
-  std::cout << "type of boost histogram: " << type_name<decltype(h)> << std::endl;
+  //std::cout << "type of boost histogram: " << type_name<decltype(h)> << std::endl;
 
   assert(os.str() == "bin -1 [-inf, -1.0): 1\n"
                      "bin  0 [-1.0, -0.5): 1\n"
