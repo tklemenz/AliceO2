@@ -666,7 +666,7 @@ int doChild(int argc, char** argv, const o2::framework::DeviceSpec& spec)
       ConfigParamsHelper::populateBoostProgramOptions(optsDesc, spec.options, gHiddenDeviceOptions);
       optsDesc.add_options()("monitoring-backend", bpo::value<std::string>()->default_value("infologger://"), "monitoring backend info") //
         ("infologger-severity", bpo::value<std::string>()->default_value(""), "minimum FairLogger severity to send to InfoLogger")       //
-        ("configuration,cfg", bpo::value<std::string>()->default_value("command-line"), "configuration backend")                         //
+        ("dpl-configuration,cfg", bpo::value<std::string>()->default_value("command-line"), "configuration backend")                         //
         ("infologger-mode", bpo::value<std::string>()->default_value(""), "INFOLOGGER_MODE override");
       r.fConfig.AddToCmdLineOptions(optsDesc, true);
     });
@@ -709,7 +709,7 @@ int doChild(int argc, char** argv, const o2::framework::DeviceSpec& spec)
       simpleRawDeviceService = std::make_unique<SimpleRawDeviceService>(nullptr, spec);
       callbackService = std::make_unique<CallbackService>();
       monitoringService = MonitoringFactory::Get(r.fConfig.GetStringValue("monitoring-backend"));
-      if (r.fConfig.GetStringValue("configuration") != "command-line") {
+      if (r.fConfig.GetStringValue("dpl-configuration") != "command-line") {
         configurationService = ConfigurationFactory::getConfiguration(r.fConfig.GetStringValue("configuration"));
       }
       auto infoLoggerMode = r.fConfig.GetStringValue("infologger-mode");
