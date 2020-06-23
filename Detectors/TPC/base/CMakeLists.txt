@@ -9,7 +9,8 @@
 # submit itself to any jurisdiction.
 
 o2_add_library(TPCBase
-               SOURCES src/CalArray.cxx
+               SOURCES src/BHn.cxx
+                       src/CalArray.cxx
                        src/CalDet.cxx
                        src/CDBInterface.cxx
                        src/ContainerFactory.cxx
@@ -37,7 +38,8 @@ o2_add_library(TPCBase
                                      O2::DetectorsRaw O2::CCDB FairRoot::Base)
 
 o2_target_root_dictionary(TPCBase
-                          HEADERS include/TPCBase/CalArray.h
+                          HEADERS include/TPCBase/BHn.h
+                                  include/TPCBase/CalArray.h
                                   include/TPCBase/CalDet.h
                                   include/TPCBase/CDBInterface.h
                                   include/TPCBase/ContainerFactory.h
@@ -66,6 +68,12 @@ o2_add_test(Base
             COMPONENT_NAME tpc
             PUBLIC_LINK_LIBRARIES O2::TPCBase
             SOURCES test/testTPCBase.cxx
+            LABELS tpc)
+
+o2_add_test(BHn
+            COMPONENT_NAME tpc
+            PUBLIC_LINK_LIBRARIES O2::TPCBase
+            SOURCES test/testBHn.cxx
             LABELS tpc)
 
 o2_add_test(CalDet
