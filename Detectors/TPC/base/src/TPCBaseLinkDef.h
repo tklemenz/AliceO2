@@ -81,4 +81,6 @@
 #pragma link C++ function o2::tpc::utils::addFECInfo();
 #pragma link C++ function o2::tpc::utils::saveCanvases(TObjArray*, std::string_view, std::string_view, std::string_view);
 #pragma link C++ function o2::tpc::utils::saveCanvas(TCanvas*, std::string_view, std::string_view);
+
+#pragma link C++ class o2::tpc::BHn + ;
 #endif

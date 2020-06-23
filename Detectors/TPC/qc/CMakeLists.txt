@@ -71,3 +71,9 @@ o2_add_test_root_macro(macro/runTracks.C
                                              O2::DataFormatsTPC
                                              O2::TPCBase
                                              LABELS tpc)
+
+o2_add_test_root_macro(macro/runBHn.C
+                       PUBLIC_LINK_LIBRARIES O2::TPCQC
+                                             O2::DataFormatsTPC
+                                             O2::TPCBase
+                                             LABELS tpc)
