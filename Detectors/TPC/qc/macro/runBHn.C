@@ -1,7 +1,15 @@
 #include <boost/histogram.hpp>
 #include <boost/histogram/ostream.hpp>
+#include <boost/histogram/algorithm/project.hpp>
+#include <boost/format.hpp>
 #include <iostream>
 #include <sstream>
+
+#include <TPCBase/BHn.h>
+
+#include "TH1.h"
+#include "TH2.h"
+#include "TCanvas.h"
 
 using namespace o2::tpc;
 using namespace boost::histogram;
@@ -24,7 +32,7 @@ void runBHn()
   std::vector<double> xy[2] = {{0.5, 1.5}, {1.5, 0.5}};
 
   histo.fill(xy);
-  histo(0.5, 1.5);
+  //histo(0.5, 1.5);
 
   /*auto objectType = demangle(typeid(twoDim).name());
   auto histoType = demangle(typeid(histo).name());
@@ -62,7 +70,7 @@ void runBHn()
   std::vector<double> xyz[3] = {{0.5, 1.5}, {1.5, 0.5}, {2, 2.5}};
 
   histo2.fill(xyz);
-  histo2(0.5,1.5,2.5);
+  //histo2(0.5,1.5,2.5);
 
   std::ostringstream os2;
 
@@ -110,7 +118,9 @@ void runBHn()
   //  fiveDHisto(rand()%10, rand()%10, rand()%10, rand()%10, rand()%10);
   //}
 
-  std::vector<double> multiDimData[5] = {{0,1,2},{0,3,4},{0,9,3},{0,6,7},{0,8,3}};
+
+  std::vector<double> multiDimData[5] = {{3,3,4,4,4,4,5,5,5,5,5,5,6,6,6,6,7,7},{0,3,4,9,4,7,8,1,5,7,0,0,0,0,0,0,0,0},{0,9,3,1,3,5,7,9,0,4,0,0,0,0,0,0,0,0}
+                                        ,{0,6,7,7,6,5,4,3,2,3,0,0,0,0,0,0,0,0},{0,8,3,9,8,0,9,8,9,7,0,0,0,0,0,0,0,0}};
   fiveDHisto.fill(multiDimData);
 
   std::ostringstream os3;
@@ -134,18 +144,56 @@ void runBHn()
 
   fiveD.getNBins(binsVec);
 
-  std::vector<int> iter{0,1};
+  std::vector<int> iter{0};
+  std::vector<int> iter2{0,1};
 
   //auto projectA = algorithm::project(fiveDHisto, iter);             // this line breaks the macro
   //auto projectA = fiveDHisto.project(0,1);
 
-  for (int i=0; i<binsVec.size(); i++) {
+  for (unsigned int i=0; i<binsVec.size(); i++) {
     std::cout<<"Axis "<<i<<" has " << binsVec.at(i) << " bins." << std::endl;
   }
 
   //std::stringstream osProjectA;
   //osProjectA << projectA;
   //std::cout << osProjectA.str() << std::endl;
+
+  auto projectA = algorithm::project(fiveDHisto, iter);
+  auto projectB = algorithm::project(fiveDHisto, iter2);
+
+  //auto projectB = algorithm::project(fiveDHisto, 0_c);
+
+  for (unsigned int i=0; i<binsVec.size(); i++) {
+    std::cout<<"Axis "<<i<<" has " << binsVec.at(i) << " bins." << std::endl;
+  }
+
+  std::cout<<std::endl<<std::endl;
+
+  for (auto&& x : indexed(projectA)) {
+    //printf("bin: %d, content: %d\n", x.index(0),*x);
+    std::cout<<"bin: "<<x.index(0)<<", content: "<<*x<<std::endl;
+  }
+
+  std::stringstream osProjectA;
+  osProjectA << "\n\n";
+  osProjectA << projectA;
+  std::cout << osProjectA.str() << std::endl;
+
+
+  TH1F* projection1 = fiveD.getTH1(0);
+  TH2F* projection2 = fiveD.getTH2(0,1);
+  TH2F* projection3 = fiveD.getTH2(1,0);
+
+  auto canvas1 = new TCanvas("c1","1D projection");
+  projection1->Draw("HIST");
+  
+  auto canvas2 = new TCanvas("c2","2D projection");
+  projection2->Draw("colz");
+
+  auto canvas3 = new TCanvas("c3","2D projection");
+  projection3->Draw("colz");
+
+
 
 
 
@@ -174,12 +222,12 @@ void runBHn()
 
   std::ostringstream os4;
 
-  for (auto x : indexed(nineD.getHisto(), coverage::all)) {
+  /*for (auto x : indexed(nineD.getHisto(), coverage::all)) {
     const auto v = *x;         // "dereference" to get the bin value
     if (v!=0) {
       os4 << boost::format("%i\n") %v;
     }
   }
   os4<<"\n\n";
-  std::cout << os4.str() << std::flush;
+  std::cout << os4.str() << std::flush;*/
 }
