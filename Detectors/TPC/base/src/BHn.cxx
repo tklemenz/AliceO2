@@ -30,6 +30,8 @@ BHn::BHn(int nAxes, std::vector<int> nBins, std::vector<float> begin, std::vecto
   initialize(nAxes, nBins, begin, end, name);
 }
 
+BHn::BHn(BHn &&bhn) : mHist(std::move(bhn.mHist)) {}
+
 //______________________________________________________________________________
 /*void BHn::makeHistogram()
 {
@@ -43,7 +45,8 @@ void BHn::initialize(int nAxes, int nBins, float begin, float end)
     mAxes.emplace_back(axis::regular<>(nBins, begin, end));
   }
 
-  mHist = histogram(mAxes);
+  mHist = std::make_unique<histogram_t>(make_histogram(mAxes));
+
 }
 
 //______________________________________________________________________________
@@ -58,7 +61,8 @@ void BHn::initialize(int nAxes, std::vector<int> nBins, std::vector<float> begin
     mAxes.emplace_back(axis::regular<>(nBins.at(i), begin.at(i), end.at(i)));
   }
 
-  mHist = histogram(mAxes);
+  mHist = std::make_unique<histogram_t>(make_histogram(mAxes));
+
 }
 
 //______________________________________________________________________________ /// maybe do reference to the vectors
@@ -73,7 +77,8 @@ void BHn::initialize(int nAxes, std::vector<int> nBins, std::vector<float> begin
     mAxes.emplace_back(axis::regular<>(nBins.at(i), begin.at(i), end.at(i), name.at(i)));
   }
 
-  mHist = make_histogram(mAxes);
+  mHist = std::make_unique<histogram_t>(make_histogram(mAxes));
+
 }
 
 //______________________________________________________________________________

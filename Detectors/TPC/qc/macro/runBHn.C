@@ -1,5 +1,6 @@
 #include <boost/histogram.hpp>
 #include <boost/histogram/ostream.hpp>
+#include <boost/histogram/indexed.hpp>
 #include <boost/histogram/algorithm/project.hpp>
 #include <boost/format.hpp>
 #include <iostream>
@@ -27,8 +28,8 @@ void runBHn()
 
   std::vector<double> xy[2] = {{0.5, 1.5}, {1.5, 0.5}};
 
-  histo.fill(xy);
-  histo(0.5, 1.5);
+  histo->fill(xy);
+  //histo(0.5, 1.5);
 
   auto objectType = demangle(typeid(twoDim).name());
   auto histoType = demangle(typeid(histo).name());
@@ -39,7 +40,7 @@ void runBHn()
   //std::cout<<"Adress of histo: "<<&histo<<endl;
 
   std::ostringstream os;
-  for (auto x : indexed(histo, coverage::all)) {
+  for (auto x : indexed(*histo, coverage::all)) {
     const auto i = x.index(0); // current index along first axis
     const auto j = x.index(1); // current index along second axis
     const auto v = *x;         // "dereference" to get the bin value
@@ -65,12 +66,12 @@ void runBHn()
 
   std::vector<double> xyz[3] = {{0.5, 1.5}, {1.5, 0.5}, {2, 2.5}};
 
-  histo2.fill(xyz);
-  histo2(0.5,1.5,2.5);
+  histo2->fill(xyz);
+  //histo2(0.5,1.5,2.5);
 
   std::ostringstream os2;
 
-  for (auto x : indexed(histo2, coverage::all)) {
+  for (auto x : indexed(*histo2, coverage::all)) {
     const auto i = x.index(0); // current index along first axis
     const auto j = x.index(1); // current index along second axis
     const auto k = x.index(2); // current index along third axis
@@ -116,11 +117,11 @@ void runBHn()
 
   std::vector<double> multiDimData[5] = {{3,3,4,4,4,4,5,5,5,5,5,5,6,6,6,6,7,7},{0,3,4,9,4,7,8,1,5,7,0,0,0,0,0,0,0,0},{0,9,3,1,3,5,7,9,0,4,0,0,0,0,0,0,0,0}
                                         ,{0,6,7,7,6,5,4,3,2,3,0,0,0,0,0,0,0,0},{0,8,3,9,8,0,9,8,9,7,0,0,0,0,0,0,0,0}};
-  fiveDHisto.fill(multiDimData);
+  fiveDHisto->fill(multiDimData);
 
   std::ostringstream os3;
 
-  for (auto x : indexed(fiveD.getHisto(), coverage::all)) {
+  for (auto x : indexed(*fiveDHisto, coverage::all)) {
     const auto i = x.index(0); // current index along first axis
     const auto j = x.index(1); // current index along second axis
     const auto k = x.index(2); // current index along third axis
@@ -139,19 +140,19 @@ void runBHn()
 
   fiveD.getNBins(binsVec);
 
-  std::vector<int> iter{0,1};
+  //std::vector<int> iter{0,1};
 
-  auto projectA = algorithm::project(fiveDHisto, iter);             // this line breaks the macro
+  //auto projectA = algorithm::project(*fiveDHisto, iter);             // this line breaks the macro
   //auto projectB = algorithm::project(fiveDHisto, 0_c);
 
   for (unsigned int i=0; i<binsVec.size(); i++) {
     std::cout<<"Axis "<<i<<" has " << binsVec.at(i) << " bins." << std::endl;
   }
 
-  std::stringstream osProjectA;
-  osProjectA << "\n\n";
-  osProjectA << projectA;
-  std::cout << osProjectA.str() << std::endl;
+  //std::stringstream osProjectA;
+  //osProjectA << "\n\n";
+  //osProjectA << projectA;
+  //std::cout << osProjectA.str() << std::endl;
 
 
 
@@ -159,7 +160,7 @@ void runBHn()
   // another one
 
   printf("\e[1m\n\n\n10D Histogram\e[0m\n\n");
-  int Axes2 = 9;
+  int Axes2 = 10;
   std::vector<int> bins2;
   std::vector<float> begin2;
   std::vector<float> end2;
@@ -172,20 +173,22 @@ void runBHn()
 
   BHn nineD(Axes2, bins2, begin2, end2);
 
+/*
   auto& nineDHisto = nineD.getHisto();
 
   std::vector<double> nineDimData[9] = {{0},{0},{0},{0},{5},{0},{0},{0},{0}};//,{10}};//,{0},{0},{0},{0},{15},{0},{0},{0},{0},{20}};
 
-  nineDHisto.fill(nineDimData);
+  nineDHisto->fill(nineDimData);
 
-  std::ostringstream os4;
+  std::ostringstream os4;*/
 
-  /*for (auto x : indexed(nineD.getHisto(), coverage::all)) {
-    const auto v = *x;         // "dereference" to get the bin value
-    if (v!=0) {
-      os4 << boost::format("%i\n") %v;
-    }
-  }
-  os4<<"\n\n";
-  std::cout << os4.str() << std::flush;*/
+  //for (auto x : indexed(nineD.getHisto(), coverage::all)) {
+  //  const auto v = *x;         // "dereference" to get the bin value
+  //  if (v!=0) {
+  //    os4 << boost::format("%i\n") %v;
+  //  }
+  //}
+  //os4<<"\n\n";
+  //std::cout << os4.str() << std::flush;
+  
 }

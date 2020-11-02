@@ -46,6 +46,14 @@ class BHn
   /// default constructor
   BHn() = default;
   ~BHn() = default;
+  BHn(BHn &&bhn);
+
+  BHn &operator=(BHn &&bhn) {
+    if (this != &bhn) {
+      mHist = std::move(bhn.mHist);
+    }
+    return *this;
+  }
 
   BHn(int nAxes, int nBins, float begin, float end);  // for axes with same range and binning
   BHn(int nAxes, std::vector<int> nBins, std::vector<float> begin, std::vector<float> end); // for various range and binning
@@ -54,17 +62,20 @@ class BHn
   //void makeHistogram();
 
   /// get the number of axes
-  int getNAxes() { return mHist.rank(); }
+  int getNAxes() { return mHist->rank(); }
 
   /// get the number of bins for every axis
   void getNBins(std::vector<int>& vec);
 
-  histogram_t& getHisto() { return mHist; }
-  void setHisto(histogram_t histo) { mHist = histo; }
+  std::unique_ptr<histogram_t>& getHisto() { return mHist; }
+  //void setHisto(histogram_t histo) { mHist = histo; }
 
  private:
+  BHn(BHn const &);
+  BHn &operator=(BHn const &);
+
   axes_t mAxes{};
-  histogram_t mHist;
+  std::unique_ptr<histogram_t> mHist;
 
   void initialize(int nAxes, int nBins, float begin, float end);  // for axes with same range and binning
   void initialize(int nAxes, std::vector<int> nBins, std::vector<float> begin, std::vector<float> end); // for various range and binning
