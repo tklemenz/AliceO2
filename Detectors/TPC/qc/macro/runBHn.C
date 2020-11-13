@@ -31,6 +31,8 @@ void runBHn()
 
   std::vector<double> xy[2] = {{0.5, 1.5}, {1.5, 0.5}};
 
+  twoDim.getHisto()(0.5,1.5);
+
   histo.fill(xy);
   //histo(0.5, 1.5);
 

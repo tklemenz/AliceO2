@@ -18,7 +18,6 @@
 
 #include <vector>
 #include <boost/histogram.hpp>
-#include <boost/histogram/make_histogram.hpp>
 
 #include <tuple>
 
@@ -52,6 +51,8 @@ class BHn
   ~BHn() = default;
 
   BHn(int nAxes, int nBins, float begin, float end);  // for axes with same range and binning
+  BHn(int nBins, float begin, float end);  // easy 1D
+  BHn(int nBins1, float begin1, float end1, int nBins2, float begin2, float end2); // easy 2D
   BHn(int nAxes, std::vector<int>& nBins, std::vector<float>& begin, std::vector<float>& end); // for various range and binning
   BHn(int nAxes, std::vector<int>& nBins, std::vector<float>& begin, std::vector<float>& end, std::vector<std::string>& name); // for various range and binning
 
@@ -64,8 +65,11 @@ class BHn
   histogram_t& getHisto() { return mHist; }
   void setHisto(histogram_t& histo) { mHist = histo; }
 
-  TH1F* getTH1(int axis);
-  TH2F* getTH2(int axis1, int axis2);
+  TH1F* getTH1(int axis = 0, std::string name = "1DHistogram", std::string axis1Title = "axis1",
+                                                               std::string axis2Title = "counts"); //make unique? doesn't really work
+  TH2F* getTH2(int axis1 = 0, int axis2 = 1, std::string name = "2DHistogram", std::string axis1Title = "axis1",
+                                                                               std::string axis2Title = "axis2",
+                                                                               std::string axis3Title = "counts");
 
  private:
   axes_t mAxes{};
@@ -75,6 +79,7 @@ class BHn
   std::vector<float> mEnd{};
 
   void initialize(int nAxes, int nBins, float begin, float end);  // for axes with same range and binning
+  void initialize(int nBins1, float begin1, float end1, int nBins2, float begin2, float end2);
   void initialize(int nAxes, std::vector<int>& nBins, std::vector<float>& begin, std::vector<float>& end); // for various range and binning
   void initialize(int nAxes, std::vector<int>& nBins, std::vector<float>& begin, std::vector<float>& end, std::vector<std::string>& name); // for various range and binning
 

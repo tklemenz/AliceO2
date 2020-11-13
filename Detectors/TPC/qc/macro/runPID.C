@@ -44,7 +44,7 @@ void runPID(std::string outputFileName = "PID", std::string_view inputFileName =
   pid.initializeHistograms();
   gStyle->SetPalette(kCividis);
   qc::helpers::setStyleHistogram1D(pid.getHistograms1D());
-  qc::helpers::setStyleHistogram2D(pid.getHistograms2D());
+  //qc::helpers::setStyleHistogram2D(pid.getHistograms2D());
 
   // ===| event loop |============================================================
   for (int i = 0; i < tree->GetEntriesFast(); ++i) {

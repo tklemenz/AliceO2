@@ -28,6 +28,25 @@ BHn::BHn(int nAxes, int nBins, float begin, float end)
   mEnd.emplace_back(end);
 }
 
+BHn::BHn(int nBins, float begin, float end)
+{
+  initialize(1, nBins, begin, end);
+  mNBins.emplace_back(nBins);
+  mBegin.emplace_back(begin);
+  mEnd.emplace_back(end);
+}
+
+BHn::BHn(int nBins1, float begin1, float end1, int nBins2, float begin2, float end2)
+{
+  initialize(nBins1, begin1, end1, nBins2, begin2, end2);
+  mNBins.emplace_back(nBins1);
+  mNBins.emplace_back(nBins2);
+  mBegin.emplace_back(begin1);
+  mBegin.emplace_back(begin2);
+  mEnd.emplace_back(end1);
+  mEnd.emplace_back(end2);
+}
+
 BHn::BHn(int nAxes, std::vector<int>& nBins, std::vector<float>& begin, std::vector<float>& end)
 {
   initialize(nAxes, nBins, begin, end);
@@ -50,6 +69,16 @@ void BHn::initialize(int nAxes, int nBins, float begin, float end)
   for (int i=0; i<nAxes; i++) {
     mAxes.emplace_back(axis::regular<>(nBins, begin, end));
   }
+
+  mHist = histogram(mAxes);
+}
+
+//______________________________________________________________________________
+void BHn::initialize(int nBins1, float begin1, float end1, int nBins2, float begin2, float end2)
+{
+  
+  mAxes.emplace_back(axis::regular<>(nBins1, begin1, end1));
+  mAxes.emplace_back(axis::regular<>(nBins2, begin2, end2));
 
   mHist = histogram(mAxes);
 }
@@ -93,32 +122,32 @@ void BHn::getNBins(std::vector<int>& vec)
 }
 
 //______________________________________________________________________________
-TH1F* BHn::getTH1(int axis)
+TH1F* BHn::getTH1(int axis, std::string name, std::string axis1Title, std::string axis2Title)  // TODO: check rank of histo to not project if rank==1
 {
   std::vector<int> iter{axis}; // TODO: find a better solution for an iterator
 
-  TH1F* h = new TH1F("1Dhisto", "; insert axis 1 title;", mNBins[axis], mBegin[axis], mEnd[axis]);
+  TH1F* h = new TH1F(Form("%s", name.c_str()), Form("; %s; %s", axis1Title.c_str(), axis2Title.c_str()), mNBins[axis], mBegin[axis], mEnd[axis]);
 
   auto projection = algorithm::project(mHist, iter);
 
   for (auto&& x : indexed(projection)) {
-    h->Fill(x.index(0), *x);
+    h->SetBinContent(x.index(0)+1, *x);
   }
 
   return h;
 }
 
 //______________________________________________________________________________
-TH2F* BHn::getTH2(int axis1, int axis2)
+TH2F* BHn::getTH2(int axis1, int axis2, std::string name, std::string axis1Title, std::string axis2Title, std::string axis3Title)  // TODO: check rank of histo to not project if rank==2
 {
   std::vector<int> iter{axis1, axis2}; // TODO: find a better solution for an iterator
 
-  TH2F* h = new TH2F(Form("2Dhisto_%i_%i", axis1, axis2), "; insert axis 1 title; insert axis 2 title", mNBins[axis1], mBegin[axis1], mEnd[axis1], mNBins[axis2], mBegin[axis2], mEnd[axis2]);
+  TH2F* h = new TH2F(Form("%s", name.c_str()), Form("; %s; %s; %s", axis1Title.c_str(), axis2Title.c_str(), axis3Title.c_str()), mNBins[axis1], mBegin[axis1], mEnd[axis1], mNBins[axis2], mBegin[axis2], mEnd[axis2]);
 
   auto projection = algorithm::project(mHist, iter);
 
   for (auto&& x : indexed(projection)) {
-    h->Fill(x.index(0)+1, x.index(1)+1, *x);
+    h->SetBinContent(x.index(0)+1, x.index(1)+1, *x);
   }
 
   return h;

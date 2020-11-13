@@ -30,16 +30,25 @@ using namespace o2::tpc::qc;
 //______________________________________________________________________________
 void PID::initializeHistograms()
 {
-  mHist1D.emplace_back("hNClusters", "; # of clusters; counts", 160, 0, 1600); //| mHist1D[0]
+  mHist1D.emplace_back("hNClusters", "; # of clusters; counts", 160, 0, 160); //| mHist1D[0]
+  mBHnHist1D.emplace_back(160,0,160);
   mHist1D.emplace_back("hdEdxTot", "; dEdxTot (a.u.); counts", 200, 0, 200);   //| mHist1D[1]
+  mBHnHist1D.emplace_back(200,0,200);
   mHist1D.emplace_back("hdEdxMax", "; dEdxMax (a.u.); counts", 200, 0, 200);   //| mHist1D[2]
+  mBHnHist1D.emplace_back(200,0,200);
   mHist1D.emplace_back("hPhi", "; #phi (rad); counts", 180, 0., 2 * M_PI);     //| mHist1D[3]
+  mBHnHist1D.emplace_back(180, 0., 2 * M_PI);
   mHist1D.emplace_back("hTgl", "; tan#lambda; counts", 60, -2, 2);             //| mHist1D[4]
+  mBHnHist1D.emplace_back(60, -2, 2);
   mHist1D.emplace_back("hSnp", "; sin p; counts", 60, -2, 2);                  //| mHist1D[5]
+  mBHnHist1D.emplace_back(60, -2, 2);
 
   mHist2D.emplace_back("hdEdxVsPhi", "dEdx (a.u.) vs #phi (rad); #phi (rad); dEdx (a.u.)", 180, 0., 2 * M_PI, 300, 0, 300); //| mHist2D[0]
+  mBHnHist2D.emplace_back(180, 0., 2 * M_PI, 300, 0, 300);
   mHist2D.emplace_back("hdEdxVsTgl", "dEdx (a.u.) vs tan#lambda; tan#lambda; dEdx (a.u.)", 60, -2, 2, 300, 0, 300);         //| mHist2D[1]
+  mBHnHist2D.emplace_back(60, -2, 2, 300, 0, 300);
   mHist2D.emplace_back("hdEdxVsncls", "dEdx (a.u.) vs ncls; ncls; dEdx (a.u.)", 80, 0, 160, 300, 0, 300);                   //| mHist2D[2]
+  mBHnHist2D.emplace_back(80, 0, 160, 300, 0, 300);
 
   const auto logPtBinning = helpers::makeLogBinning(30, 0.1, 10);
   if (logPtBinning.size() > 0) {
@@ -73,16 +82,16 @@ bool PID::processTrack(const o2::tpc::TrackTPC& track)
   const auto nclusters = track.getNClusterReferences();
 
   // ===| histogram filling |===
-  mHist1D[0].Fill(nclusters);
-  mHist1D[1].Fill(dEdxTot);
-  mHist1D[2].Fill(dEdxMax);
-  mHist1D[3].Fill(phi);
-  mHist1D[4].Fill(tgl);
-  mHist1D[5].Fill(snp);
+  mHist1D[0].Fill(nclusters); mBHnHist1D[0].getHisto()(nclusters);
+  mHist1D[1].Fill(dEdxTot);   mBHnHist1D[1].getHisto()(dEdxTot);
+  mHist1D[2].Fill(dEdxMax);   mBHnHist1D[2].getHisto()(dEdxMax);
+  mHist1D[3].Fill(phi);       mBHnHist1D[3].getHisto()(phi);
+  mHist1D[4].Fill(tgl);       mBHnHist1D[4].getHisto()(tgl);
+  mHist1D[5].Fill(snp);       mBHnHist1D[5].getHisto()(snp);
 
-  mHist2D[0].Fill(phi, dEdxTot);
-  mHist2D[1].Fill(tgl, dEdxTot);
-  mHist2D[2].Fill(nclusters, dEdxTot);
+  mHist2D[0].Fill(phi, dEdxTot);        mBHnHist2D[0].getHisto()(phi, dEdxTot);
+  mHist2D[1].Fill(tgl, dEdxTot);        mBHnHist2D[1].getHisto()(tgl, dEdxTot);
+  mHist2D[2].Fill(nclusters, dEdxTot);  mBHnHist2D[2].getHisto()(nclusters, dEdxTot);
   mHist2D[3].Fill(p, dEdxTot);
 
   return true;
@@ -97,6 +106,27 @@ void PID::dumpToFile(const std::string filename)
   }
   for (auto& hist : mHist2D) {
     f->WriteObject(&hist, hist.GetName());
+  }
+
+  std::vector<std::string> h1Names{"hNClustersBH","hdEdxTotBH","hdEdxMaxBH","hPhiBH","hTglBH","hSnpBH"};
+  std::vector<std::string> h1Axis{"# of clusters","dEdxTot (a.u.)","dEdxMax (a.u.)","#phi (rad)","tan#lambda","sin p"};
+
+  int counter = 0;
+  for (auto& hist : mBHnHist1D) {
+    TH1F* histo = hist.getTH1(0,h1Names[counter],h1Axis[counter]);
+    f->WriteObject(histo, histo->GetName());
+    counter++;
+  }
+
+  std::vector<std::string> h2Names{"hdEdxVsPhiBH","hdEdxVsTglBH","hdEdxVsnclsBH"};
+  std::vector<std::string> h2Axis1{"#phi (rad)","tan#lambda","ncls"};
+  std::vector<std::string> h2Axis2{"dEdx (a.u.)","dEdx (a.u.)","dEdx (a.u.)"};
+
+  counter = 0;
+  for (auto& hist : mBHnHist2D) {
+    TH2F* histo = hist.getTH2(0,1,h2Names[counter],h2Axis1[counter],h2Axis2[counter]);
+    f->WriteObject(histo, histo->GetName());
+    counter++;
   }
   f->Close();
 }
