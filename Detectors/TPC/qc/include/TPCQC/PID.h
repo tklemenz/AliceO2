@@ -24,6 +24,7 @@
 
 //o2 includes
 #include "DataFormatsTPC/Defs.h"
+#include "TPCBase/BHn.h"
 
 namespace o2
 {
@@ -72,6 +73,9 @@ class PID
  private:
   std::vector<TH1F> mHist1D{};
   std::vector<TH2F> mHist2D{};
+
+  std::vector<BHn> mBHnHist1D{};
+  std::vector<BHn> mBHnHist2D{};
 
   ClassDefNV(PID, 1)
 };
