@@ -83,4 +83,6 @@
 #pragma link C++ function o2::tpc::utils::saveCanvas(TCanvas*, std::string_view, std::string_view);
 
 #pragma link C++ class o2::tpc::BHn + ;
+#pragma link C++ class o2::tpc::BHnHolder + ;
+
 #endif

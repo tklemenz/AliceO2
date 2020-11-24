@@ -38,7 +38,7 @@ namespace o2
 namespace tpc
 {
 
-/// @brief  BHn quality control class
+/// @brief  BHn class
 ///
 /// n-dimensional boost histogram class
 /// origin: TPC

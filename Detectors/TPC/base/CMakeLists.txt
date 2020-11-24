@@ -10,6 +10,7 @@
 
 o2_add_library(TPCBase
                SOURCES src/BHn.cxx
+                       src/BHnHolder.cxx
                        src/CalArray.cxx
                        src/CalDet.cxx
                        src/CDBInterface.cxx
@@ -39,6 +40,7 @@ o2_add_library(TPCBase
 
 o2_target_root_dictionary(TPCBase
                           HEADERS include/TPCBase/BHn.h
+                                  include/TPCBase/BHnHolder.h
                                   include/TPCBase/CalArray.h
                                   include/TPCBase/CalDet.h
                                   include/TPCBase/CDBInterface.h
@@ -74,6 +76,12 @@ o2_add_test(BHn
             COMPONENT_NAME tpc
             PUBLIC_LINK_LIBRARIES O2::TPCBase
             SOURCES test/testBHn.cxx
+            LABELS tpc)
+
+o2_add_test(BHnHolder
+            COMPONENT_NAME tpc
+            PUBLIC_LINK_LIBRARIES O2::TPCBase
+            SOURCES test/testBHnHolder.cxx
             LABELS tpc)
 
 o2_add_test(CalDet
