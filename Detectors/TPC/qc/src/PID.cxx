@@ -82,16 +82,16 @@ bool PID::processTrack(const o2::tpc::TrackTPC& track)
   const auto nclusters = track.getNClusterReferences();
 
   // ===| histogram filling |===
-  mHist1D[0].Fill(nclusters); mBHnHist1D[0].getHisto()(nclusters);
-  mHist1D[1].Fill(dEdxTot);   mBHnHist1D[1].getHisto()(dEdxTot);
-  mHist1D[2].Fill(dEdxMax);   mBHnHist1D[2].getHisto()(dEdxMax);
-  mHist1D[3].Fill(phi);       mBHnHist1D[3].getHisto()(phi);
-  mHist1D[4].Fill(tgl);       mBHnHist1D[4].getHisto()(tgl);
-  mHist1D[5].Fill(snp);       mBHnHist1D[5].getHisto()(snp);
+  mHist1D[0].Fill(nclusters); mBHnHist1D[0].getHisto().fill(oneD{{nclusters}});
+  mHist1D[1].Fill(dEdxTot);   mBHnHist1D[1].getHisto().fill(oneD{{dEdxTot}});
+  mHist1D[2].Fill(dEdxMax);   mBHnHist1D[2].getHisto().fill(oneD{{dEdxMax}});
+  mHist1D[3].Fill(phi);       mBHnHist1D[3].getHisto().fill(oneD{{phi}});
+  mHist1D[4].Fill(tgl);       mBHnHist1D[4].getHisto().fill(oneD{{tgl}});
+  mHist1D[5].Fill(snp);       mBHnHist1D[5].getHisto().fill(oneD{{snp}});
 
-  mHist2D[0].Fill(phi, dEdxTot);        mBHnHist2D[0].getHisto()(phi, dEdxTot);
-  mHist2D[1].Fill(tgl, dEdxTot);        mBHnHist2D[1].getHisto()(tgl, dEdxTot);
-  mHist2D[2].Fill(nclusters, dEdxTot);  mBHnHist2D[2].getHisto()(nclusters, dEdxTot);
+  mHist2D[0].Fill(phi, dEdxTot);        mBHnHist2D[0].getHisto().fill(twoD{{phi}, {dEdxTot}});
+  mHist2D[1].Fill(tgl, dEdxTot);        mBHnHist2D[1].getHisto().fill(twoD{{tgl}, {dEdxTot}});
+  mHist2D[2].Fill(nclusters, dEdxTot);  mBHnHist2D[2].getHisto().fill(twoD{{nclusters}, {dEdxTot}});
   mHist2D[3].Fill(p, dEdxTot);
 
   return true;

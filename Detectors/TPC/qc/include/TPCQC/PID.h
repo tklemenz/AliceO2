@@ -26,6 +26,10 @@
 #include "DataFormatsTPC/Defs.h"
 #include "TPCBase/BHn.h"
 
+typedef std::vector<float> oneD[1]; // can this stay like this? Ideally this would take any type...
+
+typedef std::vector<float> twoD[2];
+
 namespace o2
 {
 namespace tpc
