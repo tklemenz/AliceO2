@@ -24,6 +24,13 @@
 
 //o2 includes
 #include "DataFormatsTPC/Defs.h"
+#include "TPCBase/BHn.h"
+
+//template <typename T>
+typedef std::vector<float> oneD[1]; // can this stay like this? Ideally this would take any type...
+
+//template <typename T>
+typedef std::vector<float> twoD[2];
 
 namespace o2
 {
@@ -72,6 +79,9 @@ class PID
  private:
   std::vector<TH1F> mHist1D{};
   std::vector<TH2F> mHist2D{};
+
+  std::vector<BHn> mBHnHist1D{};
+  std::vector<BHn> mBHnHist2D{};
 
   ClassDefNV(PID, 1)
 };

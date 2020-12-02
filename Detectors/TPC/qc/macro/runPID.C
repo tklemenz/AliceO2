@@ -20,6 +20,7 @@
 #include "TPCQC/PID.h"
 #include "TPCQC/Helpers.h"
 #include "TPCQC/TrackCuts.h"
+#include <memory>
 #endif
 
 using namespace o2::tpc;
@@ -44,7 +45,7 @@ void runPID(std::string outputFileName = "PID", std::string_view inputFileName =
   pid.initializeHistograms();
   gStyle->SetPalette(kCividis);
   qc::helpers::setStyleHistogram1D(pid.getHistograms1D());
-  qc::helpers::setStyleHistogram2D(pid.getHistograms2D());
+  //qc::helpers::setStyleHistogram2D(pid.getHistograms2D());
 
   // ===| event loop |============================================================
   for (int i = 0; i < tree->GetEntriesFast(); ++i) {
