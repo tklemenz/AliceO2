@@ -38,6 +38,11 @@ o2_add_executable(raw-to-digits-workflow
                   SOURCES src/tpc-raw-to-digits-workflow.cxx
                   PUBLIC_LINK_LIBRARIES O2::TPCWorkflow)
 
+o2_add_executable(track-reader
+                  COMPONENT_NAME tpc
+                  SOURCES src/TrackReaderWorkflow.cxx
+                  PUBLIC_LINK_LIBRARIES O2::TPCWorkflow)
+
 o2_add_test(workflow
             COMPONENT_NAME tpc
             LABELS tpc workflow
