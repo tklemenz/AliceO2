@@ -55,6 +55,11 @@ o2_add_executable(cluster-reader
                   SOURCES src/ClusterReaderWorkflow.cxx
                   PUBLIC_LINK_LIBRARIES O2::TPCWorkflow)
 
+o2_add_executable(file-reader
+                  COMPONENT_NAME tpc
+                  SOURCES src/FileReaderWorkflow.cxx
+                  PUBLIC_LINK_LIBRARIES O2::TPCWorkflow)
+
 o2_add_test(workflow
             COMPONENT_NAME tpc
             LABELS tpc workflow
