@@ -123,7 +123,7 @@ class CDBInterface
   ///
   /// The function returns the CalPad object stored at the given path in the CCDB
   /// \return CalPad object
-  const CalPad& getCalPad(const std::string_view path);
+  const CalPad& getCalPad(const std::string_view path, long timestamp = -1, std::map<std::string, std::string> metaData = std::map<std::string, std::string>());
 
   /// Return the Detector parameters
   ///
@@ -219,19 +219,21 @@ class CDBInterface
   void createDefaultGainMap();         ///< creation of default gain map if requested
 
   template <typename T>
-  T& getObjectFromCDB(std::string_view path);
+  T& getObjectFromCDB(std::string_view path, long timestamp = -1, std::map<std::string, std::string> metaData = std::map<std::string, std::string>());
 };
 
 /// Get an object from the CCDB.
 /// @tparam T
 /// @param path
+/// @param timestamp
+/// @param metaData
 /// @return The object from the CCDB, ownership is transferred to the caller.
 /// @todo Consider removing in favour of calling directly the manager::get method.
 template <typename T>
-inline T& CDBInterface::getObjectFromCDB(std::string_view path)
+inline T& CDBInterface::getObjectFromCDB(std::string_view path, long timestamp, std::map<std::string, std::string> metaData)
 {
   static auto& cdb = o2::ccdb::BasicCCDBManager::instance();
-  auto* object = cdb.get<T>(path.data());
+  auto* object = cdb.get<T>(path.data(), timestamp, metaData);
   return *object;
 }
 

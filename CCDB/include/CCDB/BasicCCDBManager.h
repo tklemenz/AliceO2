@@ -75,10 +75,11 @@ class CCDBManagerInstance
 
   /// retrieve an object of type T from CCDB as stored under path; will use the timestamp member
   template <typename T>
-  T* get(std::string const& path)
+  T* get(std::string const& path, long timestamp = -1, std::map<std::string, std::string> metaData = std::map<std::string, std::string>())
   {
     // TODO: add some error info/handling when failing
-    return getForTimeStamp<T>(path, mTimestamp);
+    mMetaData = metaData;
+    return getForTimeStamp<T>(path, timestamp);
   }
 
   bool isHostReachable() const { return mCCDBAccessor.isHostReachable(); }
@@ -166,6 +167,7 @@ T* CCDBManagerInstance::getForTimeStamp(std::string const& path, long timestamp)
     ptr = reinterpret_cast<T*>(cached.objPtr.get());
   }
   mHeaders.clear();
+  mMetaData.clear();
   return ptr;
 }
 

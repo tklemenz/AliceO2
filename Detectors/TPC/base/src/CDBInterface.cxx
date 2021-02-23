@@ -116,9 +116,9 @@ const CalPad& CDBInterface::getGainMap()
 }
 
 //______________________________________________________________________________
-const CalPad& CDBInterface::getCalPad(const std::string_view path)
+const CalPad& CDBInterface::getCalPad(const std::string_view path, long timestamp, std::map<std::string, std::string> metaData)
 {
-  return getObjectFromCDB<CalPad>(path.data());
+  return getObjectFromCDB<CalPad>(path.data(), timestamp, metaData);
 }
 
 //______________________________________________________________________________
